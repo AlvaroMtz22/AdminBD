@@ -8,5 +8,9 @@ namespace Buscamineros
 {
     class Agenda
     {
+        public Agenda() { }
+        public void addContact(Contact contact) { }
+        public void print() { }
+
     }
 }
