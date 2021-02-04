@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros 
 {
-    class Agenda
+    public class Agenda
     {
         private List<Contact> m_Contacts = new List<Contact>();
 
