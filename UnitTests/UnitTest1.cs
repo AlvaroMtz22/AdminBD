@@ -18,10 +18,10 @@ namespace UnitTests
             Agenda agenda = new Agenda();
             Contact contact1 = new Contact("Ronny", "rc@gmail.com", "4656");
             Contact contact2 = new Contact("Rony", "rc@gmil.com", "456");
-            agenda.Add(contact1);
-            agenda.Add(contact2);
+            agenda.addContact(contact1);
+            agenda.addContact(contact2);
 
-            Assert.AreEqual(2, agenda.count());
+            Assert.AreEqual(2, agenda.Count());
         }
     }
 }

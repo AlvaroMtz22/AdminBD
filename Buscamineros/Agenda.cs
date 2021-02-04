@@ -25,6 +25,10 @@ namespace Buscamineros
                 Console.WriteLine(c.ToString());
             }
         }
+        public int Count()
+        {
+            return m_Contacts.Count;
+        }
 
     }
 }
