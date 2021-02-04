@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class Contact
+     public class Contact
     {
         private string m_Name;
         private string m_Email;
