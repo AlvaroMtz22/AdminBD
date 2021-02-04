@@ -8,11 +8,19 @@ namespace Buscamineros
 {
     class Contact
     {
-        public Contact(String name, String  email= null, String phone = null) {
+        private string m_Name;
+        private string m_Email;
+        private string m_Phone;
+
+        public Contact(string name, string email= null, string phone = null){
+            m_Name = name;
+            m_Email = email;
+            m_Phone = phone;
         }
+
         public override string ToString()
         {
-            return base.ToString();
+            return m_Name + ", " + m_Email + ", " + m_Phone; ;
         }
 
     }
