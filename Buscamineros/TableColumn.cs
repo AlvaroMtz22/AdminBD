@@ -20,13 +20,19 @@ namespace Buscamineros
 
         public void addValue(string value)
         {
-            
+            m_data.Add(value);
         }
 
         public string getName()
         {
             return m_name;
         }
+
+        public void updateTableColumn(string whereValue, string newValue)
+        {
+
+        }
+
 
     }
 }
