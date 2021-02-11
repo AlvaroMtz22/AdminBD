@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buscamineros", "Buscamineros\Buscamineros.csproj", "{9887F21C-60AD-44AC-BFE5-46470D17F688}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{3EE467E7-26F0-482B-8E02-AA4634B1744B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Buscamineros", "Buscamineros\Buscamineros.csproj", "{E784E17D-EFE6-476A-B481-8F23E960A406}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9887F21C-60AD-44AC-BFE5-46470D17F688}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9887F21C-60AD-44AC-BFE5-46470D17F688}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9887F21C-60AD-44AC-BFE5-46470D17F688}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9887F21C-60AD-44AC-BFE5-46470D17F688}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3EE467E7-26F0-482B-8E02-AA4634B1744B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3EE467E7-26F0-482B-8E02-AA4634B1744B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3EE467E7-26F0-482B-8E02-AA4634B1744B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3EE467E7-26F0-482B-8E02-AA4634B1744B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E784E17D-EFE6-476A-B481-8F23E960A406}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E784E17D-EFE6-476A-B481-8F23E960A406}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E784E17D-EFE6-476A-B481-8F23E960A406}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E784E17D-EFE6-476A-B481-8F23E960A406}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
