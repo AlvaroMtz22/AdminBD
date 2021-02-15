@@ -30,6 +30,17 @@ namespace Buscamineros
         {
             m_tables.Remove(table);   
         }
+        public Table getTable(string table)
+        {
+            foreach (Table t in m_tables)
+            {
+                if (table == t.getName())
+                {
+                    return t;
+                }
+            }
+            return null;
+        }
 
         public string GetName()
         {
@@ -40,16 +51,28 @@ namespace Buscamineros
             return m_tables;
         }
 
-        public void select(Table table, List<string> selects, String column, String name)
+        public List<string> select(string table, List<string> selects, String column, String name, string comparator)
         {
-            /*List<int> positions = table.where(column, name);
-            foreach (x in positions)
+            List<string> values = null;
+            Table t = getTable(table);
+            TableColumn tc = t.getColumn(selects.ElementAt(0));
+            if (selects.Count == 1)
             {
-                x.Show();
-            }*/
-            return;
+                if (comparator.Equals('='))
+                {
+                    List<int> pos = t.CompareValues(selects.ElementAt(0), name);
+                    
+                    //values = tc.getValues(pos);
+                }
+            }
+
+
+
+            return values;
+
         }
-        
+
+
 
     }
 }

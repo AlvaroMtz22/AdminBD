@@ -46,14 +46,14 @@ namespace Buscamineros
 
         }
 
-        public List<int> Where(string column, string name)
+        public List<int> CompareValues(string column, string name)
         {
             List<int> positions = null;
             foreach(TableColumn x in m_list)
             {
                 if(x.getName()==(column))
                 {
-                    //positions = (x.Where(name));
+                    //positions = (x.getPositions(name));
                 }
             }
 
@@ -63,6 +63,18 @@ namespace Buscamineros
         public List<TableColumn> getList()
         {
             return m_list;
+        }
+
+        public TableColumn getColumn(string column)
+        {
+            foreach (TableColumn c in m_list)
+            {
+                if (c.getName() == column)
+                {
+                    return c;
+                }
+            }
+            return null;
         }
 
 
