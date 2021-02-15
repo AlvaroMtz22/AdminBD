@@ -23,19 +23,33 @@ namespace Buscamineros
 
         public void AddTable(Table table)
         {
-            
+            m_tables.Add(table);   
         }
 
         public void DeleteTable(Table table)
         {
-            
+            m_tables.Remove(table);   
         }
 
         public string GetName()
         {
-            return null;
+            return m_name;
+        }
+        public List<Table> getList()
+        {
+            return m_tables;
         }
 
+        public void select(Table table, List<string> selects, String column, String name)
+        {
+            /*List<int> positions = table.where(column, name);
+            foreach (x in positions)
+            {
+                x.Show();
+            }*/
+            return;
+        }
+        
 
     }
 }

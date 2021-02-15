@@ -60,6 +60,11 @@ namespace Buscamineros
             return positions; 
 
         }
+        public List<TableColumn> getList()
+        {
+            return m_list;
+        }
+
 
     }
 }
