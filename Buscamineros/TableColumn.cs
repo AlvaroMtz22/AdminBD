@@ -27,6 +27,9 @@ namespace Buscamineros
         {
             return m_name;
         }
-
+        public List<string> getList()
+        {
+            return m_data;
+        }
     }
 }

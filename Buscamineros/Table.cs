@@ -36,6 +36,11 @@ namespace Buscamineros
         {
      
         }
+        public List<TableColumn> getList()
+        {
+            return m_list;
+        }
+
 
     }
 }

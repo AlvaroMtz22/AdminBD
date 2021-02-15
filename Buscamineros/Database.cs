@@ -35,6 +35,10 @@ namespace Buscamineros
         {
             return m_name;
         }
+        public List<Table> getList()
+        {
+            return m_tables;
+        }
 
         public void select(Table table, List<string> selects, String column, String name)
         {
@@ -45,6 +49,7 @@ namespace Buscamineros
             }*/
             return;
         }
+        
 
     }
 }
