@@ -23,6 +23,10 @@ namespace Buscamineros
             m_data.Add(value);
         }
 
+        public string GetType()
+        {
+            return m_type;
+        }
 
         public string GetName()
         {
