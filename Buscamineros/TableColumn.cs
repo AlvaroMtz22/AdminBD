@@ -30,6 +30,7 @@ namespace Buscamineros
         public List<string> getList()
         {
             return m_data;
+
         }
     }
 }
