@@ -18,18 +18,18 @@ namespace Buscamineros
             m_type = type;
         }
 
-        public void addValue(string value)
+        public void AddValue(string value)
         {
             m_data.Add(value);
         }
 
 
-        public string getName()
+        public string GetName()
         {
             return m_name;
         }
 
-        public List<int> getPositions(string value)
+        public List<int> GetPositions(string value)
         {
             List<int> positions = null;
             for (int i = 0; i < m_data.Count; i++)
@@ -43,7 +43,7 @@ namespace Buscamineros
             return positions;
         }
 
-        public List<string> getValues(List<int> positions)
+        public List<string> GetValues(List<int> positions)
         {
             List<string> list = null;
             foreach (int p in positions)
@@ -55,7 +55,7 @@ namespace Buscamineros
         }
 
 
-        public List<string> getList()
+        public List<string> GetList()
         {
             return m_data;
 
