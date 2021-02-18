@@ -30,7 +30,7 @@ namespace Buscamineros
         {
             m_tables.Remove(table);   
         }
-        public Table getTable(string table)
+        public Table GetTable(string table)
         {
             foreach (Table t in m_tables)
             {
@@ -46,15 +46,15 @@ namespace Buscamineros
         {
             return m_name;
         }
-        public List<Table> getList()
+        public List<Table> GetList()
         {
             return m_tables;
         }
 
-        public List<string> select(string table, List<string> selects, String column, String name, string comparator)
+        public List<string> Select(string table, List<string> selects, String column, String name, string comparator)
         {
             List<string> values = null;
-            Table t = getTable(table);
+            Table t = GetTable(table);
             TableColumn tc = t.getColumn(selects.ElementAt(0));
             if (selects.Count == 1)
             {
@@ -62,11 +62,9 @@ namespace Buscamineros
                 {
                     List<int> pos = t.CompareValues(selects.ElementAt(0), name);
                     
-                    //values = tc.getValues(pos);
+                    values = tc.GetValues(pos);
                 }
             }
-
-
 
             return values;
 

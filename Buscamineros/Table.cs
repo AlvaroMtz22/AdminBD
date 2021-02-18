@@ -39,7 +39,7 @@ namespace Buscamineros
             {
                 for (int i = 0; i < values.Count; i++)
                 {
-                    //string value = values.get(i);
+                    string value = values.ElementAt(i);
 
                 }
             }
@@ -51,9 +51,9 @@ namespace Buscamineros
             List<int> positions = null;
             foreach(TableColumn x in m_list)
             {
-                if(x.getName()==(column))
+                if(x.GetName()==(column))
                 {
-                    //positions = (x.getPositions(name));
+                    positions = (x.GetPositions(name));
                 }
             }
 
@@ -69,7 +69,7 @@ namespace Buscamineros
         {
             foreach (TableColumn c in m_list)
             {
-                if (c.getName() == column)
+                if (c.GetName() == column)
                 {
                     return c;
                 }
