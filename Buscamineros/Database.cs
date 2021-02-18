@@ -70,7 +70,7 @@ namespace Buscamineros
 
         }
 
-        public void delete(string table, CompareWhere compared)
+        public void Delete(string table, CompareWhere compared)
         {
 
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class CompareWhere
+    public class CompareWhere
     {
         private string m_column;
         private string m_name;
