@@ -103,35 +103,21 @@ namespace Buscamineros
         public void Delete(string table, CompareWhere compared)
         {
             Table t = GetTable(table);
-            string column = compared.GetColumn();
-            string name = compared.GetName();
-            string comparator = compared.GetComparator();
-            if(comparator == "=")
+
+            List<int> positions = t.CompareValues(compared);
+            foreach(TableColumn tc in t.GetList())
             {
-                List<int> positions = t.CompareValues(compared);
-                foreach(TableColumn tc in t.GetList())
+                List<string> newList = null;
+                for(int i=0;i < tc.GetList().Count; i++)
                 {
-                    List<string> newList = null;
-                    for(int i=0;i < tc.GetList().Count; i++)
+                    if (!positions.Contains(i))
                     {
-                        if (!positions.Contains(i))
-                        {
-                            newList.Add(tc.GetList().ElementAt(i));
-                        }
+                        newList.Add(tc.GetList().ElementAt(i));
                     }
-                    tc.SetList(newList);
                 }
-            }
-            else if (comparator == "<")
-            {
-
-            }
-            else if (comparator == ">")
-            {
-
+                    tc.SetList(newList);
             }
             
-        }
-
+        }     
     }
 }
