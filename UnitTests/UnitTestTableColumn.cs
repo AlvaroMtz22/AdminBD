@@ -1,5 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
 
@@ -12,14 +12,14 @@ namespace UnitTests
         [TestMethod]
         public void TestAddValue()
         {
-            tableColumn.addValue("Aitor");
-            Assert.AreEqual(1, tableColumn.getList().Count());
+            tableColumn.AddValue("Aitor");
+            Assert.AreEqual(1, tableColumn.GetList().Count);
         }
         [TestMethod]
         public void TestGetName()
         {
-            tableColumn.addValue("Aitor");
-            Assert.AreEqual("Aitor", tableColumn.getList()[0]);
+            tableColumn.AddValue("Aitor");
+            Assert.AreEqual("Aitor", tableColumn.GetList()[0]);
         }
     }
 }

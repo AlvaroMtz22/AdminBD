@@ -1,7 +1,8 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
+
 namespace UnitTests
 {
 
@@ -24,9 +25,9 @@ namespace UnitTests
         {
             Table table = new Table("Nombres", data);
             tables.Add(table);
-            Assert.AreEqual(database.getList().Count, 1);
+            Assert.AreEqual(database.GetList().Count, 1);
             database.AddTable(table);
-            Assert.AreEqual(database.getList(), tables);
+            Assert.AreEqual(database.GetList(), tables);
         }
         [TestMethod]
         public void TestDeleteTable()
@@ -35,13 +36,13 @@ namespace UnitTests
             Table table = new Table("Nombres", data);
             database.AddTable(table);
 
-            Assert.AreEqual(database.getList().Count, 1);
+            Assert.AreEqual(database.GetList().Count, 1);
             database.DeleteTable(table);
 
-            Assert.AreEqual(database.getList().Count, 0);
+            Assert.AreEqual(database.GetList().Count, 0);
         }
         [TestMethod]
-        public void TestgetName()
+        public void TestGetName()
         {
             System.Security.SecureString contraseña = new System.Security.SecureString();
             database = new Database("aitor", "aitoru", contraseña);

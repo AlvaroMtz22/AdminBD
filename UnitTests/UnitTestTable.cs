@@ -1,13 +1,15 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
+﻿using System;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
+
 namespace UnitTests
 {
     [TestClass]
     public class UnitTestTable
     {
         Table table = new Table("Employees", new List<TableColumn>());
+        
         [TestMethod]
         public void TableConstructorTest()
         {
@@ -20,9 +22,9 @@ namespace UnitTests
         {
             TableColumn tableColumn = new TableColumn("Aitor", "string");
             table.AddTableColumn(tableColumn);
-            Assert.AreEqual(1, table.getList().count);
+            Assert.AreEqual(1, table.getList().Count);
             table.DeleteTableColumn(tableColumn);
-            Assert.AreEqual(0, table.getList().count);
+            Assert.AreEqual(0, table.getList().Count);
 
         }
         [TestMethod]
@@ -31,7 +33,7 @@ namespace UnitTests
 
             TableColumn tableColumn=new TableColumn("Aitor","string");
             table.AddTableColumn(tableColumn);
-            Assert.AreEqual(1, table.getList().count);
+            Assert.AreEqual(1, table.getList().Count);
         }
         [TestMethod]
         public void getNameTest()
@@ -47,7 +49,7 @@ namespace UnitTests
             table.AddRow(values);
             foreach (TableColumn x in table.getList()) 
             {
-                Assert.AreEqual(1, x.getList().Count());
+                Assert.AreEqual(1, x.GetList().Count);
             }
 
         }
