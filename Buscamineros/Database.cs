@@ -34,7 +34,7 @@ namespace Buscamineros
         {
             foreach (Table t in m_tables)
             {
-                if (table == t.getName())
+                if (table == t.GetName())
                 {
                     return t;
                 }
@@ -51,28 +51,86 @@ namespace Buscamineros
             return m_tables;
         }
 
-        public List<string> Select(string table, List<string> selects, String column, String name, string comparator)
+        public List<TableColumn> select(string table, List<string> selects, CompareWhere compared)
         {
-            List<string> values = null;
+            List<TableColumn> values = null;
             Table t = GetTable(table);
-            TableColumn tc = t.getColumn(selects.ElementAt(0));
-            if (selects.Count == 1)
-            {
-                if (comparator.Equals('='))
-                {
-                    List<int> pos = t.CompareValues(selects.ElementAt(0), name);
-                    
-                    values = tc.GetValues(pos);
-                }
-            }
+            List<TableColumn> TableColumns=t.GetList();
+            List<string> val=null;
+            TableColumn column ;
 
+            foreach (TableColumn s in TableColumns) {
+                if (compared.GetName().CompareTo(s.GetName())==0) 
+                {
+                    
+                    column = new TableColumn(s.GetName(), s.GetType() );
+                    if (compared.GetComparator().CompareTo("=") == 0)
+                    {
+                        foreach (string value in s.GetList())
+                        {
+                            if (value.CompareTo(compared.GetName()) == 0) {
+                                column.AddValue(value);
+                            }
+
+                        }
+                    }
+                    else if (compared.GetComparator().CompareTo("<") == 0)
+                    {
+                        foreach (string v in s.GetList())
+                        {
+
+
+                        }
+                    }
+                    else if (compared.GetComparator().CompareTo("<=") == 0)
+                    {
+                    }
+                    else if (compared.GetComparator().CompareTo(">") == 0)
+                    {
+                    }
+                    else if (compared.GetComparator().CompareTo(">=") == 0)
+                    {
+                    }
+                    values.Add(column);
+                }
+                
+            }
+            
             return values;
 
         }
 
         public void Delete(string table, CompareWhere compared)
         {
+            Table t = GetTable(table);
+            string column = compared.GetColumn();
+            string name = compared.GetName();
+            string comparator = compared.GetComparator();
+            if(comparator == "=")
+            {
+                List<int> positions = t.CompareValues(compared);
+                foreach(TableColumn tc in t.GetList())
+                {
+                    List<string> newList = null;
+                    for(int i=0;i < tc.GetList().Count; i++)
+                    {
+                        if (!positions.Contains(i))
+                        {
+                            newList.Add(tc.GetList().ElementAt(i));
+                        }
+                    }
+                    tc.SetList(newList);
+                }
+            }
+            else if (comparator == "<")
+            {
 
+            }
+            else if (comparator == ">")
+            {
+
+            }
+            
         }
 
     }

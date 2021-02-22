@@ -28,7 +28,7 @@ namespace Buscamineros
             m_list.Add(tableColumn);
         }
 
-        public string getName()
+        public string GetName()
         {
             return m_name;
         }
@@ -40,13 +40,14 @@ namespace Buscamineros
                 for (int i = 0; i < values.Count; i++)
                 {
                     string value = values.ElementAt(i);
-
+                    TableColumn tc = GetList().ElementAt(i);
+                    tc.AddValue(value);
                 }
             }
 
         }
 
-        public List<int> CompareValues(string column, string name)
+        public List<int> CompareValues(CompareWhere compared)
         {
             List<int> positions = null;
             foreach(TableColumn x in m_list)
@@ -60,12 +61,12 @@ namespace Buscamineros
             return positions; 
 
         }
-        public List<TableColumn> getList()
+        public List<TableColumn> GetList()
         {
             return m_list;
         }
 
-        public TableColumn getColumn(string column)
+        public TableColumn GetColumn(string column)
         {
             foreach (TableColumn c in m_list)
             {
