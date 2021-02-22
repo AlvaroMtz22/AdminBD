@@ -64,5 +64,10 @@ namespace Buscamineros
             return m_data;
 
         }
+
+        public void SetList(List<string> newList)
+        {
+            m_data = newList;
+        }
     }
 }
