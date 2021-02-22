@@ -22,9 +22,9 @@ namespace UnitTests
         {
             TableColumn tableColumn = new TableColumn("Aitor", "string");
             table.AddTableColumn(tableColumn);
-            Assert.AreEqual(1, table.getList().Count);
+            Assert.AreEqual(1, table.GetList().Count);
             table.DeleteTableColumn(tableColumn);
-            Assert.AreEqual(0, table.getList().Count);
+            Assert.AreEqual(0, table.GetList().Count);
 
         }
         [TestMethod]
@@ -33,12 +33,12 @@ namespace UnitTests
 
             TableColumn tableColumn=new TableColumn("Aitor","string");
             table.AddTableColumn(tableColumn);
-            Assert.AreEqual(1, table.getList().Count);
+            Assert.AreEqual(1, table.GetList().Count);
         }
         [TestMethod]
         public void getNameTest()
         {
-            Assert.AreEqual(table.getName(), "Employees");
+            Assert.AreEqual(table.GetName(), "Employees");
         }
         [TestMethod]
         public void AddRowTest()
@@ -47,7 +47,7 @@ namespace UnitTests
             values.Add("Aitor");
             values.Add("Urabain");
             table.AddRow(values);
-            foreach (TableColumn x in table.getList()) 
+            foreach (TableColumn x in table.GetList()) 
             {
                 Assert.AreEqual(1, x.GetList().Count);
             }
