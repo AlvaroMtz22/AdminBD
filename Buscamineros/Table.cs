@@ -52,9 +52,9 @@ namespace Buscamineros
             List<int> positions = null;
             foreach(TableColumn x in m_list)
             {
-                if(x.GetName()==(column))
+                if(x.GetName()==(compared.GetColumn()))
                 {
-                    positions = (x.GetPositions(name));
+                    positions = x.GetPositions(compared);
                 }
             }
 

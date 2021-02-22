@@ -36,13 +36,39 @@ namespace Buscamineros
         public List<int> GetPositions(CompareWhere compared)
         {
             List<int> positions = null;
-            for (int i = 0; i < m_data.Count; i++)
+
+            if (compared.GetComparator().CompareTo("=") == 0)
             {
-                if (compared.GetName() == m_data.ElementAt(i))
+                for (int i = 0; i < m_data.Count; i++)
                 {
-                    positions.Add(i);
-                }
-            };
+                    if (compared.GetName() == m_data.ElementAt(i))
+                    {
+                        positions.Add(i);
+                    }
+                };
+            }
+
+            else if(compared.GetComparator().CompareTo("<") == 0)
+            {
+                for (int i = 0; i < m_data.Count; i++)
+                {
+                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == -1)
+                    {
+                        positions.Add(i);
+                    }
+                };
+            }
+
+            else if (compared.GetComparator().CompareTo(">") == 0)
+            {
+                for (int i = 0; i < m_data.Count; i++)
+                {
+                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == 1)
+                    {
+                        positions.Add(i);
+                    }
+                };
+            }
 
             return positions;
         }
