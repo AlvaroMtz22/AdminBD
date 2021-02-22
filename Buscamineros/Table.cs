@@ -47,7 +47,7 @@ namespace Buscamineros
 
         }
 
-        public List<int> CompareValues(string column, string name)
+        public List<int> CompareValues(CompareWhere compared)
         {
             List<int> positions = null;
             foreach(TableColumn x in m_list)

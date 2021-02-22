@@ -34,7 +34,7 @@ namespace Buscamineros
         {
             foreach (Table t in m_tables)
             {
-                if (table == t.getName())
+                if (table == t.GetName())
                 {
                     return t;
                 }
@@ -54,27 +54,27 @@ namespace Buscamineros
         public List<TableColumn> select(string table, List<string> selects, CompareWhere compared)
         {
             List<TableColumn> values = null;
-            Table t = getTable(table);
-            List<TableColumn> TableColumns=t.getList();
+            Table t = GetTable(table);
+            List<TableColumn> TableColumns=t.GetList();
             List<string> val=null;
             TableColumn column ;
 
             foreach (TableColumn s in TableColumns) {
-                if (compared.getName().comparedTo(s.GetName())==0) 
+                if (compared.GetName().CompareTo(s.GetName())==0) 
                 {
                     
                     column = new TableColumn(s.GetName(), s.GetType() );
-                    if (compared.GetComparator().comparedTo("=") == 0)
+                    if (compared.GetComparator().CompareTo("=") == 0)
                     {
                         foreach (string value in s.GetList())
                         {
-                            if (value.CompareTo(compared.GetValue) == 0) {
+                            if (value.CompareTo(compared.GetName()) == 0) {
                                 column.AddValue(value);
                             }
 
                         }
                     }
-                    else if (compared.GetComparator().comparedTo("<") == 0)
+                    else if (compared.GetComparator().CompareTo("<") == 0)
                     {
                         foreach (string v in s.GetList())
                         {
@@ -82,30 +82,20 @@ namespace Buscamineros
 
                         }
                     }
-                    else if (compared.getComparator().comparedTo("<=") == 0)
+                    else if (compared.GetComparator().CompareTo("<=") == 0)
                     {
                     }
-                    else if (compared.getComparator().comparedTo(">") == 0)
+                    else if (compared.GetComparator().CompareTo(">") == 0)
                     {
                     }
-                    else if (compared.getComparator().comparedTo(">=") == 0)
+                    else if (compared.GetComparator().CompareTo(">=") == 0)
                     {
                     }
                     values.Add(column);
                 }
                 
             }
-            TableColumn tc = t.getColumn(selects.ElementAt(0));
-            if (selects.Count == 1)
-            {
-                if (comparator.Equals('='))
-                {
-                    List<int> pos = t.CompareValues(selects.ElementAt(0), name);
-                    
-                    values = tc.GetValues(pos);
-                }
-            }
-
+            
             return values;
 
         }
@@ -118,7 +108,7 @@ namespace Buscamineros
             string comparator = compared.GetComparator();
             if(comparator == "=")
             {
-                List<int> positions = t.CompareValues(column, name);
+                List<int> positions = t.CompareValues(compared);
                 foreach(TableColumn tc in t.GetList())
                 {
                     List<string> newList = null;

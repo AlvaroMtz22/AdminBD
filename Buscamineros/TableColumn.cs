@@ -33,12 +33,12 @@ namespace Buscamineros
             return m_name;
         }
 
-        public List<int> GetPositions(string value)
+        public List<int> GetPositions(CompareWhere compared)
         {
             List<int> positions = null;
             for (int i = 0; i < m_data.Count; i++)
             {
-                if (value == m_data.ElementAt(i))
+                if (compared.GetName() == m_data.ElementAt(i))
                 {
                     positions.Add(i);
                 }
