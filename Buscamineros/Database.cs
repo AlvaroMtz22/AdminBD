@@ -51,51 +51,40 @@ namespace Buscamineros
             return m_tables;
         }
 
-        public List<TableColumn> select(string table, List<string> selects, CompareWhere compared)
+        public Table select(string table, List<string> selects, CompareWhere compared)
         {
-            List<TableColumn> values = null;
+            Table values = null;
+            List<TableColumn> select = null;
             Table t = GetTable(table);
             List<TableColumn> TableColumns=t.GetList();
-            List<string> val=null;
             TableColumn column ;
 
-            foreach (TableColumn s in TableColumns) {
-                if (compared.GetName().CompareTo(s.GetName())==0) 
-                {
-                    
-                    column = new TableColumn(s.GetName(), s.GetType() );
-                    if (compared.GetComparator().CompareTo("=") == 0)
-                    {
-                        foreach (string value in s.GetList())
-                        {
-                            if (value.CompareTo(compared.GetName()) == 0) {
-                                column.AddValue(value);
-                            }
-
-                        }
-                    }
-                    else if (compared.GetComparator().CompareTo("<") == 0)
-                    {
-                        foreach (string v in s.GetList())
-                        {
-
-
-                        }
-                    }
-                    else if (compared.GetComparator().CompareTo("<=") == 0)
-                    {
-                    }
-                    else if (compared.GetComparator().CompareTo(">") == 0)
-                    {
-                    }
-                    else if (compared.GetComparator().CompareTo(">=") == 0)
-                    {
-                    }
-                    values.Add(column);
-                }
-                
+            //we get the select list of columns
+            foreach (string sele in selects) 
+            {
+                select.Add(t.GetColumn(sele));
             }
-            
+            //we have the values where condition is true
+            List<int> valuesCompared=t.CompareValues(compared);
+
+            //We create the table which we will return as the select
+            values = new Table("selectResult", new List<TableColumn>());
+
+            //we make an iteration for the columns to search those we want
+            foreach (TableColumn s in TableColumns)
+            {
+                
+                //we create a column that we will add in the return list
+                column = new TableColumn(s.GetName(), s.GetType());
+
+                //we get each value we want
+                foreach (string value in s.GetValues(valuesCompared)) 
+                {
+                    column.AddValue(value);
+                }
+                values.AddTableColumn(column);
+            }
+
             return values;
 
         }
