@@ -75,7 +75,7 @@ namespace Buscamineros
             {
 
                 //we create a column that we will add in the return list
-                column = new TableColumn(s.GetName(), s.GetType());
+                column = new TableColumn(s.GetName(), s.GetColumnType());
 
                 //we get each value we want
                 foreach (string value in s.GetValues(valuesCompared))

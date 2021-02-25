@@ -23,7 +23,7 @@ namespace Buscamineros
             m_data.Add(value);
         }
 
-        public string GetType()
+        public string GetColumnType()
         {
             return m_type;
         }
