@@ -23,12 +23,12 @@ namespace Buscamineros
 
         public void AddTable(Table table)
         {
-            m_tables.Add(table);   
+            m_tables.Add(table);
         }
 
         public void DeleteTable(Table table)
         {
-            m_tables.Remove(table);   
+            m_tables.Remove(table);
         }
         public Table GetTable(string table)
         {
@@ -56,16 +56,16 @@ namespace Buscamineros
             Table values = null;
             List<TableColumn> select = null;
             Table t = GetTable(table);
-            List<TableColumn> TableColumns=t.GetList();
-            TableColumn column ;
+            List<TableColumn> TableColumns = t.GetList();
+            TableColumn column;
 
             //we get the select list of columns
-            foreach (string sele in selects) 
+            foreach (string sele in selects)
             {
                 select.Add(t.GetColumn(sele));
             }
             //we have the values where condition is true
-            List<int> valuesCompared=t.CompareValues(compared);
+            List<int> valuesCompared = t.CompareValues(compared);
 
             //We create the table which we will return as the select
             values = new Table("selectResult", new List<TableColumn>());
@@ -73,12 +73,12 @@ namespace Buscamineros
             //we make an iteration for the columns to search those we want
             foreach (TableColumn s in TableColumns)
             {
-                
+
                 //we create a column that we will add in the return list
                 column = new TableColumn(s.GetName(), s.GetType());
 
                 //we get each value we want
-                foreach (string value in s.GetValues(valuesCompared)) 
+                foreach (string value in s.GetValues(valuesCompared))
                 {
                     column.AddValue(value);
                 }
@@ -94,19 +94,40 @@ namespace Buscamineros
             Table t = GetTable(table);
 
             List<int> positions = t.CompareValues(compared);
-            foreach(TableColumn tc in t.GetList())
+            foreach (TableColumn tc in t.GetList())
             {
                 List<string> newList = null;
-                for(int i=0;i < tc.GetList().Count; i++)
+                for (int i = 0; i < tc.GetList().Count; i++)
                 {
                     if (!positions.Contains(i))
                     {
                         newList.Add(tc.GetList().ElementAt(i));
                     }
                 }
-                    tc.SetList(newList);
+                tc.SetList(newList);
             }
-            
-        }     
+
+        }
+        public void updateSet(string setAttribute, string value, string table, CompareWhere compared)
+        {
+            Table t = GetTable(table);
+            //we have the values where condition is true
+            List<int> valuesCompared = t.CompareValues(compared);
+            //we make an iteration for the columns to search those we want
+            int contador=0;
+            foreach (TableColumn s in t.GetList())
+            {
+                //attribute we have to change
+                if (s.GetName().CompareTo(setAttribute) == 0) 
+                {
+                    //loop each position we gonna change
+                    foreach (int str in (valuesCompared)) 
+                    {
+                        //change value in the position we are
+                        s.GetList()[str] = value;
+                    }
+                }               
+            }
+        }
     }
 }
