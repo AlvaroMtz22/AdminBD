@@ -108,25 +108,31 @@ namespace Buscamineros
             }
 
         }
-        public void updateSet(string setAttribute, string value, string table, CompareWhere compared)
+        
+        public void updateSet(List<string> setAttribute, List<string> value, string table, CompareWhere compared)
         {
             Table t = GetTable(table);
             //we have the values where condition is true
             List<int> valuesCompared = t.CompareValues(compared);
             //we make an iteration for the columns to search those we want
-            int contador=0;
+            int count = 0;
             foreach (TableColumn s in t.GetList())
             {
-                //attribute we have to change
-                if (s.GetName().CompareTo(setAttribute) == 0) 
+                foreach (string w in setAttribute)
                 {
-                    //loop each position we gonna change
-                    foreach (int str in (valuesCompared)) 
+
+                    //attribute we have to change
+                    if (s.GetName().CompareTo(w) == 0)
                     {
-                        //change value in the position we are
-                        s.GetList()[str] = value;
+                        //loop each position we gonna change
+                        foreach (int str in (valuesCompared))
+                        {
+                            //change value in the position we are
+                            s.GetList()[str]=value[count];
+                        }
                     }
-                }               
+                    count++;
+                }              
             }
         }
     }
