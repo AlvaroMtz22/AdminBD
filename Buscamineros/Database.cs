@@ -88,6 +88,36 @@ namespace Buscamineros
             return values;
 
         }
+        public void InsertInto (string table, List<string> columns, List<string> values)
+        {
+            Table t = GetTable(table);
+            if (columns != null)
+            {
+                int count = 0;
+              
+                foreach (string cl in columns)
+                {
+                    foreach (TableColumn tc in t.GetList()) 
+                    {
+                        if(tc.GetName() == cl) 
+                        {                          
+                            foreach (string n in values )
+                            {
+                                tc.AddValue(n);
+                            }
+                            count++;
+                        }
+
+                    }
+                }
+                
+            }
+            else
+            {
+                t.AddRow(values);
+            }
+                                                                        
+        }
 
         public void Delete(string table, CompareWhere compared)
         {
