@@ -17,6 +17,7 @@ namespace Buscamineros
         {
             m_name = name;
             m_type = type;
+            m_data = new List<string>();
         }
 
         public void AddValue(string value)
@@ -36,7 +37,7 @@ namespace Buscamineros
 
         public List<int> GetPositions(CompareWhere compared)
         {
-            List<int> positions = null;
+            List<int> positions = new List<int>();
 
             if (compared.GetComparator().CompareTo("=") == 0)
             {
@@ -53,7 +54,7 @@ namespace Buscamineros
             {
                 for (int i = 0; i < m_data.Count; i++)
                 {
-                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == -1)
+                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == 1)
                     {
                         positions.Add(i);
                     }
@@ -64,7 +65,7 @@ namespace Buscamineros
             {
                 for (int i = 0; i < m_data.Count; i++)
                 {
-                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == 1)
+                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == -1)
                     {
                         positions.Add(i);
                     }
@@ -76,7 +77,7 @@ namespace Buscamineros
 
         public List<string> GetValues(List<int> positions)
         {
-            List<string> list = null;
+            List<string> list = new List<string>();
             foreach (int p in positions)
             {
                 string value = m_data.ElementAt(p);
