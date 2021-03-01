@@ -107,6 +107,10 @@ namespace Buscamineros
                             }
                             count++;
                         }
+                        else 
+                        {
+                            tc.AddValue("null");
+                        }
 
                     }
                 }
