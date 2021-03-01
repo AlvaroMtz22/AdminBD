@@ -59,16 +59,19 @@ namespace UnitTests
             list1.Add(surname);
             Table table1 = new Table("Users", list1);
 
-            Assert.AreEqual(0,table1.GetList().ElementAt(0).GetList().Count);
-            Assert.AreEqual(0,table1.GetList().ElementAt(1).GetList().Count);
+            Assert.AreEqual(0, table1.GetList().ElementAt(0).GetList().Count);
+            Assert.AreEqual(0, table1.GetList().ElementAt(1).GetList().Count);
 
             List<string> values=new List<string>();
             values.Add("Aitor");
             values.Add("Urabain");
             table1.AddRow(values);
 
-            Assert.AreEqual(1, table1.GetList().ElementAt(0).GetList().Count);
-            Assert.AreEqual(1, table1.GetList().ElementAt(1).GetList().Count);
+            Assert.AreEqual("Aitor", table1.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual("Urabain", table1.GetList().ElementAt(1).GetList().ElementAt(0));
+
+            Assert.AreEqual(1,table1.GetList().ElementAt(0).GetList().Count);
+            Assert.AreEqual(1,table1.GetList().ElementAt(1).GetList().Count);
 
         }
 
