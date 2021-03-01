@@ -161,6 +161,46 @@ namespace UnitTests
             }
             Assert.AreNotEqual(true, welldone);
         }
+        [TestMethod]
+        public void TestInsertInto()
+        {
+            System.Security.SecureString contraseña = new System.Security.SecureString();
+            database = new Database("aitor", "aitoru", contraseña);
+            //Creating the elements for data in Empleado table
+
+            Table tab = new Table("Empleado", new List<TableColumn>());
+            TableColumn tablecolumn1 = new TableColumn("Nombre", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
+            TableColumn tablecolumn2 = new TableColumn("Apellido", "string");
+            tablecolumn2.AddValue("Margo");
+            tablecolumn2.AddValue("Caiza");
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
+            database.AddTable(tab);
+            //Creating the parameters for executing the method
+            string table = "Nombre";
+            List<string> columns = new List<string>();
+            columns.Add("Nombre");
+            List<string> values = new List<string>();
+            columns.Add("Unai");
+
+            // executing the insert method
+            database.InsertInto(table,columns,values);
+            // looking if it has changed
+            Boolean welldone = false;
+            foreach (TableColumn tc in tab.GetList())
+            {
+                foreach (string st in tc.GetList())
+                {
+                    if (st == "Unai")
+                    {
+                        welldone = true;
+                    }
+                }
+            }
+            Assert.AreEqual(true, welldone);
+        }
     }
 }
 
