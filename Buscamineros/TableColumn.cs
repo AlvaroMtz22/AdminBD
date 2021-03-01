@@ -53,7 +53,7 @@ namespace Buscamineros
             {
                 for (int i = 0; i < m_data.Count; i++)
                 {
-                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == -1)
+                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == 1)
                     {
                         positions.Add(i);
                     }
@@ -64,7 +64,7 @@ namespace Buscamineros
             {
                 for (int i = 0; i < m_data.Count; i++)
                 {
-                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == 1)
+                    if (compared.GetName().CompareTo(m_data.ElementAt(i)) == -1)
                     {
                         positions.Add(i);
                     }

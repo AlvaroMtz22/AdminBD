@@ -77,13 +77,13 @@ namespace UnitTests
             Assert.AreEqual(1, positions1.Count);
             Assert.AreEqual(1, positions1.ElementAt(0));
 
-            //Assert.AreEqual(2, positions2.Count);
+            Assert.AreEqual(2, positions2.Count);
             Assert.AreEqual(1, positions2.ElementAt(0));
             Assert.AreEqual(2, positions2.ElementAt(1));
 
             Assert.AreEqual(2, positions3.Count);
             Assert.AreEqual(0, positions3.ElementAt(0));
-            Assert.AreEqual(1, positions3.ElementAt(0));
+            Assert.AreEqual(1, positions3.ElementAt(1));
         }
 
         [TestMethod]
