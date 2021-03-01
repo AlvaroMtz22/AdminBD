@@ -40,8 +40,7 @@ namespace Buscamineros
                 for (int i = 0; i < values.Count; i++)
                 {
                     string value = values.ElementAt(i);
-                    TableColumn tc = GetList().ElementAt(i);
-                    tc.AddValue(value);
+                    m_list.ElementAt(i).AddValue(value);
                 }
             }
 
