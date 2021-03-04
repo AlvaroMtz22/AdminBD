@@ -83,10 +83,14 @@ namespace UnitTests
             Boolean welldone = false;
             foreach (TableColumn tc in tab.GetList()) 
             {
-                foreach (string st in tc.GetList()) 
+                if (tc.GetName() == "Nombre")
                 {
-                    if (st == "Aitor") {
-                        welldone = true;
+                    foreach (string st in tc.GetList())
+                    {
+                        if (st == "Aitor")
+                        {
+                            welldone = true;
+                        }
                     }
                 }
             }
@@ -179,11 +183,11 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn2);
             database.AddTable(tab);
             //Creating the parameters for executing the method
-            string table = "Nombre";
+            string table = "Empleado";
             List<string> columns = new List<string>();
             columns.Add("Nombre");
             List<string> values = new List<string>();
-            columns.Add("Unai");
+            values.Add("Unai");
 
             // executing the insert method
             database.InsertInto(table,columns,values);
