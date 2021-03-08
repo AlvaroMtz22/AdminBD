@@ -50,15 +50,15 @@ namespace Buscamineros
         public List<int> CompareValues(CompareWhere compared)
         {
             List<int> positions = null;
-            foreach(TableColumn x in m_list)
+            foreach (TableColumn x in m_list)
             {
-                if(x.GetName()==(compared.GetColumn()))
+                if (x.GetName() == (compared.GetColumn()))
                 {
                     positions = x.GetPositions(compared);
                 }
             }
 
-            return positions; 
+            return positions;
 
         }
         public List<TableColumn> GetList()
@@ -78,12 +78,12 @@ namespace Buscamineros
             return null;
         }
 
-        
+
         public string ToString()
         {
             string answer = "[";
 
-            foreach(TableColumn tc in m_list)
+            foreach (TableColumn tc in m_list)
             {
                 if (tc != m_list.Last())
                 {
@@ -101,25 +101,35 @@ namespace Buscamineros
 
             answer += "{";
 
-            foreach (TableColumn tc in m_list)
+
+            for (int i = 0; i < m_list.ElementAt(0).GetList().Count; i++)
             {
-                List<string> data = tc.GetList();
-                foreach(string d in data)
-                {
-                    if (tc != m_list.Last())
+                
+                    foreach (TableColumn tc in m_list)
                     {
-                        answer += "'" + d + "',";
+
+                        if(i == 0)
+                        {
+                            answer += "{'" + tc.GetList().ElementAt(i) + "',";
+                        }   
+
+                        else if (i != tc.GetList().Count - 1)
+                        {
+                            answer += "'" + tc.GetList().ElementAt(i) + "',";
+                        }
+                        else
+                        {
+                            answer += "'" + tc.GetList().ElementAt(i) + "'}";
+                        }
+
+
                     }
-                    else
-                    {
-                        answer += "'" + d + "'";
-                    }
+
                 }
-                answer += "}";
-            }
-
+                
             return answer;
-        }
 
+
+        }
     }
 }
