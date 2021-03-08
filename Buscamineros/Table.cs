@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using MySqlX.XDevAPI;
 
 namespace Buscamineros
 {
@@ -77,6 +78,48 @@ namespace Buscamineros
             return null;
         }
 
+        
+        public string ToString()
+        {
+            string answer = "[";
+
+            foreach(TableColumn tc in m_list)
+            {
+                if (tc != m_list.Last())
+                {
+                    string name = tc.GetName();
+                    answer += "'" + name + "',";
+                }
+                else
+                {
+                    string name = tc.GetName();
+                    answer += "'" + name + "'";
+                }
+            }
+
+            answer += "]";
+
+            answer += "{";
+
+            foreach (TableColumn tc in m_list)
+            {
+                List<string> data = tc.GetList();
+                foreach(string d in data)
+                {
+                    if (tc != m_list.Last())
+                    {
+                        answer += "'" + d + "',";
+                    }
+                    else
+                    {
+                        answer += "'" + d + "'";
+                    }
+                }
+                answer += "}";
+            }
+
+            return answer;
+        }
 
     }
 }

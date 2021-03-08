@@ -52,11 +52,7 @@ namespace Buscamineros
             return m_tables;
         }
 
-        public string ToString()
-        {
-            return null;
-        }
-
+       
         public string select(string table, List<string> selects, CompareWhere compared)
         {
             Table values = null;
@@ -97,7 +93,7 @@ namespace Buscamineros
 
         public string SelectAll(string table)
         {
-            return null;
+            return table.ToString();
         }
 
         public void InsertInto (string table, List<string> columns, List<string> values)
