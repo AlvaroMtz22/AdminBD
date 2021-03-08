@@ -191,11 +191,11 @@ namespace Buscamineros
         {
             string text = File.ReadAllText(filename);
 
-            string[] values = text.Split(new char[] { ',' }); //Separar en función del carácter que consideremos ({ '\n' } / { ',' } / ...)
+            string[] values = text.Split(new char[] { ',' }); 
 
             for (int i = 0; i < values.Length; i++)
             {
-                values[i] = values[i].Replace("[[delimiter]]", ","); //reemplazar de vuelta el valor separador por el valor que queremos
+                values[i] = values[i].Replace("[[delimiter]]", ","); 
             }
         }
 
@@ -211,13 +211,13 @@ namespace Buscamineros
                 Directory.CreateDirectory(GetName());
             string directory = GetName();
 
-            foreach (Table m in m_tables) //recorrer datos que tenemos, en este caso ejemplo para ver
+            foreach (Table m in m_tables) 
             {
                 string tableDirectory = directory + "\\" + m.GetName();
                 if (!Directory.Exists(tableDirectory))
                     Directory.CreateDirectory(tableDirectory);
                 string tableName = "tableName," + m.GetName();
-                text += tableName.Replace(",", "[[delimiter]]") + ","; // reemplazar el valor que queremos (coma) por el valor separador ([[delimiter]])
+                text += tableName.Replace(",", "[[delimiter]]") + ","; 
                 
                 foreach (TableColumn c in m.GetList()) 
                 {
