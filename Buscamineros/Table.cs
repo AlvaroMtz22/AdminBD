@@ -105,12 +105,12 @@ namespace Buscamineros
                 
                 foreach (TableColumn tc in m_list)
                 {
-                    if (i == 0)
+                    if (tc == m_list.First())
                     {
                         answer += "{'" + tc.GetList().ElementAt(i) + "',";
                     }
 
-                    else if(i != tc.GetList().Count - 1)
+                    else if(tc != m_list.Last())
                     {
                         answer += "'" + tc.GetList().ElementAt(i) + "',";
                     }
