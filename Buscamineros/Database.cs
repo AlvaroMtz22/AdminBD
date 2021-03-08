@@ -232,7 +232,7 @@ namespace Buscamineros
                     }
                     File.WriteAllText(tableColumnDirectory, c.GetColumnType() + "[[delimiter]]"+  tc_val);
                 }
-
+                
             }
 
            

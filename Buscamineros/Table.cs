@@ -98,7 +98,6 @@ namespace Buscamineros
             }
 
             answer += "]";
-
             answer += "{";
 
             foreach (TableColumn tc in m_list)
