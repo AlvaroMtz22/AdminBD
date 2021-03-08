@@ -49,6 +49,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UnitTestParser.cs" />
     <Compile Include="UnitTestTableColumn.cs" />
     <Compile Include="UnitTestDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

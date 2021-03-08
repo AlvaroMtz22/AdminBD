@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Buscamineros.MiniSQLParser;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -60,9 +61,9 @@ namespace Buscamineros
             TableColumn column;
 
             //we get the select list of columns
-            foreach (string sele in selects)
+            foreach (string s in selects)
             {
-                select.Add(t.GetColumn(sele));
+                select.Add(t.GetColumn(s));
             }
             //we have the values where condition is true
             List<int> valuesCompared = t.CompareValues(compared);
@@ -168,6 +169,18 @@ namespace Buscamineros
                     count++;
                 }              
             }
+        }
+
+        public Table SelectAll(string table)
+        {
+            return null;
+        }
+
+        public string RunMiniSqlQuery(string query)
+        {
+            IQuery queryObject = MiniSQLParser.Parser.Parse(query);
+
+            return queryObject.Run(this);
         }
     }
 }
