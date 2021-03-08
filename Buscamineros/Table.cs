@@ -98,25 +98,30 @@ namespace Buscamineros
             }
 
             answer += "]";
-            answer += "{";
 
-            foreach (TableColumn tc in m_list)
+
+            for (int i = 0; i < m_list.ElementAt(0).GetList().Count; i++)
             {
-                List<string> data = tc.GetList();
-                foreach(string d in data)
+                
+                foreach (TableColumn tc in m_list)
                 {
-                    if (tc != m_list.Last())
+                    if (i == 0)
                     {
-                        answer += "'" + d + "',";
+                        answer += "{'" + tc.GetList().ElementAt(i) + "',";
                     }
+
+                    else if(i != tc.GetList().Count - 1)
+                    {
+                        answer += "'" + tc.GetList().ElementAt(i) + "',";
+                    }
+
                     else
                     {
-                        answer += "'" + d + "'";
+                        answer += "'" + tc.GetList().ElementAt(i) + "'}";
                     }
+                    
                 }
-                answer += "}";
             }
-
             return answer;
         }
 
