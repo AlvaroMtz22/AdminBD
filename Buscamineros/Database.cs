@@ -55,7 +55,7 @@ namespace Buscamineros
         public Table select(string table, List<string> selects, CompareWhere compared)
         {
             Table values = null;
-            List<TableColumn> select = null;
+            List<TableColumn> select = new List<TableColumn>();
             Table t = GetTable(table);
             List<TableColumn> TableColumns = t.GetList();
             TableColumn column;
@@ -131,7 +131,7 @@ namespace Buscamineros
             List<int> positions = t.CompareValues(compared);
             foreach (TableColumn tc in t.GetList())
             {
-                List<string> newList = null;
+                List<string> newList = new List<string>();
                 for (int i = 0; i < tc.GetList().Count; i++)
                 {
                     if (!positions.Contains(i))
@@ -165,8 +165,9 @@ namespace Buscamineros
                             //change value in the position we are
                             s.GetList()[str]=value[count];
                         }
+                        count++;
                     }
-                    count++;
+                    
                 }              
             }
         }
