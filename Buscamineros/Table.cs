@@ -78,7 +78,7 @@ namespace Buscamineros
             return null;
         }
 
-        
+        override
         public string ToString()
         {
             string answer = "[";
