@@ -52,7 +52,12 @@ namespace Buscamineros
             return m_tables;
         }
 
-        public Table select(string table, List<string> selects, CompareWhere compared)
+        public string ToString()
+        {
+            return null;
+        }
+
+        public string select(string table, List<string> selects, CompareWhere compared)
         {
             Table values = null;
             List<TableColumn> select = new List<TableColumn>();
@@ -86,9 +91,15 @@ namespace Buscamineros
                 values.AddTableColumn(column);
             }
 
-            return values;
+            return values.ToString();
 
         }
+
+        public string SelectAll(string table)
+        {
+            return null;
+        }
+
         public void InsertInto (string table, List<string> columns, List<string> values)
         {
             Table t = GetTable(table);
@@ -172,10 +183,6 @@ namespace Buscamineros
             }
         }
 
-        public Table SelectAll(string table)
-        {
-            return null;
-        }
 
         public string RunMiniSqlQuery(string query)
         {
