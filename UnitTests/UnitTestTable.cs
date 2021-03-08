@@ -100,5 +100,25 @@ namespace UnitTests
             Assert.AreNotEqual(table.GetColumn("column1"), tableColumn3);
 
         }
+
+        [TestMethod]
+        public void TestToString()
+        {
+            Table tab = new Table("Users", new List<TableColumn>());
+            TableColumn tablecolumn1 = new TableColumn("Name", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
+            TableColumn tablecolumn2 = new TableColumn("Age", "int");
+            tablecolumn2.AddValue("20");
+            tablecolumn2.AddValue("22");
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
+
+            String result = "['Name','Age']{'Alvaro','20'}{'Ronny','22'}";
+
+            Assert.AreEqual(result, tab.ToString());
+
+        }
+
     }
 }
