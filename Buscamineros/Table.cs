@@ -78,7 +78,7 @@ namespace Buscamineros
             return null;
         }
 
-
+        override
         public string ToString()
         {
             string answer = "[";
@@ -99,34 +99,29 @@ namespace Buscamineros
 
             answer += "]";
 
-            answer += "{";
-
 
             for (int i = 0; i < m_list.ElementAt(0).GetList().Count; i++)
             {
                 
-                    foreach (TableColumn tc in m_list)
+                foreach (TableColumn tc in m_list)
+                {
+                    if (tc == m_list.First())
                     {
-
-                        if(i == 0)
-                        {
-                            answer += "{'" + tc.GetList().ElementAt(i) + "',";
-                        }   
-
-                        else if (i != tc.GetList().Count - 1)
-                        {
-                            answer += "'" + tc.GetList().ElementAt(i) + "',";
-                        }
-                        else
-                        {
-                            answer += "'" + tc.GetList().ElementAt(i) + "'}";
-                        }
-
-
+                        answer += "{'" + tc.GetList().ElementAt(i) + "',";
                     }
 
+                    else if(tc != m_list.Last())
+                    {
+                        answer += "'" + tc.GetList().ElementAt(i) + "',";
+                    }
+
+                    else
+                    {
+                        answer += "'" + tc.GetList().ElementAt(i) + "'}";
+                    }
+                    
                 }
-                
+            }
             return answer;
 
 

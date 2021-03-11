@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace Buscamineros
 {
@@ -186,5 +187,57 @@ namespace Buscamineros
 
             return queryObject.Run(this);
         }
+        public void Load(string filename)
+        {
+            string text = File.ReadAllText(filename);
+
+            string[] values = text.Split(new char[] { ',' }); 
+
+            for (int i = 0; i < values.Length; i++)
+            {
+                values[i] = values[i].Replace("[[delimiter]]", ","); 
+            }
+        }
+
+        public void Save()
+        {
+
+           
+            string text = null;
+            string tc_val = null;
+            string tableColumnText = null;
+
+            if (!Directory.Exists(GetName()))
+                Directory.CreateDirectory(GetName());
+            string directory = GetName();
+
+            foreach (Table m in m_tables) 
+            {
+                string tableDirectory = directory + "\\" + m.GetName();
+                if (!Directory.Exists(tableDirectory))
+                    Directory.CreateDirectory(tableDirectory);
+                string tableName = "tableName," + m.GetName();
+                text += tableName.Replace(",", "[[delimiter]]") + ","; 
+                
+                foreach (TableColumn c in m.GetList()) 
+                {
+                    string tableColumnDirectory = directory + "\\" + tableDirectory + "\\" + c.GetName();
+                    string tableColumnNames = "tableColumnNames," + c.GetName();
+                    tableColumnText += tableColumnNames.Replace(",", "[[delimiter]]") + ",";
+
+                    foreach (string val in c.GetList()) 
+                    {
+                        string tableColumnVal = "tableColumnVal," + val;
+                        tc_val += tableColumnVal.Replace(",", "[[delimiter]]") + ",";
+                    }
+                    File.WriteAllText(tableColumnDirectory, c.GetColumnType() + "[[delimiter]]"+  tc_val);
+                }
+                
+            }
+
+           
+        }
+        
+
     }
 }
