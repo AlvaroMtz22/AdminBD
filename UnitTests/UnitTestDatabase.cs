@@ -210,12 +210,18 @@ namespace UnitTests
             List<string> columns = new List<string>();
             columns.Add("Nombre");
             List<string> values = new List<string>();
+            List<string> value2 = new List<string>();
             values.Add("Unai");
-
+            values.Add("Ruiz");
+            value2.Add("Aitor");
             // executing the insert method
-            database.InsertInto(table,columns,values);
+
+            database.InsertInto(table,null,values);
+            database.InsertInto(table, columns, value2);
             // looking if it has changed
             Boolean welldone = false;
+            Boolean welldone2 = false;
+            Boolean welldone3 = false;
             foreach (TableColumn tc in tab.GetList())
             {
                 foreach (string st in tc.GetList())
@@ -224,7 +230,23 @@ namespace UnitTests
                     {
                         welldone = true;
                     }
+                    if (st == "Ruiz")
+                    {
+                        welldone2 = true;
+                    }
+                    if (st == "Aitor") 
+                    {
+                        welldone3 = true;
+                    }
                 }
+            }
+            if (welldone == true && welldone2 == true&& welldone3==true)
+            {
+                welldone = true;
+            }
+            else 
+            {
+                welldone=false;
             }
             Assert.AreEqual(true, welldone);
         }
