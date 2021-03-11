@@ -107,7 +107,15 @@ namespace Buscamineros
                 {
                     if (tc == m_list.First())
                     {
-                        answer += "{'" + tc.GetList().ElementAt(i) + "',";
+                        if (tc == m_list.Last())
+                        {
+                            answer += "{'" + tc.GetList().ElementAt(i) + "'}";
+                        }
+                        else
+                        {
+                            answer += "{'" + tc.GetList().ElementAt(i) + "',";
+                        }
+                        
                     }
 
                     else if(tc != m_list.Last())
