@@ -181,7 +181,7 @@ namespace Buscamineros
         }
 
 
-        public string RunMiniSqlQuery(string query)
+        public Table RunMiniSqlQuery(string query)
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
 

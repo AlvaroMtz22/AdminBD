@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests
 {
@@ -99,32 +100,41 @@ namespace UnitTests
         [TestMethod]
         public void TestSelect()
         {
-            //System.Security.SecureString password = new System.Security.SecureString();
-            //Database database1 = new Database("aitor", "aitoru", password);
-            ////Creating elements for select method parameters
-            //List<string> selects = new List<string>();
-            //selects.Add("Name");
-            //CompareWhere compared = new CompareWhere("Surname", "Caiza", "=");
+            System.Security.SecureString password = new System.Security.SecureString();
+            Database database1 = new Database("aitor", "aitoru", password);
+            //Creating elements for select method parameters
+            List<string> selects = new List<string>();
+            selects.Add("Name");
+            CompareWhere compared = new CompareWhere("Surname", "Caiza", "=");
 
-            //Table tab = new Table("Employee", new List<TableColumn>());
+            Table tab = new Table("Employee", new List<TableColumn>());
 
-            //TableColumn tablecolumn1 = new TableColumn("Name", "string");
-            //tablecolumn1.AddValue("Alvaro");
-            //tablecolumn1.AddValue("Ronny");
+            TableColumn tablecolumn1 = new TableColumn("Name", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
 
-            //TableColumn tablecolumn2 = new TableColumn("Surname", "string");
-            //tablecolumn2.AddValue("Margo");
-            //tablecolumn2.AddValue("Caiza");
+            TableColumn tablecolumn2 = new TableColumn("Surname", "string");
+            tablecolumn2.AddValue("Margo");
+            tablecolumn2.AddValue("Caiza");
 
-            //tab.AddTableColumn(tablecolumn1);
-            //tab.AddTableColumn(tablecolumn2);
-            //database1.AddTable(tab);
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
+            database1.AddTable(tab);
 
-            //String expectedResult = "['Name']{'Ronny'}";
+            Table tableResult = new Table("Result", new List<TableColumn>());
+            TableColumn tcResult= new TableColumn("Name", "string");
+            tcResult.AddValue("Ronny");
+            tableResult.AddTableColumn(tcResult);
 
-            //// executing the select method
-            //String result = database1.select(tab.GetName(), selects, compared);
-            //Assert.AreEqual(expectedResult, result);
+            // executing the select method
+            Table result = database1.select(tab.GetName(), selects, compared);
+            Assert.AreEqual("Ronny", result.GetList().ElementAt(0).GetList().ElementAt(0));
+            selects.Add("Surname");
+            CompareWhere compared2 = new CompareWhere("Name", "Alvaro", "=");
+            Table result2 = database1.select(tab.GetName(), selects, compared2);
+            Assert.AreEqual("Alvaro", result2.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual("Margo", result2.GetList().ElementAt(1).GetList().ElementAt(0));
+
         }
 
         [TestMethod]
