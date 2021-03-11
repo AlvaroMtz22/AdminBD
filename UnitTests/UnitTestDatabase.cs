@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests
 {
@@ -145,9 +146,14 @@ namespace UnitTests
 
             database1.AddTable(tab);
 
-            String result = "['Name','Age']{'Alvaro','20'}{'Ronny','22'}";
+            Table newTab = database1.SelectAll(tab.GetName());
 
-            Assert.AreEqual(result, database1.SelectAll(tab.GetName()));
+            Assert.AreEqual("Users", newTab.GetName());
+            Assert.AreEqual(2, newTab.GetList().Count);
+            Assert.AreEqual("Alvaro", newTab.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual("Ronny", newTab.GetList().ElementAt(0).GetList().ElementAt(1));
+            Assert.AreEqual("20", newTab.GetList().ElementAt(1).GetList().ElementAt(0));
+            Assert.AreEqual("22", newTab.GetList().ElementAt(1).GetList().ElementAt(1));
         }
 
         [TestMethod]
