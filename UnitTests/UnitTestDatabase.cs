@@ -54,7 +54,7 @@ namespace UnitTests
             Assert.AreEqual(name, database.GetName());
         }
         [TestMethod]
-        public void TestUpdateSet()
+        public void TestUpdate()
         {
             System.Security.SecureString contraseña = new System.Security.SecureString();
             database = new Database("aitor", "aitoru", contraseña);
@@ -79,7 +79,7 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn2);
             database.AddTable(tab);
             // executing the update method
-            database.updateSet(setAttribute, value, table, compared);
+            database.Update(setAttribute, value, table, compared);
             // looking if it has changed
             Boolean welldone = false;
             foreach (TableColumn tc in tab.GetList()) 
