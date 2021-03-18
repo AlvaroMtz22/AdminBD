@@ -92,9 +92,18 @@ namespace Buscamineros
 
         }
 
-        public Table SelectAll(string table)
+        public Table SelectAll(string table, CompareWhere c)
         {
-            return GetTable(table);
+            if (c == null)
+            {
+                return GetTable(table);
+            }
+            else
+            {
+
+            }
+
+            return null;
         }
 
         public string InsertInto (string table, List<string> columns, List<string> values)

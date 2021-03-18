@@ -13,13 +13,24 @@ namespace Buscamineros.MiniSQLParser
         public static IQuery Parse(string miniSqlSentence)
         {
             const string selectAllPattern = @"SELECT \* FROM ([a-zA-Z0-9]+)";
+            const string selectAllWherePattern = @"SELECT \*FROM([a-zA-Z0-9]+) WHERE([a-zA-Z0-9]+)='([a-zA-Z0-9]+)'";
             const string selectColumnsPattern = @"SELECT ([a-zA-Z0-9,]+) FROM ([a-zA-Z0-9]+)";
+            const string selectColumnsWherePattern = @"SELECT([a - zA - Z0 - 9,] +) FROM([a - zA - Z0 - 9] +) WHERE([a - zA - Z0 - 9] +)= '([a-zA-Z0-9])+'";
+            const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES\(('[a-zA-Z0-9]+')(,'[a-zA-Z0-9]+')*\)";
+            
 
             Match match = Regex.Match(miniSqlSentence, selectAllPattern);
             if(match.Success)
             {
                 SelectAll selectAll = new SelectAll(match.Groups[1].Value);
                 return selectAll;
+            }
+            match = Regex.Match(miniSqlSentence, selectAllWherePattern);
+            if (match.Success)
+            {
+                SelectAll selectAll = new SelectAll(match.Groups[1].Value);
+                return selectAll;
+                SelectAllWhere selectAllWhere = new SelectAllWhere()
             }
             match = Regex.Match(miniSqlSentence, selectColumnsPattern);
             if (match.Success)
@@ -28,6 +39,7 @@ namespace Buscamineros.MiniSQLParser
                 SelectColumns selectColumns = new SelectColumns(match.Groups[2].Value,columnNames);
                 return selectColumns;
             }
+
             return null;
         }
     }
