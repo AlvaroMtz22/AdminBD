@@ -187,16 +187,51 @@ namespace Buscamineros
 
             return queryObject.Run(this);
         }
-        public void Load(string filename)
+        public static Database Load(string dbName)
         {
-            string text = File.ReadAllText(filename);
-
-            string[] values = text.Split(new char[] { ',' }); 
-
-            for (int i = 0; i < values.Length; i++)
+            
+            System.Security.SecureString password = new System.Security.SecureString();
+            Database db = new Database("LoadDB", "RonnyAitor", password);
+            Table table;
+            TableColumn tableColumn;
+            foreach (string folder in Directory.GetDirectories(dbName))
             {
-                values[i] = values[i].Replace("[[delimiter]]", ","); 
+
+                string[] folders = folder.Split(new char[] { '\\' });
+                table= new Table(folders[1], new List<TableColumn>());
+                string[] filesF=Directory.GetFiles(folder);
+                foreach (string file in filesF)
+                {
+                    string text = File.ReadAllText(file);
+                    string[] values = text.Split(new char[] { ',' });
+                    string data="";
+                    string[] finalData;
+                    for (int i = 0; i < values.Length - 1; i++)
+                    {
+                        values[i] = values[i].Replace("[[delimiter]]", ",");
+                        data += values[i] + ",";
+                    }//All is on Commas
+                    finalData = data.Split(new char[] { ',' });
+                    //Separated array
+                    //Create the tableColumn
+                    string[] files = file.Split(new char[] { '\\' });
+                    tableColumn = new TableColumn(files[2],finalData[0]);
+                    for (int i = 0; i < finalData.Length; i++)
+                    {
+                        if (i != 0  && i % 2 == 0) 
+                        {
+                            tableColumn.AddValue(finalData[i]);
+                        }
+                    }
+                    table.AddTableColumn(tableColumn);
+                    
+                    
+                }
+                db.AddTable(table);
             }
+
+            return db;
+
         }
 
         public void Save()
@@ -209,11 +244,11 @@ namespace Buscamineros
 
             if (!Directory.Exists(GetName()))
                 Directory.CreateDirectory(GetName());
-            string directory = GetName();
+            string directory = this.GetName();       //Obtain the name of the Database
 
             foreach (Table m in m_tables) 
             {
-                string tableDirectory = directory + "\\" + m.GetName();
+                string tableDirectory = directory + "\\" + m.GetName(); //Obtain the name of an especific table
                 if (!Directory.Exists(tableDirectory))
                     Directory.CreateDirectory(tableDirectory);
                 string tableName = "tableName," + m.GetName();
@@ -221,16 +256,17 @@ namespace Buscamineros
                 
                 foreach (TableColumn c in m.GetList()) 
                 {
-                    string tableColumnDirectory = directory + "\\" + tableDirectory + "\\" + c.GetName();
+                    string tableColumnDirectory = tableDirectory + "\\" + c.GetName();
                     string tableColumnNames = "tableColumnNames," + c.GetName();
                     tableColumnText += tableColumnNames.Replace(",", "[[delimiter]]") + ",";
 
-                    foreach (string val in c.GetList()) 
-                    {
+                    foreach (string val in c.GetList())  
+                    {                                    
                         string tableColumnVal = "tableColumnVal," + val;
                         tc_val += tableColumnVal.Replace(",", "[[delimiter]]") + ",";
                     }
                     File.WriteAllText(tableColumnDirectory, c.GetColumnType() + "[[delimiter]]"+  tc_val);
+                    tc_val = "";
                 }
                 
             }

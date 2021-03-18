@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
+using System.IO;
 
 namespace UnitTests
 {
@@ -244,6 +245,30 @@ namespace UnitTests
                 welldone=false;
             }
             Assert.AreEqual(true, welldone);
+        }
+        [TestMethod]
+        public void TestSaveAndLoad()
+        {
+
+            System.Security.SecureString contraseña = new System.Security.SecureString();
+            database = new Database("UnitTestDatabase", "UN", contraseña);
+            Table tab = new Table("Employee", new List<TableColumn>());
+            TableColumn tablecolumn1 = new TableColumn("Name", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
+            TableColumn tablecolumn2 = new TableColumn("Surname", "string");
+            tablecolumn2.AddValue("Margo");
+            tablecolumn2.AddValue("Caiza");
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
+            database.AddTable(tab);
+            
+
+            database.Save();
+            Database db = Database.Load(database.GetName());         
+            String result = "['Name','Surname']{'Alvaro','Margo'}{'Ronny','Caiza'}";
+            Assert.AreEqual(result,db.ToString() );
+
         }
     }
 }
