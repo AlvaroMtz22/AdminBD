@@ -89,6 +89,7 @@
   <ItemGroup>
     <Compile Include="CompareWhere.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="Messages.cs" />
     <Compile Include="MiniSQLParser\IQuery.cs" />
     <Compile Include="MiniSQLParser\Parser.cs" />
     <Compile Include="MiniSQLParser\SelectColumns.cs" />
