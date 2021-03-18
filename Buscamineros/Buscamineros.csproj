@@ -95,6 +95,7 @@
     <Compile Include="MiniSQLParser\Parser.cs" />
     <Compile Include="MiniSQLParser\SelectColumns.cs" />
     <Compile Include="MiniSQLParser\SelectAll.cs" />
+    <Compile Include="MiniSQLParser\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="TableColumn.cs" />
