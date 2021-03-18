@@ -131,7 +131,15 @@ namespace Buscamineros
             }
                                                                         
         }
-
+        public string toString()
+        {
+            string result = "";
+            foreach (Table tab in m_tables)
+            {
+                result += tab.ToString();
+            }
+            return result;
+        }
         public void Delete(string table, CompareWhere compared)
         {
             Table t = GetTable(table);
