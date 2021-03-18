@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Buscamineros;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests
 {
@@ -53,7 +54,7 @@ namespace UnitTests
             Assert.AreEqual(name, database.GetName());
         }
         [TestMethod]
-        public void TestUpdateSet()
+        public void TestUpdate()
         {
             System.Security.SecureString contraseña = new System.Security.SecureString();
             database = new Database("aitor", "aitoru", contraseña);
@@ -78,7 +79,7 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn2);
             database.AddTable(tab);
             // executing the update method
-            database.updateSet(setAttribute, value, table, compared);
+            database.Update(setAttribute, value, table, compared);
             // looking if it has changed
             Boolean welldone = false;
             foreach (TableColumn tc in tab.GetList()) 
@@ -96,50 +97,52 @@ namespace UnitTests
             }
             Assert.AreEqual(true, welldone);
         }
-        //[TestMethod]
-        //public void TestSelect()
-        //{
-        //    System.Security.SecureString password = new System.Security.SecureString();
-        //    Database database1 = new Database("aitor", "aitoru", password);
-        //    //Creating elements for select method parameters
-        //    List<string> selects = new List<string>();
-        //    selects.Add("Name");
-        //    CompareWhere compared = new CompareWhere("Surname", "Caiza", "=");
-            
-        //    Table tab = new Table("Employee", new List<TableColumn>());
+        [TestMethod]
+        public void TestSelect()
+        {
+            System.Security.SecureString password = new System.Security.SecureString();
+            Database database1 = new Database("aitor", "aitoru", password);
+            //Creating elements for select method parameters
+            List<string> selects = new List<string>();
+            selects.Add("Name");
+            CompareWhere compared = new CompareWhere("Surname", "Caiza", "=");
 
-        //    TableColumn tablecolumn1 = new TableColumn("Name", "string");
-        //    tablecolumn1.AddValue("Alvaro");
-        //    tablecolumn1.AddValue("Ronny");
+            Table tab = new Table("Employee", new List<TableColumn>());
 
-        //    TableColumn tablecolumn2 = new TableColumn("Surname", "string");
-        //    tablecolumn2.AddValue("Margo");
-        //    tablecolumn2.AddValue("Caiza");
+            TableColumn tablecolumn1 = new TableColumn("Name", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
 
-        //    tab.AddTableColumn(tablecolumn1);
-        //    tab.AddTableColumn(tablecolumn2);
-        //    database1.AddTable(tab);
+            TableColumn tablecolumn2 = new TableColumn("Surname", "string");
+            tablecolumn2.AddValue("Margo");
+            tablecolumn2.AddValue("Caiza");
 
-        //    // executing the select method
-        //    Table result=database1.select(tab.GetName(), selects,  compared);
-        //    // looking if it has changed
-        //    Boolean welldone = false;
-        //    foreach (TableColumn tc in result.GetList())
-        //    {
-        //        foreach (string st in tc.GetList())
-        //        {
-        //            if (st == "Ronny")
-        //            {
-        //                welldone = true;
-        //            }
-        //        }
-        //    }
-        //    Assert.AreEqual(true, welldone);
-        //}
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
+            database1.AddTable(tab);
+
+            Table tableResult = new Table("Result", new List<TableColumn>());
+            TableColumn tcResult= new TableColumn("Name", "string");
+            tcResult.AddValue("Ronny");
+            tableResult.AddTableColumn(tcResult);
+
+            // executing the select method
+            Table result = database1.select(tab.GetName(), selects, compared);
+            Assert.AreEqual("Ronny", result.GetList().ElementAt(0).GetList().ElementAt(0));
+            selects.Add("Surname");
+            CompareWhere compared2 = new CompareWhere("Name", "Alvaro", "=");
+            Table result2 = database1.select(tab.GetName(), selects, compared2);
+            Assert.AreEqual("Alvaro", result2.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual("Margo", result2.GetList().ElementAt(1).GetList().ElementAt(0));
+
+        }
 
         [TestMethod]
         public void TestSelectAll()
         {
+            System.Security.SecureString password = new System.Security.SecureString();
+            Database database1 = new Database("aitor", "aitoru", password);
+
             Table tab = new Table("Users", new List<TableColumn>());
             TableColumn tablecolumn1 = new TableColumn("Name", "string");
             tablecolumn1.AddValue("Alvaro");
@@ -150,9 +153,16 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn1);
             tab.AddTableColumn(tablecolumn2);
 
-            String result = "['Name','Age']{'Alvaro','20'}{'Ronny','22'}";
+            database1.AddTable(tab);
 
-            Assert.AreEqual(result, tab.ToString());
+            Table newTab = database1.SelectAll(tab.GetName());
+
+            Assert.AreEqual("Users", newTab.GetName());
+            Assert.AreEqual(2, newTab.GetList().Count);
+            Assert.AreEqual("Alvaro", newTab.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual("Ronny", newTab.GetList().ElementAt(0).GetList().ElementAt(1));
+            Assert.AreEqual("20", newTab.GetList().ElementAt(1).GetList().ElementAt(0));
+            Assert.AreEqual("22", newTab.GetList().ElementAt(1).GetList().ElementAt(1));
         }
 
         [TestMethod]

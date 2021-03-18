@@ -54,7 +54,7 @@ namespace Buscamineros
         }
 
        
-        public string select(string table, List<string> selects, CompareWhere compared)
+        public Table select(string table, List<string> selects, CompareWhere compared)
         {
             Table values = null;
             List<TableColumn> select = new List<TableColumn>();
@@ -74,9 +74,9 @@ namespace Buscamineros
             values = new Table("selectResult", new List<TableColumn>());
 
             //we make an iteration for the columns to search those we want
-            foreach (TableColumn s in TableColumns)
+            foreach (TableColumn s in select)
             {
-
+                
                 //we create a column that we will add in the return list
                 column = new TableColumn(s.GetName(), s.GetColumnType());
 
@@ -88,108 +88,147 @@ namespace Buscamineros
                 values.AddTableColumn(column);
             }
 
-            return values.ToString();
+            return values;
 
         }
 
-        public string SelectAll(string table)
+        public Table SelectAll(string table)
         {
-            return table.ToString();
+            return GetTable(table);
         }
 
-        public void InsertInto (string table, List<string> columns, List<string> values)
+        public string InsertInto (string table, List<string> columns, List<string> values)
         {
             Table t = GetTable(table);
-            if (columns != null)
+            if (m_tables.Contains(t))
             {
-                int count = 0;
-              
-                foreach (string cl in columns)
+                if (columns != null)
                 {
-                    foreach (TableColumn tc in t.GetList()) 
-                    {
-                        if(tc.GetName() == cl) 
-                        {                          
-                            foreach (string n in values )
-                            {
-                                tc.AddValue(n);
-                            }
-                            count++;
-                        }
-                        else 
-                        {
-                            tc.AddValue("null");
-                        }
+                    int count = 0;
 
+                    foreach (string cl in columns)
+                    {
+                        if (t.GetList().Contains(t.GetColumn(cl)))
+                        {
+
+                            foreach (TableColumn tc in t.GetList())
+                            {
+                                if (tc.GetName() == cl)
+                                {
+                                    foreach (string n in values)
+                                    {
+                                        tc.AddValue(n);
+                                    }
+                                    count++;
+                                }
+                                else
+                                {
+                                    tc.AddValue("null");
+                                }
+                            }
+                        }
+                        else
+                        {
+                            return Messages.ColumnDoesNotExist;
+                        }
                     }
                 }
-                
+                else
+                {
+                    t.AddRow(values);
+                }
             }
             else
             {
-                t.AddRow(values);
+                return Messages.TableDoesNotExist;
             }
-                                                                        
+            return Messages.InsertSuccess;
         }
-        public string toString()
-        {
-            string result = "";
-            foreach (Table tab in m_tables)
-            {
-                result += tab.ToString();
-            }
-            return result;
-        }
-        public void Delete(string table, CompareWhere compared)
+
+        public string Delete(string table, CompareWhere compared)
         {
             Table t = GetTable(table);
-
-            List<int> positions = t.CompareValues(compared);
-            foreach (TableColumn tc in t.GetList())
+            if (m_tables.Contains(t))
             {
-                List<string> newList = new List<string>();
-                for (int i = 0; i < tc.GetList().Count; i++)
+                if (t.GetList().Contains(t.GetColumn(compared.GetColumn())))
                 {
-                    if (!positions.Contains(i))
+                    List<int> positions = t.CompareValues(compared);
+                    foreach (TableColumn tc in t.GetList())
                     {
-                        newList.Add(tc.GetList().ElementAt(i));
+                        List<string> newList = new List<string>();
+                        for (int i = 0; i < tc.GetList().Count; i++)
+                        {
+                            if (!positions.Contains(i))
+                            {
+                                newList.Add(tc.GetList().ElementAt(i));
+                            }
+                        }
+                        tc.SetList(newList);
                     }
                 }
-                tc.SetList(newList);
+                else
+                {
+                    return Messages.ColumnDoesNotExist;
+                }
             }
-
+            else
+            {
+                return Messages.TableDoesNotExist;
+            }
+            return Messages.TupleDeleteSuccess;
         }
         
-        public void updateSet(List<string> setAttribute, List<string> value, string table, CompareWhere compared)
+        public string Update(List<string> setAttribute, List<string> value, string table, CompareWhere compared)
         {
             Table t = GetTable(table);
-            //we have the values where condition is true
-            List<int> valuesCompared = t.CompareValues(compared);
-            //we make an iteration for the columns to search those we want
-            int count = 0;
-            foreach (TableColumn s in t.GetList())
+            if (m_tables.Contains(t))
             {
-                foreach (string w in setAttribute)
+                if (t.GetList().Contains(t.GetColumn(compared.GetColumn())))
                 {
-
-                    //attribute we have to change
-                    if (s.GetName().CompareTo(w) == 0)
+                    //we have the values where condition is true
+                    List<int> valuesCompared = t.CompareValues(compared);
+                    //we make an iteration for the columns to search those we want
+                    int count = 0;
+                    foreach (TableColumn s in t.GetList())
                     {
-                        //loop each position we gonna change
-                        foreach (int str in (valuesCompared))
+                        foreach (string cl in setAttribute)
                         {
-                            //change value in the position we are
-                            s.GetList()[str]=value[count];
+                            if (t.GetList().Contains(t.GetColumn(cl)))
+                            {
+                                //attribute we have to change
+                                if (s.GetName().CompareTo(cl) == 0)
+                                {
+                                    //loop each position we gonna change
+                                    foreach (int str in (valuesCompared))
+                                    {
+                                        //change value in the position we are
+                                        s.GetList()[str] = value[count];
+                                    }
+                                    count++;
+                                }
+
+                            }
+                            else
+                            {
+                                return Messages.ColumnDoesNotExist;
+                            }
                         }
-                        count++;
                     }
-                    
-                }              
+                }
+                else
+                {
+                    return Messages.ColumnDoesNotExist;
+                }
             }
+            else
+            {
+                return Messages.TableDoesNotExist;
+            }
+            return Messages.TupleUpdateSuccess;
         }
 
 
-        public string RunMiniSqlQuery(string query)
+        public Table RunMiniSqlQuery(string query)
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
 

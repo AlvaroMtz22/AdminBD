@@ -50,15 +50,15 @@ namespace Buscamineros
         public List<int> CompareValues(CompareWhere compared)
         {
             List<int> positions = null;
-            foreach(TableColumn x in m_list)
+            foreach (TableColumn x in m_list)
             {
-                if(x.GetName()==(compared.GetColumn()))
+                if (x.GetName() == (compared.GetColumn()))
                 {
                     positions = x.GetPositions(compared);
                 }
             }
 
-            return positions; 
+            return positions;
 
         }
         public List<TableColumn> GetList()
@@ -83,7 +83,7 @@ namespace Buscamineros
         {
             string answer = "[";
 
-            foreach(TableColumn tc in m_list)
+            foreach (TableColumn tc in m_list)
             {
                 if (tc != m_list.Last())
                 {
@@ -107,7 +107,15 @@ namespace Buscamineros
                 {
                     if (tc == m_list.First())
                     {
-                        answer += "{'" + tc.GetList().ElementAt(i) + "',";
+                        if (tc == m_list.Last())
+                        {
+                            answer += "{'" + tc.GetList().ElementAt(i) + "'}";
+                        }
+                        else
+                        {
+                            answer += "{'" + tc.GetList().ElementAt(i) + "',";
+                        }
+                        
                     }
 
                     else if(tc != m_list.Last())
@@ -123,7 +131,8 @@ namespace Buscamineros
                 }
             }
             return answer;
-        }
 
+
+        }
     }
 }
