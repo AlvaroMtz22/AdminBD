@@ -81,7 +81,7 @@ namespace Buscamineros
         override
         public string ToString()
         {
-            string answer = "[";
+            string answer = "["+m_name+"";
 
             foreach (TableColumn tc in m_list)
             {

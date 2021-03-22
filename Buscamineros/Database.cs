@@ -226,12 +226,14 @@ namespace Buscamineros
             }
             return Messages.TupleUpdateSuccess;
         }
-        public string toString() 
+        public override string ToString() 
         {
+            string result = "{"+m_name+"}"
             foreach (Table table in m_tables)
             {
-                table.ToString();
+                result+=table.ToString();
             }
+            return result;
         } 
 
         public Table RunMiniSqlQuery(string query)
