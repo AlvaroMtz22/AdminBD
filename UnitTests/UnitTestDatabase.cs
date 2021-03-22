@@ -278,23 +278,16 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn2);
             database.AddTable(tab);
 
-            Table tab1 = new  Table("Factory", new List<TableColumn>());
-            tab1.AddTableColumn(tablecolumn1);
-            tab1.AddTableColumn(tablecolumn2);
-            database.AddTable(tab1);
-
 
             database.Save();
             Database db = Database.Load(database.GetName());
             string result = "['Name','Surname']{'Alvaro','Margo'}{'Ronny','Caiza'}";
-            string ts = db.ToString();
-            
-            Assert.AreEqual(result, ts);
+            Assert.AreEqual(result, db.ToString());
 
         }
     }
 }
 
-       
-    
+
+
 
