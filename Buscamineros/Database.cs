@@ -67,27 +67,47 @@ namespace Buscamineros
             {
                 select.Add(t.GetColumn(s));
             }
-            //we have the values where condition is true
-            List<int> valuesCompared = t.CompareValues(compared);
 
             //We create the table which we will return as the select
             values = new Table("selectResult", new List<TableColumn>());
 
-            //we make an iteration for the columns to search those we want
-            foreach (TableColumn s in select)
+            //We see if we have any condition
+            if (compared.Equals(null))
             {
-
-                //we create a column that we will add in the return list
-                column = new TableColumn(s.GetName(), s.GetColumnType());
-
-                //we get each value we want
-                foreach (string value in s.GetValues(valuesCompared))
+                //we make an iteration for the columns
+                foreach (TableColumn s in select)
                 {
-                    column.AddValue(value);
-                }
-                values.AddTableColumn(column);
-            }
+                    //we create a column that we will add in the return list
+                    column = new TableColumn(s.GetName(), s.GetColumnType());
 
+                    //we get each value we want
+                    foreach (string value in s.GetList())
+                    {
+                        column.AddValue(value);
+                    }
+                    values.AddTableColumn(column);
+                }
+            }
+            else
+            {
+                //we have the values where condition is true
+                List<int> valuesCompared = t.CompareValues(compared);
+
+                //we make an iteration for the columns to search those we want
+                foreach (TableColumn s in select)
+                {
+
+                    //we create a column that we will add in the return list
+                    column = new TableColumn(s.GetName(), s.GetColumnType());
+
+                    //we get each value we want
+                    foreach (string value in s.GetValues(valuesCompared))
+                    {
+                        column.AddValue(value);
+                    }
+                    values.AddTableColumn(column);
+                }
+            }
             return values;
 
         }
