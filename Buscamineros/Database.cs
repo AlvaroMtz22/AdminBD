@@ -228,7 +228,7 @@ namespace Buscamineros
         }
         public override string ToString() 
         {
-            string result = "{"+m_name+"}"
+            string result = "";
             foreach (Table table in m_tables)
             {
                 result+=table.ToString();
@@ -246,7 +246,7 @@ namespace Buscamineros
         {
             
             System.Security.SecureString password = new System.Security.SecureString();
-            Database db = new Database("LoadDB", "RonnyAitor", password);
+            Database db = new Database(m_name, "RonnyAitor", password);
             Table table;
             TableColumn tableColumn;
             foreach (string folder in Directory.GetDirectories(dbName))
