@@ -53,7 +53,7 @@ namespace Buscamineros
             return m_tables;
         }
 
-       
+
         public Table select(string table, List<string> selects, CompareWhere compared)
         {
             Table values = null;
@@ -76,7 +76,7 @@ namespace Buscamineros
             //we make an iteration for the columns to search those we want
             foreach (TableColumn s in select)
             {
-                
+
                 //we create a column that we will add in the return list
                 column = new TableColumn(s.GetName(), s.GetColumnType());
 
@@ -97,7 +97,7 @@ namespace Buscamineros
             return GetTable(table);
         }
 
-        public string InsertInto (string table, List<string> columns, List<string> values)
+        public string InsertInto(string table, List<string> columns, List<string> values)
         {
             Table t = GetTable(table);
             if (m_tables.Contains(t))
@@ -177,7 +177,7 @@ namespace Buscamineros
             }
             return Messages.TupleDeleteSuccess;
         }
-        
+
         public string Update(List<string> setAttribute, List<string> value, string table, CompareWhere compared)
         {
             Table t = GetTable(table);
@@ -226,7 +226,13 @@ namespace Buscamineros
             }
             return Messages.TupleUpdateSuccess;
         }
-
+        public string toString() 
+        {
+            foreach (Table table in m_tables)
+            {
+                table.ToString();
+            }
+        } 
 
         public Table RunMiniSqlQuery(string query)
         {
