@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros.MiniSQLParser
 {
-    class SelectColumns : IQuery
+     public class SelectColumns : IQuery
     {
         private string m_table;
         private string[] m_columnNames;

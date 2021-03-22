@@ -40,9 +40,23 @@ namespace Buscamineros.MiniSQLParser
             match = Regex.Match(miniSqlSentence, updatePattern);
             if (match.Success)
             {
-                CompareWhere cW = new CompareWhere(match.Groups[2].Value, match.Groups[4].Value, match.Groups[3].Value);
-                string[] columnNames = match.Groups[1].Value.Split(',');
-                Update update = new Update(match.Groups[1].Value, columnNames);
+                CompareWhere cW = new CompareWhere(match.Groups[4].Value, match.Groups[6].Value, match.Groups[5].Value);
+
+                List<string> setColumns = new List<string>();
+                List<string> setValues = new List<string>();
+
+                string set = match.Groups[2].Value.Replace("'","");
+                string[] setElements = set.Split(',');
+                for(int i=0; i<setElements.Length; i++)
+                {
+                    string[] columnAndValue = setElements[i].Split('=');
+                    string column = columnAndValue[0];
+                    string value = columnAndValue[1];
+
+                    setColumns.Add(column);
+                    setValues.Add(value);
+                }
+                Update update = new Update(match.Groups[1].Value, cW, setColumns, setValues);
                 return update;
             }
             return null;
