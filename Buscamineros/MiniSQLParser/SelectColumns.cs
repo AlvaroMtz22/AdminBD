@@ -6,28 +6,32 @@ using System.Threading.Tasks;
 
 namespace Buscamineros.MiniSQLParser
 {
-    class SelectColumns : IQuery
+    public class SelectColumns : IQuery
     {
         private string m_table;
-        private string[] m_columnNames;
+        private List<string> m_columnNames;
+
 
         public string Table()
         {
             return m_table;
         }
-        public string [] Column()
+        public List<string> Column()
         {
             return m_columnNames;
         }
         public SelectColumns(string table, string [] columnNames)
         {
             m_table = table;
-            m_columnNames = columnNames;
+            foreach(string c in columnNames)
+            {
+                m_columnNames.Add(c);
+            }
         }
 
         public Table Run(Database database)
         {
-            return null;
+            return database.select(m_table,m_columnNames,null);
         }
     }
 }
