@@ -147,18 +147,18 @@ namespace UnitTests
         [TestMethod]
         public void TestSelectAll()
         {
-            //System.Security.SecureString password = new System.Security.SecureString();
-            //Database database1 = new Database("aitor", "aitoru", password);
+            System.Security.SecureString password = new System.Security.SecureString();
+            Database database1 = new Database("aitor", "aitoru", password);
 
-            //Table tab = new Table("Users", new List<TableColumn>());
-            //TableColumn tablecolumn1 = new TableColumn("Name", "string");
-            //tablecolumn1.AddValue("Alvaro");
-            //tablecolumn1.AddValue("Ronny");
-            //TableColumn tablecolumn2 = new TableColumn("Age", "int");
-            //tablecolumn2.AddValue("20");
-            //tablecolumn2.AddValue("22");
-            //tab.AddTableColumn(tablecolumn1);
-            //tab.AddTableColumn(tablecolumn2);
+            Table tab = new Table("Users", new List<TableColumn>());
+            TableColumn tablecolumn1 = new TableColumn("Name", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
+            TableColumn tablecolumn2 = new TableColumn("Age", "int");
+            tablecolumn2.AddValue("20");
+            tablecolumn2.AddValue("22");
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
 
             database1.AddTable(tab);
             
