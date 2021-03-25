@@ -122,8 +122,6 @@ namespace Buscamineros
             {
                 return null;
             }
-
-            return null;
         }
 
         public string InsertInto(string table, List<string> columns, List<string> values)
