@@ -89,12 +89,17 @@
   <ItemGroup>
     <Compile Include="CompareWhere.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="InsertInto.cs" />
     <Compile Include="Messages.cs" />
+    <Compile Include="MiniSQLParser\Delete.cs" />
     <Compile Include="MiniSQLParser\IQuery.cs" />
     <Compile Include="MiniSQLParser\Parser.cs" />
     <Compile Include="MiniSQLParser\SelectColumns.cs" />
     <Compile Include="MiniSQLParser\SelectAll.cs" />
+    <Compile Include="MiniSQLParser\Update.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SelectAllWhere.cs" />
+    <Compile Include="SelectColumnWhere.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="TableColumn.cs" />
   </ItemGroup>

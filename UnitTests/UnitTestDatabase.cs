@@ -126,8 +126,10 @@ namespace UnitTests
             TableColumn tcResult= new TableColumn("Name", "string");
             tcResult.AddValue("Ronny");
             tableResult.AddTableColumn(tcResult);
-
+            Table nullTable = new Table("nullTable", new List<TableColumn>());
+            nullTable.AddTableColumn(tcResult);
             // executing the select method
+
             Table result = database1.select(tab.GetName(), selects, compared);
             Assert.AreEqual("Ronny", result.GetList().ElementAt(0).GetList().ElementAt(0));
             selects.Add("Surname");
@@ -135,6 +137,8 @@ namespace UnitTests
             Table result2 = database1.select(tab.GetName(), selects, compared2);
             Assert.AreEqual("Alvaro", result2.GetList().ElementAt(0).GetList().ElementAt(0));
             Assert.AreEqual("Margo", result2.GetList().ElementAt(1).GetList().ElementAt(0));
+            Assert.AreEqual("Ronny", nullTable.GetList().ElementAt(0).GetList().ElementAt(0));
+
 
         }
 

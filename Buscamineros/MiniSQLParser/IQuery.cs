@@ -8,7 +8,7 @@ namespace Buscamineros.MiniSQLParser
 {
     public interface IQuery
     {
-        Table Run(Database database);
+        string Run(Database database);
 
     }
 }

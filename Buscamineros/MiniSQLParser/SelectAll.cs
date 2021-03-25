@@ -21,7 +21,7 @@ namespace Buscamineros.MiniSQLParser
         }
         public Table Run(Database database)
         {
-            return database.SelectAll(m_table);
+            return database.SelectAll(m_table,null);
         }
     }
 }
