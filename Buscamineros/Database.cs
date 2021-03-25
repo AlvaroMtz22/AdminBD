@@ -126,7 +126,7 @@ namespace Buscamineros
             values = new Table("selectResult", new List<TableColumn>());
 
             //We see if we have any condition
-            if (compared.Equals(null))
+            if (compared == null)
             {
                 values = GetTable(table);
             }
@@ -298,7 +298,8 @@ namespace Buscamineros
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
 
-            return queryObject.Run(this);
+            //return queryObject.Run(this);
+            return null;
         }
         public static Database Load(string dbName)
         {        
