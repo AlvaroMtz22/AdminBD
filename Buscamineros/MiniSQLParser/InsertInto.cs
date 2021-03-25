@@ -25,6 +25,7 @@ namespace Buscamineros
         public InsertInto(string table, string[] columns, string[]values)
         {
             m_table = table;
+            m_values = new List<string>();
             foreach(string v in values)
             {
                 m_values.Add(v);

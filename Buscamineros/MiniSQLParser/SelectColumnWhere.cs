@@ -17,8 +17,12 @@ namespace Buscamineros
         {
             return m_table;
         }
+        public List<string> Columns()
+        {
+            return m_columnNames;
+        }
 
-        public CompareWhere Compare()
+        public CompareWhere Condition()
         {
             return m_compare;
         }
@@ -27,15 +31,16 @@ namespace Buscamineros
         {
             m_table = table;
             m_compare = c;
+            m_columnNames = new List<string>();
             foreach (string cl in columns)
             {
                 m_columnNames.Add(cl);
             }
 
         }
-        public Table Run(Database database)
+        public string Run(Database database)
         {
-            return database.select(m_table,m_columnNames,m_compare);
+            return database.select(m_table,m_columnNames,m_compare).ToString();
         }
     }
 }
