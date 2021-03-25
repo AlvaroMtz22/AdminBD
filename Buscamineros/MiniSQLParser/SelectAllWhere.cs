@@ -16,7 +16,7 @@ namespace Buscamineros.MiniSQLParser
             return m_table;
         }
 
-        public CompareWhere Compare()
+        public CompareWhere Condition()
         {
             return m_compare;
         }
@@ -26,9 +26,9 @@ namespace Buscamineros.MiniSQLParser
             m_table = table;
             m_compare = c;
         }
-        public Table Run(Database database)
+        public string Run(Database database)
         {
-            return database.SelectAll(m_table,m_compare);
+            return database.SelectAll(m_table,m_compare).ToString();
         }
     }
     

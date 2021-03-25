@@ -48,11 +48,11 @@ namespace Buscamineros
         {
             return m_name;
         }
+
         public List<Table> GetList()
         {
             return m_tables;
         }
-
 
         public Table select(string table, List<string> selects, CompareWhere compared)
         {
@@ -263,22 +263,20 @@ namespace Buscamineros
             return result;
         } 
 
-        public Table RunMiniSqlQuery(string query)
+        public string RunMiniSqlQuery(string query)
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
 
             return queryObject.Run(this);
         }
         public static Database Load(string dbName)
-        {
-            
+        {        
             System.Security.SecureString password = new System.Security.SecureString();
             Database db = new Database(dbName, "RonnyAitor", password);
             Table table;
             TableColumn tableColumn;
             foreach (string folder in Directory.GetDirectories(dbName))
             {
-
                 string[] folders = folder.Split(new char[] { '\\' });
                 table= new Table(folders[1], new List<TableColumn>());
                 string[] filesF=Directory.GetFiles(folder);
@@ -305,21 +303,15 @@ namespace Buscamineros
                             tableColumn.AddValue(finalData[i]);
                         }
                     }
-                    table.AddTableColumn(tableColumn);
-                    
-                    
+                    table.AddTableColumn(tableColumn);            
                 }
                 db.AddTable(table);
             }
-
             return db;
-
         }
 
         public void Save()
         {
-
-           
             string text = null;
             string tc_val = null;
             string tableColumnText = null;
@@ -331,7 +323,7 @@ namespace Buscamineros
             foreach (Table m in m_tables) 
             {
                 string tableDirectory = directory + "\\" + m.GetName(); //Obtain the name of an especific table
-                if (!Directory.Exists(tableDirectory))
+                if(!Directory.Exists(tableDirectory))
                     Directory.CreateDirectory(tableDirectory);
                 string tableName = "tableName," + m.GetName();
                 text += tableName.Replace(",", "[[delimiter]]") + ","; 
@@ -349,13 +341,8 @@ namespace Buscamineros
                     }
                     File.WriteAllText(tableColumnDirectory, c.GetColumnType() + "[[delimiter]]"+  tc_val);
                     tc_val = "";
-                }
-                
-            }
-
-           
+                }     
+            }   
         }
-        
-
     }
 }
