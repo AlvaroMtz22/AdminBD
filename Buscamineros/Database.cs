@@ -121,17 +121,48 @@ namespace Buscamineros
 
         }
 
-        public Table SelectAll(string table, CompareWhere c)
+        public Table SelectAll(string table, CompareWhere compared)
         {
-            if (c == null)
+            Table values = null;
+            List<TableColumn> select = new List<TableColumn>();
+            Table t = GetTable(table);
+            List<TableColumn> TableColumns = t.GetList();
+            TableColumn column;
+
+            
+
+            //We create the table which we will return as the select
+            values = new Table("selectResult", new List<TableColumn>());
+
+            //We see if we have any condition
+            if (compared == null)
             {
-                return GetTable(table);
+                values = GetTable(table);
             }
             else
             {
-                return null;
+                //we have the values where condition is true
+                List<int> valuesCompared = t.CompareValues(compared);
+
+                //we make an iteration for the columns to search those we want
+                foreach (TableColumn s in t.GetList())
+                {
+
+                    //we create a column that we will add in the return list
+                    column = new TableColumn(s.GetName(), s.GetColumnType());
+
+                    //we get each value we want
+                    foreach (string value in s.GetValues(valuesCompared))
+                    {
+                        column.AddValue(value);
+                    }
+                    values.AddTableColumn(column);
+                }
             }
+            return values;
+
         }
+    
 
         public string InsertInto(string table, List<string> columns, List<string> values)
         {
@@ -276,7 +307,8 @@ namespace Buscamineros
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
 
-            return queryObject.Run(this);
+            //return queryObject.Run(this);
+            return null;
         }
         public static Database Load(string dbName)
         {        

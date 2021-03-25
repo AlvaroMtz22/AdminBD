@@ -147,29 +147,38 @@ namespace UnitTests
         [TestMethod]
         public void TestSelectAll()
         {
-            //System.Security.SecureString password = new System.Security.SecureString();
-            //Database database1 = new Database("aitor", "aitoru", password);
+            System.Security.SecureString password = new System.Security.SecureString();
+            Database database1 = new Database("aitor", "aitoru", password);
 
-            //Table tab = new Table("Users", new List<TableColumn>());
-            //TableColumn tablecolumn1 = new TableColumn("Name", "string");
-            //tablecolumn1.AddValue("Alvaro");
-            //tablecolumn1.AddValue("Ronny");
-            //TableColumn tablecolumn2 = new TableColumn("Age", "int");
-            //tablecolumn2.AddValue("20");
-            //tablecolumn2.AddValue("22");
-            //tab.AddTableColumn(tablecolumn1);
-            //tab.AddTableColumn(tablecolumn2);
+            Table tab = new Table("Users", new List<TableColumn>());
+            TableColumn tablecolumn1 = new TableColumn("Name", "string");
+            tablecolumn1.AddValue("Alvaro");
+            tablecolumn1.AddValue("Ronny");
+            TableColumn tablecolumn2 = new TableColumn("Age", "int");
+            tablecolumn2.AddValue("20");
+            tablecolumn2.AddValue("22");
+            tab.AddTableColumn(tablecolumn1);
+            tab.AddTableColumn(tablecolumn2);
 
-            //database1.AddTable(tab);
+            database1.AddTable(tab);
+            
+            CompareWhere compared2 = new CompareWhere("Name", "Alvaro", "=");
+            Table newTab = database1.SelectAll(tab.GetName(),compared2);
+            Table tab1 = database1.SelectAll(tab.GetName(), null);
 
-            //Table newTab = database1.SelectAll(tab.GetName());
 
-            //Assert.AreEqual("Users", newTab.GetName());
-            //Assert.AreEqual(2, newTab.GetList().Count);
-            //Assert.AreEqual("Alvaro", newTab.GetList().ElementAt(0).GetList().ElementAt(0));
-            //Assert.AreEqual("Ronny", newTab.GetList().ElementAt(0).GetList().ElementAt(1));
-            //Assert.AreEqual("20", newTab.GetList().ElementAt(1).GetList().ElementAt(0));
-            //Assert.AreEqual("22", newTab.GetList().ElementAt(1).GetList().ElementAt(1));
+            Assert.AreEqual("Users", tab1.GetName());
+            Assert.AreEqual(2, tab1.GetList().Count);
+            Assert.AreEqual("Alvaro", tab1.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual("Ronny", tab1.GetList().ElementAt(0).GetList().ElementAt(1));
+            Assert.AreEqual("20", tab1.GetList().ElementAt(1).GetList().ElementAt(0));
+            Assert.AreEqual("22", tab1.GetList().ElementAt(1).GetList().ElementAt(1));
+
+            Assert.AreEqual("Alvaro", newTab.GetList().ElementAt(0).GetList().ElementAt(0));
+            Assert.AreEqual(1, newTab.GetList().ElementAt(0).GetList().Count);
+            Assert.AreNotEqual("Margo", tab1.GetList().ElementAt(1).GetList().ElementAt(0));
+
+
         }
 
         [TestMethod]
