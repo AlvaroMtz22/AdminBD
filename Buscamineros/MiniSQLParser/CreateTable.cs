@@ -7,18 +7,24 @@ using System.Threading.Tasks;
 namespace Buscamineros.MiniSQLParser
 {
     public class CreateTable : IQuery
-
     {
-        private string m_table;
+        private string m_tableName;
+        private List<TableColumn> m_columns;
 
-        public string Table()
+        public string TableName()
         {
-            return m_table;
+            return m_tableName;
         }
 
-        public CreateTable(string table)
+        public List<TableColumn> Columns()
         {
-            m_table = table;
+            return m_columns;
+        }
+
+        public CreateTable(string table, List<TableColumn> columns)
+        {
+            m_tableName = table;
+            m_columns = columns;
         }
         public string Run(Database database)
         {
