@@ -18,9 +18,9 @@ namespace Buscamineros.MiniSQLParser
             const string selectAllWherePattern = @"SELECT \* FROM ([a-zA-Z0-9]+) WHERE ([a-zA-Z0-9]+)([=><])'([a-zA-Z0-9]+)'";
             const string selectColumnsPattern = @"SELECT ([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*) FROM ([a-zA-Z0-9]+)";
             const string selectColumnsWherePattern = @"SELECT ([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*) FROM ([a-zA-Z0-9]+) WHERE ([a-zA-Z0-9]+)([=><])'([a-zA-Z0-9]+)'";
-            const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES\(('[a-zA-Z0-9]+'(,'[a-zA-Z0-9]+')*)\)";
+            const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES \(('[a-zA-Z0-9]+'(,'[a-zA-Z0-9]+')*)\)";
             const string dropTablePattern = @"DROP TABLE ([a-zA-Z0-9]+)";
-            const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+)\(((([a-zA-Z0-9]+) (int|double|text))+((,([a-zA-Z0-9]+) (int|double|text))*))\)";
+            const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+) \(((([a-zA-Z0-9]+) (int|double|text))+((,([a-zA-Z0-9]+) (int|double|text))*))\)";
 
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
             if (match.Success)
