@@ -19,7 +19,7 @@ namespace Buscamineros.MiniSQLParser
             const string selectColumnsPattern = @"SELECT ([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*) FROM ([a-zA-Z0-9]+)";
             const string selectColumnsWherePattern = @"SELECT ([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*) FROM ([a-zA-Z0-9]+) WHERE ([a-zA-Z0-9]+)([=><])'([a-zA-Z0-9]+)'";
             const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES\(('[a-zA-Z0-9]+'(,'[a-zA-Z0-9]+')*)\)";
-            const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+)(\((([a-zA-Z0-9]+) (int|double|text))+((, ([a-zA-Z0-9]+) (int|double|text))*)\))";
+            const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+)\(((([a-zA-Z0-9]+) (int|double|text))+((, ([a-zA-Z0-9]+) (int|double|text))*))\)";
 
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
             if (match.Success)
@@ -89,7 +89,23 @@ namespace Buscamineros.MiniSQLParser
             match = Regex.Match(miniSqlSentence, createTablePattern);
             if (match.Success)
             {
-                return null;
+                List<string> columns = new List<TableColumn>();
+
+                string tableName = match.Groups[1].Value;
+                string[] temp = match.Groups[2].Value.Split(',');
+
+                for (int i = 0; i < temp.Length; i++)
+                {
+                    string[] columnAndValue = temp[i].Split(' ');
+                    string column = columnAndValue[0];
+                    string value = columnAndValue[1];
+
+                    TableColumn tc = new TableColumn(column, value);
+                    columns.Add(tc);
+                }
+
+                CreateTable createTable = new CreateTable(tableName, columns);
+                return createTable;
             }
 
             return null;
