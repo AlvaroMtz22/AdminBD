@@ -83,6 +83,19 @@ namespace UnitTests
             Assert.AreEqual("Juan", (query7 as InsertInto).Values().ElementAt(0));
             Assert.AreEqual("Gonzalez", (query7 as InsertInto).Values().ElementAt(1));
             Assert.AreEqual("30", (query7 as InsertInto).Values().ElementAt(2));
+
+            //Test drop table
+
+            IQuery query8 = Parser.Parse("DROP TABLE Ta3ble1;");
+            Assert.IsTrue(query8 is DropTable);
+            Assert.AreEqual("Ta3ble1", (query8 as DropTable).Table());
+
+            //Test create table
+
+            IQuery query9 = Parser.Parse("CREATE TABLE Ta3ble1(name text, age int, salary double);");
+            Assert.IsTrue(query9 is CreateTable);
+            Assert.AreEqual("Ta3ble1", (query9 as CreateTable).TableName());
+            Assert.AreEqual("Juan", (query9 as CreateTable).Values().ElementAt(0));
         }
     }
 }

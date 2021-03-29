@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros.MiniSQLParser
 {
-    public class DropTable : IQuery  
+    public class DropTable : IQuery
     {
         private string m_table;
 
@@ -19,7 +19,6 @@ namespace Buscamineros.MiniSQLParser
         {
             m_table = table;
         }
-
         public string Run(Database database)
         {
             return database.DeleteTable(m_table);
