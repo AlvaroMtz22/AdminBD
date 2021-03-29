@@ -14,6 +14,7 @@ namespace Buscamineros
         public static string BackupDatabaseSuccess = "Database backed up";
 
         public static string CreateTableSuccess = "Table created";
+        public static string DeleteTableSuccess = "Table deleted";
         public static string InsertSuccess = "Tuple added";
         public static string TupleDeleteSuccess = "Tuple(s) deleted";
         public static string TupleUpdateSuccess = "Tuple(s) updated";
