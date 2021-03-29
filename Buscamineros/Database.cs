@@ -37,6 +37,18 @@ namespace Buscamineros
         public void DeleteTable(Table table)
         {
             m_tables.Remove(table);
+        public string DeleteTable(string table)
+        {
+            if (m_tables.Contains(GetTable(table)))
+            {
+                m_tables.Remove(GetTable(table));
+                return Messages.DeleteDatabaseSuccess;
+            }
+            else
+            {
+                return Messages.TableDoesNotExist;
+            }
+            
         }
         public Table GetTable(string table)
         {

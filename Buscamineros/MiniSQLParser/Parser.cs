@@ -19,6 +19,8 @@ namespace Buscamineros.MiniSQLParser
             const string selectColumnsPattern = @"SELECT ([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*) FROM ([a-zA-Z0-9]+)";
             const string selectColumnsWherePattern = @"SELECT ([a-zA-Z0-9]+(,[a-zA-Z0-9]+)*) FROM ([a-zA-Z0-9]+) WHERE ([a-zA-Z0-9]+)([=><])'([a-zA-Z0-9]+)'";
             const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES\(('[a-zA-Z0-9]+'(,'[a-zA-Z0-9]+')*)\)";
+            const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+)(\((([a-zA-Z0-9]+) (int|double|text))+((, ([a-zA-Z0-9]+) (int|double|text))*)\))";
+            const string dropTablePattern = @"DROP TABLE ([a-zA-Z0-9]+)";
             const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+)\(((([a-zA-Z0-9]+) (int|double|text))+((, ([a-zA-Z0-9]+) (int|double|text))*))\)";
 
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
@@ -106,6 +108,12 @@ namespace Buscamineros.MiniSQLParser
 
                 CreateTable createTable = new CreateTable(tableName, columns);
                 return createTable;
+            }
+            match = Regex.Match(miniSqlSentence, dropTablePattern);
+            if (match.Success)
+            {
+                DropTable dropTable = new DropTable(match.Groups[1].Value);
+                return dropTable;
             }
 
             return null;
