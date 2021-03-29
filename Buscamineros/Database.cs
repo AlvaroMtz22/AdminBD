@@ -28,15 +28,13 @@ namespace Buscamineros
             m_tables.Add(table);
         }
 
-        public void CreateTable(string tableName, List<TableColumn> colums)
+        public string CreateTable(string tableName, List<TableColumn> columns)
         { 
-            Table table = new Table(tableName, colums);
+            Table table = new Table(tableName, columns);
             AddTable(table);
+            return Messages.CreateTableSuccess;
         }
 
-        public void DeleteTable(Table table)
-        {
-            m_tables.Remove(table);
         public string DeleteTable(string table)
         {
             if (m_tables.Contains(GetTable(table)))

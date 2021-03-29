@@ -43,7 +43,7 @@ namespace UnitTests
             database.AddTable(table);
 
             Assert.AreEqual(database.GetList().Count, 1);
-            database.DeleteTable(table);
+            database.DeleteTable("Nombres");
 
             Assert.AreEqual(database.GetList().Count, 0);
         }

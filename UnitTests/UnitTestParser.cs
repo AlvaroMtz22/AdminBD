@@ -92,10 +92,15 @@ namespace UnitTests
 
             //Test create table
 
-            IQuery query9 = Parser.Parse("CREATE TABLE Ta3ble1(name text, age int, salary double);");
+            IQuery query9 = Parser.Parse("CREATE TABLE Ta3ble1(name text,age int,salary double);");
             Assert.IsTrue(query9 is CreateTable);
             Assert.AreEqual("Ta3ble1", (query9 as CreateTable).TableName());
-            Assert.AreEqual("Juan", (query9 as CreateTable).Values().ElementAt(0));
+            Assert.AreEqual("name", (query9 as CreateTable).Columns().ElementAt(0).GetName());
+            Assert.AreEqual("text", (query9 as CreateTable).Columns().ElementAt(0).GetColumnType());
+            Assert.AreEqual("age", (query9 as CreateTable).Columns().ElementAt(1).GetName());
+            Assert.AreEqual("int", (query9 as CreateTable).Columns().ElementAt(1).GetColumnType());
+            Assert.AreEqual("salary", (query9 as CreateTable).Columns().ElementAt(2).GetName());
+            Assert.AreEqual("double", (query9 as CreateTable).Columns().ElementAt(2).GetColumnType());
         }
     }
 }
