@@ -1,4 +1,6 @@
 ﻿using System;
+using Buscamineros;
+using Buscamineros.MiniSQLParser;
 
 namespace ConsoleDatabase
 {
@@ -8,5 +10,14 @@ namespace ConsoleDatabase
         {
             Console.WriteLine("Hello World!");
         }
+
+        private static string useDatabase(string miniSqlSentence, Database database) 
+        {
+            IQuery IQ = Parser.Parse(miniSqlSentence);
+            return IQ.Run(database);
+
+        }
+        
     }
+
 }
