@@ -77,12 +77,14 @@ namespace UnitTests
 
             //Test insert into
 
-            IQuery query7 = Parser.Parse("INSERT INTO Ta3ble1 VALUES('Juan','Gonzalez','30');");
+            IQuery query7 = Parser.Parse("INSERT INTO Ta3ble1 VALUES ('Juan','Gonzalez',30,'Unai',54334.453);");
             Assert.IsTrue(query7 is InsertInto);
             Assert.AreEqual("Ta3ble1", (query7 as InsertInto).Table());
             Assert.AreEqual("Juan", (query7 as InsertInto).Values().ElementAt(0));
             Assert.AreEqual("Gonzalez", (query7 as InsertInto).Values().ElementAt(1));
             Assert.AreEqual("30", (query7 as InsertInto).Values().ElementAt(2));
+            Assert.AreEqual("Unai", (query7 as InsertInto).Values().ElementAt(3));
+            Assert.AreEqual("54334.453", (query7 as InsertInto).Values().ElementAt(4));
 
             //Test drop table
 
