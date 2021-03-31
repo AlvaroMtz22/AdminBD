@@ -314,8 +314,7 @@ namespace Buscamineros
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
 
-            //return queryObject.Run(this);
-            return null;
+            return queryObject.Run(this);
         }
         public static Database Load(string dbName)
         {        
