@@ -8,26 +8,51 @@ namespace ConsoleDatabase
 {
     class Program
     {
-        private static System.Security.SecureString contraseña; 
+        private static System.Security.SecureString password; 
         private static Database database;
         static void Main(string[] args)
         {
-            int stopCondition = 0;
-            if (database == null) 
+
+            string[] FileLines = File.ReadAllLines("input-file.txt");
+            int numtest = 0;
+            for (int i = 0; i < FileLines.Length; i++)
             {
-                contraseña = new System.Security.SecureString();
-                database = new Database("MainDatabase", "AitorUrabain", contraseña); 
+                if (i == 0 || FileLines[i] == "")
+                {
+                    if (i != 0)
+                    {
+                        Console.WriteLine("");
+                    }
+                    if(FileLines[i] == "")
+                    {
+                        i++;
+                    }
+                    numtest++;
+                    Console.WriteLine("# Test " + (numtest));
+                    password = new System.Security.SecureString();
+                    database = new Database("Database", "User", password);
+
+                    string sentence = FileLines[i];
+                    ProcessSentence(sentence);
+
+                }
+                else
+                {
+                    string sentence = FileLines[i];
+                    ProcessSentence(sentence);
+                }
             }
-            while (stopCondition != 1)
-            {
-                Console.WriteLine("Write the line you want to execute in the DB");
-                string sentence = Console.ReadLine();
-                string queryResult = database.RunMiniSqlQuery(sentence);
-                Console.WriteLine(queryResult);
-                Console.WriteLine("Ponga el numero 1 si desea parar de utilizar la BD");
-                stopCondition = Convert.ToInt32(Console.ReadLine());
-            }
-        }        
+
+
+        } 
+        //using(TextWriter writer = File.CreateText("output-file.text){writer.WriteLine(...)}
+
+        public static void ProcessSentence(string sentence)
+        {
+            
+            string queryResult = database.RunMiniSqlQuery(sentence);
+            Console.WriteLine(queryResult);
+        }
     }
 
 }

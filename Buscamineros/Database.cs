@@ -40,7 +40,7 @@ namespace Buscamineros
             if (m_tables.Contains(GetTable(table)))
             {
                 m_tables.Remove(GetTable(table));
-                return Messages.DeleteDatabaseSuccess;
+                return Messages.DeleteTableSuccess;
             }
             else
             {
@@ -88,7 +88,7 @@ namespace Buscamineros
             values = new Table("selectResult", new List<TableColumn>());
 
             //We see if we have any condition
-            if (compared.Equals(null))
+            if (compared == null)
             {
                 //we make an iteration for the columns
                 foreach (TableColumn s in select)
