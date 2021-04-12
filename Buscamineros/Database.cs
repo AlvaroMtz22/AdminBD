@@ -313,8 +313,15 @@ namespace Buscamineros
         public string RunMiniSqlQuery(string query)
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
-
-            return queryObject.Run(this);
+            if(queryObject != null)
+            {
+                return queryObject.Run(this);
+            }
+            else
+            {
+                return Messages.WrongSyntax;
+            }
+            
         }
         public static Database Load(string dbName)
         {        

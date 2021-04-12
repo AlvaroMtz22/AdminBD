@@ -1,7 +1,6 @@
 ﻿using Buscamineros;
 using System;
 using System.IO;
-using Buscamineros;
 using Buscamineros.MiniSQLParser;
 
 namespace ConsoleDatabase

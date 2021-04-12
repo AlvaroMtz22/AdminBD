@@ -28,6 +28,10 @@ namespace Buscamineros.MiniSQLParser
         }
         public string Run(Database database)
         {
+            if (!database.GetList().Contains(database.GetTable(m_table)))
+            {
+                return Messages.TableDoesNotExist;
+            }
             return database.SelectAll(m_table,m_compare).ToString();
         }
     }

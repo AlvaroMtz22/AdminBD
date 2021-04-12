@@ -40,6 +40,21 @@ namespace Buscamineros
         }
         public string Run(Database database)
         {
+            if (!database.GetList().Contains(database.GetTable(m_table)))
+            {
+                return Messages.TableDoesNotExist;
+            }
+
+            else
+            {
+                foreach (string tc in m_columnNames)
+                {
+                    if (database.GetTable(m_table).GetColumn(tc) == null)
+                    {
+                        return Messages.TableDoesNotExist;
+                    }
+                }
+            }
             return database.select(m_table,m_columnNames,m_compare).ToString();
         }
     }
