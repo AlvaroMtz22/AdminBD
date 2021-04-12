@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Buscamineros
+namespace Buscamineros.MiniSQLParser
 {
-    class Program
+    public interface IQuery
     {
-        static void Main(string[] args)
-        {
-        }
+        string Run(Database database);
+
     }
 }
