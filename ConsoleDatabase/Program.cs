@@ -26,6 +26,7 @@ namespace ConsoleDatabase
                         if (i != 0)
                         {
                             Console.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds);
+                            writer.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds);
                             totalTime = new(0);
                             Console.WriteLine("");
                             writer.WriteLine("");
@@ -65,7 +66,7 @@ namespace ConsoleDatabase
                     }
                 }
                 Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds);
-
+                writer.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds);
             }
         } 
     }
