@@ -49,7 +49,7 @@ namespace ConsoleDatabase
                         TimeSpan ts = (end - start);
                         totalTime += ts;
                         Console.WriteLine(queryResult + " (" + ts.TotalSeconds + "s)");
-                        writer.WriteLine(queryResult);
+                        writer.WriteLine(queryResult + " (" + ts.TotalSeconds + "s)");
 
                     }
                     else
@@ -62,7 +62,7 @@ namespace ConsoleDatabase
                         TimeSpan ts = (end - start);
                         totalTime += ts;
                         Console.WriteLine(queryResult + " (" + ts.TotalSeconds + "s)");
-                        writer.WriteLine(queryResult);
+                        writer.WriteLine(queryResult + " (" + ts.TotalSeconds + "s)");
                     }
                 }
                 Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
