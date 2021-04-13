@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using Buscamineros.MiniSQLParser;
+using System.Diagnostics;
+using System.Threading;
 
 namespace ConsoleDatabase
 {
@@ -11,47 +13,61 @@ namespace ConsoleDatabase
         private static Database database;
         static void Main(string[] args)
         {
-
-            string[] FileLines = File.ReadAllLines("input-file.txt");
-            int numtest = 0;
-            for (int i = 0; i < FileLines.Length; i++)
+            using (TextWriter writer = File.CreateText("output-file.text"))
             {
-                if (i == 0 || FileLines[i] == "")
+                string[] FileLines = File.ReadAllLines("input-file.txt");
+                int numtest = 0;
+                TimeSpan totalTime = new(0);
+                for (int i = 0; i < FileLines.Length; i++)
                 {
-                    if (i != 0)
+                    
+                    if (i == 0 || FileLines[i] == "")
                     {
-                        Console.WriteLine("");
+                        if (i != 0)
+                        {
+                            Console.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds);
+                            totalTime = new(0);
+                            Console.WriteLine("");
+                            writer.WriteLine("");
+                        }
+                        if (FileLines[i] == "")
+                        {
+                            i++;
+                        }
+                        numtest++;
+                        Console.WriteLine("# Test " + (numtest));
+                        writer.WriteLine("# Test " + (numtest));
+                        password = new System.Security.SecureString();
+                        database = new Database("Database", "User", password);
+
+                        string sentence = FileLines[i];
+
+                        DateTime start = DateTime.Now;
+                        string queryResult = database.RunMiniSqlQuery(sentence);
+                        DateTime end = DateTime.Now;
+                        TimeSpan ts = (end - start);
+                        totalTime += ts;
+                        Console.WriteLine(queryResult + " (" + ts.TotalSeconds + "s)");
+                        writer.WriteLine(queryResult);
+
                     }
-                    if(FileLines[i] == "")
+                    else
                     {
-                        i++;
+                        string sentence = FileLines[i];
+                    
+                        DateTime start = DateTime.Now;
+                        string queryResult = database.RunMiniSqlQuery(sentence);
+                        DateTime end = DateTime.Now;
+                        TimeSpan ts = (end - start);
+                        totalTime += ts;
+                        Console.WriteLine(queryResult + " (" + ts.TotalSeconds + "s)");
+                        writer.WriteLine(queryResult);
                     }
-                    numtest++;
-                    Console.WriteLine("# Test " + (numtest));
-                    password = new System.Security.SecureString();
-                    database = new Database("Database", "User", password);
-
-                    string sentence = FileLines[i];
-                    ProcessSentence(sentence);
-
                 }
-                else
-                {
-                    string sentence = FileLines[i];
-                    ProcessSentence(sentence);
-                }
+                Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds);
+
             }
-
-
         } 
-        //using(TextWriter writer = File.CreateText("output-file.text){writer.WriteLine(...)}
-
-        public static void ProcessSentence(string sentence)
-        {
-            
-            string queryResult = database.RunMiniSqlQuery(sentence);
-            Console.WriteLine(queryResult);
-        }
     }
 
 }
