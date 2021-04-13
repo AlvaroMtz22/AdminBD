@@ -25,8 +25,8 @@ namespace ConsoleDatabase
                     {
                         if (i != 0)
                         {
-                            Console.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds);
-                            writer.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds);
+                            Console.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds + "s");
+                            writer.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds + "s");
                             totalTime = new(0);
                             Console.WriteLine("");
                             writer.WriteLine("");
@@ -65,8 +65,8 @@ namespace ConsoleDatabase
                         writer.WriteLine(queryResult);
                     }
                 }
-                Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds);
-                writer.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds);
+                Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
+                writer.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
             }
         } 
     }
