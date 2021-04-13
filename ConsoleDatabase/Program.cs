@@ -13,7 +13,7 @@ namespace ConsoleDatabase
         private static Database database;
         static void Main(string[] args)
         {
-            using (TextWriter writer = File.CreateText("output-file.text"))
+            using (TextWriter writer = File.CreateText("output-file.txt"))
             {
                 string[] FileLines = File.ReadAllLines("input-file.txt");
                 int numtest = 0;
