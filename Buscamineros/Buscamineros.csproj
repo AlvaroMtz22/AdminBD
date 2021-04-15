@@ -87,6 +87,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="P_User.cs" />
+    <Compile Include="P_Profile.cs" />
     <Compile Include="CompareWhere.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="MiniSQLParser\CreateTable.cs" />
