@@ -21,6 +21,11 @@ namespace Buscamineros.MiniSQLParser
             const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES \(((('{0,1})[a-zA-Z0-9\.\s-]+\4)+(,('{0,1})[a-zA-Z0-9\.\s-]+\6)*)\);";
             const string dropTablePattern = @"DROP TABLE ([a-zA-Z0-9]+);";
             const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+) \(((([a-zA-Z0-9]+) (INT|DOUBLE|TEXT))+((,([a-zA-Z0-9]+) (INT|DOUBLE|TEXT))*))\);";
+            const string createSecurityProfilePattern = @"CREATE SECURITY PROFILE ([a-zA-Z0-9-_\.\s]+);";
+            const string deleteSecurityProfilePattern = @"DROP SECURITY PROFILE ([a-zA-Z0-9-_\.\s]+);";
+            const string deleteUserPattern = @"DELETE USER ([a-zA-Z0-9-_\.\s]+);";
+
+
 
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
             if (match.Success)
@@ -114,6 +119,25 @@ namespace Buscamineros.MiniSQLParser
                 DropTable dropTable = new DropTable(match.Groups[1].Value);
                 return dropTable;
             }
+            match = Regex.Match(miniSqlSentence, createSecurityProfilePattern);
+            if (match.Success)
+            {
+                CreateSecurityProfile createProfile = new CreateSecurityProfile(match.Groups[1].Value);
+                return createProfile;
+            }
+            match = Regex.Match(miniSqlSentence, deleteSecurityProfilePattern);
+            if (match.Success)
+            {
+                DeleteSecurityProfile deleteProfile = new DeleteSecurityProfile(match.Groups[1].Value);
+                return deleteProfile;
+            }
+            match = Regex.Match(miniSqlSentence, deleteUserPattern);
+            if (match.Success)
+            {
+                DeleteUser deleteUser = new DeleteUser(match.Groups[1].Value);
+                return deleteUser;
+            }
+
 
             return null;
         }
