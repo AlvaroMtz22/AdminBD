@@ -21,6 +21,9 @@ namespace Buscamineros.MiniSQLParser
             const string insertIntoPattern = @"INSERT INTO ([a-zA-Z0-9]+) VALUES \(((('{0,1})[a-zA-Z0-9\.\s-]+\4)+(,('{0,1})[a-zA-Z0-9\.\s-]+\6)*)\);";
             const string dropTablePattern = @"DROP TABLE ([a-zA-Z0-9]+);";
             const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+) \(((([a-zA-Z0-9]+) (INT|DOUBLE|TEXT))+((,([a-zA-Z0-9]+) (INT|DOUBLE|TEXT))*))\);";
+            const string grantPrivelegePattern = @"GRANT (INSERT|DELETE|SELECT|UPDATE) ON ([a-zA-Z0-9]+) TO ([a-zA-Z0-9-_\.\s]+);";
+            const string revokePrivelegePattern = @"REVOKE(INSERT|DELETE|SELECT|UPDATE) ON([a-zA-Z0-9] +) TO([a-zA-Z0-9-_\.\s] +);";
+            const string addUserPattern = @"ADD USER \(('[a-zA-Z0-9]+', '[a-zA-Z0-9]+', '[a-zA-Z0-9]+')\);";
 
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
             if (match.Success)
@@ -114,7 +117,23 @@ namespace Buscamineros.MiniSQLParser
                 DropTable dropTable = new DropTable(match.Groups[1].Value);
                 return dropTable;
             }
-
+            match = Regex.Match(miniSqlSentence, grantPrivelegePattern);
+            if (match.Success)
+            {
+                GrantPrivilege grantPrivilege = new GrantPrivilege(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+                return grantPrivilege;
+            }
+            match = Regex.Match(miniSqlSentence, revokePrivelegePattern);
+            if (match.Success)
+            {
+                RevokePrivilege revokePrivilege = new RevokePrivilege(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+                return revokePrivilege;
+            }
+            match = Regex.Match(miniSqlSentence, addUserPattern);
+            if (match.Success)
+            {
+                //to do
+            }
             return null;
         }
     }

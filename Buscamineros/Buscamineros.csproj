@@ -89,13 +89,16 @@
   <ItemGroup>
     <Compile Include="CompareWhere.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="MiniSQLParser\AddUser.cs" />
     <Compile Include="MiniSQLParser\CreateTable.cs" />
     <Compile Include="MiniSQLParser\dropTable.cs" />
+    <Compile Include="MiniSQLParser\GrantPrivilege.cs" />
     <Compile Include="MiniSQLParser\InsertInto.cs" />
     <Compile Include="Messages.cs" />
     <Compile Include="MiniSQLParser\Delete.cs" />
     <Compile Include="MiniSQLParser\IQuery.cs" />
     <Compile Include="MiniSQLParser\Parser.cs" />
+    <Compile Include="MiniSQLParser\RevokePrivilege.cs" />
     <Compile Include="MiniSQLParser\SelectColumns.cs" />
     <Compile Include="MiniSQLParser\SelectAll.cs" />
     <Compile Include="MiniSQLParser\Update.cs" />
