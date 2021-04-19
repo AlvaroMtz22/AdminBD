@@ -15,6 +15,11 @@ namespace Buscamineros.MiniSQLParser
             m_user = user;
         }
 
+        public string User()
+        {
+            return m_user;
+        }
+
         public string Run(Database database)
         {
             return null;

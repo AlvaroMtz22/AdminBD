@@ -15,6 +15,11 @@ namespace Buscamineros.MiniSQLParser
             m_profile = profile;
         }
 
+        public string Profile()
+        {
+            return m_profile;
+        }
+
         public string Run(Database database)
         {
             return null;

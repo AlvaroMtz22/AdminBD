@@ -103,6 +103,24 @@ namespace UnitTests
             Assert.AreEqual("INT", (query9 as CreateTable).Columns().ElementAt(1).GetColumnType());
             Assert.AreEqual("salary", (query9 as CreateTable).Columns().ElementAt(2).GetName());
             Assert.AreEqual("DOUBLE", (query9 as CreateTable).Columns().ElementAt(2).GetColumnType());
+
+            //Test create security profile
+
+            IQuery query10 = Parser.Parse("CREATE SECURITY PROFILE Employee;");
+            Assert.IsTrue(query10 is CreateSecurityProfile);
+            Assert.AreEqual("Employee", (query10 as CreateSecurityProfile).Profile());
+
+            //Test delete security profile
+
+            IQuery query11 = Parser.Parse("DROP SECURITY PROFILE Employee;");
+            Assert.IsTrue(query11 is DeleteSecurityProfile);
+            Assert.AreEqual("Employee", (query11 as DeleteSecurityProfile).Profile());
+
+            //Test delete security profile
+
+            IQuery query12 = Parser.Parse("DELETE USER user;");
+            Assert.IsTrue(query12 is DeleteUser);
+            Assert.AreEqual("user", (query12 as DeleteUser).User());
         }
     }
 }
