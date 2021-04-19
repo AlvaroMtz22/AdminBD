@@ -22,8 +22,8 @@ namespace Buscamineros.MiniSQLParser
             const string dropTablePattern = @"DROP TABLE ([a-zA-Z0-9]+);";
             const string createTablePattern = @"CREATE TABLE ([a-zA-Z0-9]+) \(((([a-zA-Z0-9]+) (INT|DOUBLE|TEXT))+((,([a-zA-Z0-9]+) (INT|DOUBLE|TEXT))*))\);";
             const string grantPrivelegePattern = @"GRANT (INSERT|DELETE|SELECT|UPDATE) ON ([a-zA-Z0-9]+) TO ([a-zA-Z0-9-_\.\s]+);";
-            const string revokePrivelegePattern = @"REVOKE(INSERT|DELETE|SELECT|UPDATE) ON([a-zA-Z0-9] +) TO([a-zA-Z0-9-_\.\s] +);";
-            const string addUserPattern = @"ADD USER \(('[a-zA-Z0-9]+', '[a-zA-Z0-9]+', '[a-zA-Z0-9]+')\);";
+            const string revokePrivelegePattern = @"REVOKE (INSERT|DELETE|SELECT|UPDATE) ON ([a-zA-Z0-9]+) TO ([a-zA-Z0-9-_\.\s]+);";
+            const string addUserPattern = @"ADD USER \('([a-zA-Z0-9]+)','([a-zA-Z0-9]+)',([a-zA-Z0-9]+)\);";
 
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
             if (match.Success)
@@ -132,7 +132,8 @@ namespace Buscamineros.MiniSQLParser
             match = Regex.Match(miniSqlSentence, addUserPattern);
             if (match.Success)
             {
-                //to do
+                AddUser addUser = new AddUser(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+                return addUser;
             }
             return null;
         }

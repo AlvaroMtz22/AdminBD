@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros.MiniSQLParser
 {
-    class RevokePrivilege : IQuery
+    public class RevokePrivilege : IQuery
     {
         private string m_table;
         private string m_privilege;

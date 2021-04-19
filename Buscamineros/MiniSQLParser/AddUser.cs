@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros.MiniSQLParser
 {
-    class AddUser : IQuery
+    public class AddUser : IQuery
     {
         private string m_user;
         private string m_password;
