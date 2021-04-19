@@ -89,8 +89,11 @@
   <ItemGroup>
     <Compile Include="CompareWhere.cs" />
     <Compile Include="Database.cs" />
+    <Compile Include="MiniSQLParser\CreateSecurityProfile.cs" />
     <Compile Include="MiniSQLParser\AddUser.cs" />
     <Compile Include="MiniSQLParser\CreateTable.cs" />
+    <Compile Include="MiniSQLParser\DeleteSecurityProfile.cs" />
+    <Compile Include="MiniSQLParser\DeleteUser.cs" />
     <Compile Include="MiniSQLParser\dropTable.cs" />
     <Compile Include="MiniSQLParser\GrantPrivilege.cs" />
     <Compile Include="MiniSQLParser\InsertInto.cs" />
