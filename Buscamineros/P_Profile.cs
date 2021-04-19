@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class Profile
+     public class Profile
     {
         private string m_name;
         List<PrivilegeType> m_privilege = new List<PrivilegeType>();
@@ -19,8 +19,13 @@ namespace Buscamineros
         }
         public void addPrivileges(PrivilegeType privilege)
         {
-
-            m_privilege.Add(privilege);
+            foreach (PrivilegeType p in privilege)
+            {
+                if (p.g == profile)
+                {
+                    profiles.RemoveAt(position);
+                }
+                m_privilege.Add(privilege);
 
         }
         public void deletePrivileges(PrivilegeType privilege)
