@@ -12,6 +12,7 @@ namespace Buscamineros
     {
         private string m_name;
         private List<TableColumn> m_list = new List<TableColumn>();
+        private List<Profile> m_profile = new List<Profile>();
 
         public Table(string name, List<TableColumn> tableColumns)
         {
@@ -134,5 +135,14 @@ namespace Buscamineros
 
 
         }
+        public string GetProfileName()
+        {
+            return m_profile;
+        }
+        //public ProfileTable (string name, List<Profile> profile)
+        //{
+        //    m_name = name;
+        //    m_profile = profile;
+        //}
     }
 }

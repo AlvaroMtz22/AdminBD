@@ -13,7 +13,7 @@ namespace Buscamineros
         
         private string m_username;
         private System.Security.SecureString m_password;
-        private Profile m_profile = new Profile();
+        Profile m_profile;
 
         public User (string username, System.Security.SecureString password, Profile profile)
         {
@@ -26,15 +26,9 @@ namespace Buscamineros
         {
             return m_username;
         }
-        
 
-        //Dictionary<string,List<Privilege>>
-        //table Profile = new Table();
-        //tableProfile["User Profiles"] = new List<Privilege>();
-        //tableProfile["User Profiles"].add(PrivilegeDelete);
-        //tableProfile["User Profiles"].add(PrivilegeInsert);
-        //tableProfile["User Profiles"].add(PrivilegeSelect);
-        //tableProfile["User Profiles"].add(PrivilegeUpdate);
+
+        
 
     }
     
