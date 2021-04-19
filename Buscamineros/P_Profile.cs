@@ -19,12 +19,7 @@ namespace Buscamineros
         }
         public void addPrivileges(PrivilegeType privilege)
         {
-            foreach (PrivilegeType p in privilege)
-            {
-                if (p.g == profile)
-                {
-                    profiles.RemoveAt(position);
-                }
+           
                 m_privilege.Add(privilege);
 
         }
