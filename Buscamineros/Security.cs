@@ -43,22 +43,51 @@ namespace Buscamineros
             }
             
         }
-        public void grant(PrivilegeType privilege ,Table table , Profile profile)
+        public string Grant(PrivilegeType privilege ,Table table , Profile profile)
         {
             profile.addPrivilege(table, privilege);
+            return Messages.SecurityPrivilegeGranted;
         }
-        public void revoke(PrivilegeType privilege, Table table, Profile profile)
+        public string Revoke(PrivilegeType privilege, Table table, Profile profile)
         {
-            profile.addPrivilege(table, privilege);
+            profile.deletePrivilege(table, privilege);
+            return Messages.SecurityPrivilegeRevoked;
         }
-       
-        public void addUser(string user, string password , Profile profile)
+
+        public string AddUser(string user, string password, Profile profile)
         {
-          //  profile.addPrivilege(table, privilege);
+            bool exists = false;
+            foreach (User u in users)
+            {
+
+                if (u.getName().equals(user))
+                {
+                    exists = true;
+                }
+            }
+            if (exists == false) { 
+            User user = new User(user, password, profile);
+            users.Add(user);
+                return Messages.SecurityUserCreated;
+            }
+            else
+            {
+                return Messages.SecurityUserAlreadyExists;
+
+            }
         }
-        public void deleteUser(string user)
+        public void DeleteUser(string user)
         {
-           // profile.addPrivilege(table, privilege);
+            int index = 1;
+            foreach (User u in users) 
+            {
+                
+                if (u.getName().equals(user))
+                {
+                    users.RemoveAt(index);
+                }
+                index++;
+            }
         }
     }
     
