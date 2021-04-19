@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class User 
+   public class User 
     
     //name, password, profile (profile class)
     {
@@ -25,6 +25,15 @@ namespace Buscamineros
         public string GetName()
         {
             return m_username;
+        }
+        public Profile GetProfile()
+        {
+            return m_profile;
+        }
+
+        public void changeProfile(Profile profile)
+        {
+            m_profile = profile;
         }
         
 
