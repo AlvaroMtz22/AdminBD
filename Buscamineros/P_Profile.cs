@@ -17,18 +17,27 @@ namespace Buscamineros
             m_name = name;
             m_privilege = privilege;
         }
-        private void addPrivileges(PrivilegeType privilege) 
+        public void addPrivileges(PrivilegeType privilege) 
         {
             
             m_privilege.Add(privilege);
 
         }
-        private void deletePrivileges(PrivilegeType privilege)
+        public void deletePrivileges(PrivilegeType privilege)
+        {
+            m_privilege.Remove(privilege);
+        }
+        public void addPrivilegesInTable(PrivilegeType privilege,Table table)
+        {
+
+            m_privilege.Add(privilege);
+
+        }
+        public void deletePrivilegesInTable(PrivilegeType privilege, Table table)
         {
             m_privilege.Remove(privilege);
         }
 
-        
         //DataTable dt = new DataTable();
         //tableProfile["User Profiles"] = new List<Privilege>();
 
@@ -36,6 +45,7 @@ namespace Buscamineros
         //tableProfile["User Profiles"].add(PrivilegeInsert);
         //tableProfile["User Profiles"].add(PrivilegeSelect);
         //tableProfile["User Profiles"].add(PrivilegeUpdate);
+
     }
    
 }

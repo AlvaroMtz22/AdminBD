@@ -76,7 +76,7 @@ namespace Buscamineros
 
             }
         }
-        public void DeleteUser(string user)
+        public string DeleteUser(string user)
         {
             int index = 1;
             foreach (User u in users) 
