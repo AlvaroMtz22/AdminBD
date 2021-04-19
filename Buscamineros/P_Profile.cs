@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class Profile
+   public class Profile
     {
         private string m_name;
         List<PrivilegeType> m_privilege = new List<PrivilegeType>();
