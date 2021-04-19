@@ -8,8 +8,13 @@ namespace Buscamineros
 {
     public class Security
     {
-        List<User> users= new List<User>();
-        List<Profile> profiles = new List<Profile>();
+        List<User> users;
+        List < Profile > profiles;
+        public Security() 
+        {
+            users= new List<User>();
+            profiles = new List<Profile>();
+        }
         public void createSecurityProfile(string profile)
         {
             Profile newProfile = new Profile(profile);
@@ -45,12 +50,20 @@ namespace Buscamineros
         }
         public string Grant(PrivilegeType privilege ,Table table , Profile profile)
         {
-            profile.addPrivilege(table, privilege);
-            return Messages.SecurityPrivilegeGranted;
+            Dictionary<string, List<PrivilegeType>> hashtable= profile.GetHashTable();
+            if (hashtable.ContainsKey(table.GetName()))
+            {
+                return Messages.SecurityPrivilegeAlreadyExist;
+            }
+            else
+            {
+                profile.addPrivilegesInTable(privilege, table);
+                return Messages.SecurityPrivilegeGranted;
+            }
         }
         public string Revoke(PrivilegeType privilege, Table table, Profile profile)
         {
-            profile.deletePrivilege(table, privilege);
+            profile.deletePrivilegesInTable( privilege, table);
             return Messages.SecurityPrivilegeRevoked;
         }
 

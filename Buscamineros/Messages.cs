@@ -24,6 +24,7 @@ namespace Buscamineros
         public const string SecurityProfileDeleted = "Security profile deleted";
         public const string SecurityUserDeleted = "Security user deleted";
         public const string SecurityPrivilegeGranted = "Security privilege granted";
+        public const string SecurityPrivilegeAlreadyExist = "SecurityPrivilegeAlreadyExist";
         public const string SecurityPrivilegeRevoked = "Security privilege revoked";
         public const string SecurityUserAdded = "User added to security profile";
         public const string Error = "ERROR: ";
