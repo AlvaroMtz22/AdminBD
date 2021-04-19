@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class User 
+    public class User 
     
     //name, password, profile (profile class)
     {

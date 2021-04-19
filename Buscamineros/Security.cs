@@ -10,7 +10,7 @@ namespace Buscamineros
     {
         List<User> users= new List<User>();
         List<Profile> profiles = new List<Profile>();
-        public void createSecurityProfile(string profile)
+        public void CreateSecurityProfile(string profile)
         {
             Profile newProfile = new Profile(profile);
             Boolean isAlready = false;
@@ -30,7 +30,7 @@ namespace Buscamineros
                 //mostrar error
             }
         }
-        public void dropSecurityProfile(string profile)
+        public void DropSecurityProfile(string profile)
         {
             int position = 0;
             foreach (Profile p in profiles)
