@@ -15,7 +15,7 @@ namespace Buscamineros
             users= new List<User>();
             profiles = new List<Profile>();
         }
-        public void createSecurityProfile(string profile)
+        public string CreateSecurityProfile(string profile)
         {
             Profile newProfile = new Profile(profile);
             Boolean isAlready = false;
@@ -29,13 +29,14 @@ namespace Buscamineros
             if (isAlready == false)
             {
                 profiles.Add(newProfile);
+                return null;
             }
             else 
             {
-                //mostrar error
+                return Messages.SecurityProfileAlreadyExists;
             }
         }
-        public void DropSecurityProfile(string profile)
+        public string DropSecurityProfile(string profile)
         {
             int position = 0;
             foreach (Profile p in profiles)
@@ -46,6 +47,7 @@ namespace Buscamineros
                 }
                 position++;
             }
+            return null;
             
         }
         public string Grant(PrivilegeType privilege ,Table table , Profile profile)
@@ -101,6 +103,16 @@ namespace Buscamineros
                 }
                 index++;
             }
+        }
+
+        public List<User> GetUsers()
+        {
+            return users;
+        }
+
+        public List<Profile> GetProfiles()
+        {
+            return profiles;
         }
     }
     
