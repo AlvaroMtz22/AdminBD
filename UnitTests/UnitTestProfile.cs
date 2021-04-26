@@ -13,25 +13,23 @@ namespace UnitTests
     public class UnitTestProfile
     {
         Table table = new Table("Employees", new List<TableColumn>());
-        List<PrivilegeType> m_privilege = new List<PrivilegeType>();
-        P_Profile profile = new P_Profile("Student", m_privilege);
+        static List<PrivilegeType> m_privilege = new List<PrivilegeType>();
+        Profile profile = new Profile("Student", m_privilege);
         PrivilegeType privilege = PrivilegeType.Select;
         Dictionary<string, List<PrivilegeType>> hashtable = new Dictionary<string, List<PrivilegeType>>();
 
         [TestMethod]
         public void ProfileConstructorTest()
         {
-            P_Profile p = new P_Profile("Programmer", m_privilege);
+            Profile p = new Profile("Programmer", m_privilege);
             Assert.IsNotNull(p);
         }
 
         [TestMethod]
         public void AddPrivilegesInTableTest()
         {
-            m_privilege.Add(PrivilegeType.Select);
-            hashtable.Add(table.GetName(), m_privilege);
-
-            profile.addPrivilegesInTable(PrivilegeType.Select, table.GetName());
+            profile.addPrivilegesInTable(PrivilegeType.Select, table);
+            Assert.AreEqual(profile.GetHashTable().Values[0],PrivilegeType.Select);
 
         }
 
