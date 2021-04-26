@@ -27,13 +27,13 @@ namespace Buscamineros
         {
             m_privilege.Remove(privilege);
         }
-        public void addPrivilegesInTable(PrivilegeType privilege, Table table)
+        public void addPrivilegesInTable(PrivilegeType privilege, string table)
         {
 
             m_privilege.Add(privilege);
 
         }
-        public void deletePrivilegesInTable(PrivilegeType privilege, Table table)
+        public void deletePrivilegesInTable(PrivilegeType privilege, string table)
         {
             m_privilege.Remove(privilege);
         }

@@ -52,6 +52,15 @@ namespace UnitTests
         [TestMethod]
         public void TestGrantPrivilege()
         {
+            //non existing table
+            string error1 = sec.Grant(PrivilegeType.Delete, "table", "Employee");
+            Assert.AreEqual(Messages.TableDoesNotExist, error1);
+
+            //non existing profile
+            sec.Grant(PrivilegeType.Delete, "table", "Employee");
+            Assert.AreEqual(Messages.TableDoesNotExist, error1);
+
+            sec.GetProfile("Employee").GetHashTable().
 
         }
 

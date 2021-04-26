@@ -50,10 +50,10 @@ namespace Buscamineros
             return null;
             
         }
-        public string Grant(PrivilegeType privilege ,Table table , Profile profile)
+        public string Grant(PrivilegeType privilege ,string table , Profile profile)
         {
             Dictionary<string, List<PrivilegeType>> hashtable= profile.GetHashTable();
-            if (hashtable.ContainsKey(table.GetName()))
+            if (hashtable.ContainsKey(table))
             {
                 return Messages.SecurityPrivilegeAlreadyExist;
             }
@@ -63,7 +63,7 @@ namespace Buscamineros
                 return Messages.SecurityPrivilegeGranted;
             }
         }
-        public string Revoke(PrivilegeType privilege, Table table, Profile profile)
+        public string Revoke(PrivilegeType privilege, string table, Profile profile)
         {
             profile.deletePrivilegesInTable( privilege, table);
             return Messages.SecurityPrivilegeRevoked;
