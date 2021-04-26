@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Buscamineros
 {
-    class Profile
+     public class Profile
     {
         private string m_name;
         List<PrivilegeType> m_privilege = new List<PrivilegeType>();
@@ -17,17 +17,17 @@ namespace Buscamineros
             m_name = name;
             m_privilege = privilege;
         }
-        public void addPrivileges(PrivilegeType privilege) 
+        public void addPrivileges(PrivilegeType privilege)
         {
-            
-            m_privilege.Add(privilege);
+           
+                m_privilege.Add(privilege);
 
         }
         public void deletePrivileges(PrivilegeType privilege)
         {
             m_privilege.Remove(privilege);
         }
-        public void addPrivilegesInTable(PrivilegeType privilege,Table table)
+        public void addPrivilegesInTable(PrivilegeType privilege, Table table)
         {
 
             m_privilege.Add(privilege);
@@ -36,6 +36,19 @@ namespace Buscamineros
         public void deletePrivilegesInTable(PrivilegeType privilege, Table table)
         {
             m_privilege.Remove(privilege);
+        }
+        public List<string> GetKeyValues()
+        {
+            return null;
+        }
+        public Dictionary<string, List<PrivilegeType>> GetHashTable()
+        {
+            return null;
+        }
+
+        public List<PrivilegeType> GetValues() 
+        {
+            return null;
         }
 
         //DataTable dt = new DataTable();
