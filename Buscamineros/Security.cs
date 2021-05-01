@@ -67,7 +67,7 @@ namespace Buscamineros
             return Messages.SecurityPrivilegeRevoked;
         }
 
-        public string AddUser(string user, string password, Profile profile)
+        public string AddUser(string user, System.Security.SecureString password, Profile profile)
         {
             bool exists = false;
             foreach (User u in users)
@@ -79,8 +79,7 @@ namespace Buscamineros
                 }
             }
             if (exists == false) { 
-            User user = new User(user, password, profile);
-            users.Add(user);
+            users.Add(new User(user, password, profile));
                 return Messages.SecurityUserCreated;
             }
             else
@@ -92,15 +91,18 @@ namespace Buscamineros
         public string DeleteUser(string user)
         {
             int index = 1;
+            string delete=Messages.SecurityUserDoesNotExist;
             foreach (User u in users) 
             {
                 
                 if (u.getName().equals(user))
                 {
                     users.RemoveAt(index);
+                    delete= Messages.SecurityUserDeleted;
                 }
                 index++;
             }
+                return delete;
         }
     }
     
