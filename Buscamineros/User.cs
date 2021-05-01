@@ -31,7 +31,7 @@ namespace Buscamineros
             return m_profile;
         }
 
-        public void changeProfile(Profile profile)
+        public void setProfile(Profile profile)
         {
             m_profile = profile;
         }

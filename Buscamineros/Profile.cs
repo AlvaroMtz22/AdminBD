@@ -11,6 +11,11 @@ namespace Buscamineros
         private string m_name;
         List<PrivilegeType> m_privilege = new List<PrivilegeType>();
         Dictionary<string, List<PrivilegeType>> hashtable;
+
+        public Profile(string name)
+        {
+            m_name = name;
+        }
         public Profile(string name, List<PrivilegeType> privilege)
         {
             hashtable = new Dictionary<string, List<PrivilegeType>>();
@@ -51,14 +56,12 @@ namespace Buscamineros
             return null;
         }
 
-        //DataTable dt = new DataTable();
-        //tableProfile["User Profiles"] = new List<Privilege>();
+        public string GetName()
+        {
+            return m_name;
+        }
 
-        //tableProfile["User Profiles"].add(PrivilegeDelete);
-        //tableProfile["User Profiles"].add(PrivilegeInsert);
-        //tableProfile["User Profiles"].add(PrivilegeSelect);
-        //tableProfile["User Profiles"].add(PrivilegeUpdate);
-
+        public Dictionary
     }
    
 }

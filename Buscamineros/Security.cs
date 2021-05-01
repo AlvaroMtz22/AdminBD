@@ -21,7 +21,7 @@ namespace Buscamineros
             Boolean isAlready = false;
             foreach (Profile p in profiles) 
             {
-                if (p.getName() == profile) 
+                if (p.GetName() == profile) 
                 {
                     isAlready = true;
                 }
@@ -40,7 +40,7 @@ namespace Buscamineros
             int position = 0;
             foreach (Profile p in profiles)
             {
-                if (p.getName() == profile)
+                if (p.GetName() == profile)
                 {
                     profiles.RemoveAt(position);
                 }
@@ -73,7 +73,7 @@ namespace Buscamineros
             foreach (User u in users)
             {
 
-                if (u.getName().equals(user))
+                if (u.GetName() == user)
                 {
                     exists = true;
                 }
@@ -95,7 +95,7 @@ namespace Buscamineros
             foreach (User u in users) 
             {
                 
-                if (u.getName().equals(user))
+                if (u.GetName() == user)
                 {
                     users.RemoveAt(index);
                     delete= Messages.SecurityUserDeleted;

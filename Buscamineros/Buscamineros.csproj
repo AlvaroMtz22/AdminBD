@@ -173,8 +173,8 @@
   <ItemGroup>
     <Compile Include="PrivilegeType.cs" />
     <Compile Include="Security.cs" />
-    <Compile Include="P_User.cs" />
-    <Compile Include="P_Profile.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Profile.cs" />
     <Compile Include="CompareWhere.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="MiniSQLParser\CreateSecurityProfile.cs" />
