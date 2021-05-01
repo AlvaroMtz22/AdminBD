@@ -14,29 +14,29 @@ namespace UnitTests
     {
         Table table = new Table("Employees", new List<TableColumn>());
         static List<PrivilegeType> m_privilege = new List<PrivilegeType>();
-        Profile profile = new Profile("Student", m_privilege);
+        Profile profile = new Profile("Student");
         PrivilegeType privilege = PrivilegeType.Select;
         Dictionary<string, List<PrivilegeType>> hashtable = new Dictionary<string, List<PrivilegeType>>();
 
         [TestMethod]
         public void ProfileConstructorTest()
         {
-            Profile p = new Profile("Programmer", m_privilege);
+            Profile p = new Profile("Programmer");
             Assert.IsNotNull(p);
         }
 
         [TestMethod]
-        public void AddPrivilegesInTableTest()
+        public void AddPrivilegesTest()
         {
-            profile.addPrivilegesInTable(PrivilegeType.Select, table);
-            Assert.AreEqual(profile.GetHashTable().Values[0],PrivilegeType.Select);
-
+            profile.AddPrivilege(PrivilegeType.Select, table.GetName());
+            Assert.AreEqual(profile.GetHashTable()[table.GetName()],PrivilegeType.Select);
         }
 
         [TestMethod]
-        public void DeletePrivilegesInTableTest()
+        public void DeletePrivilegesTest()
         {
-
+            profile.DeletePrivilege(PrivilegeType.Select, table.GetName());
+            Assert.AreEqual(profile.GetHashTable()[table.GetName()], null);
         }
 
     }

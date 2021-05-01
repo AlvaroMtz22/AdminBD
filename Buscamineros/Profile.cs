@@ -7,53 +7,66 @@ using System.Threading.Tasks;
 namespace Buscamineros
 {
      public class Profile
-    {
+     {
         private string m_name;
-        List<PrivilegeType> m_privilege = new List<PrivilegeType>();
         Dictionary<string, List<PrivilegeType>> hashtable;
 
         public Profile(string name)
         {
-            m_name = name;
-        }
-        public Profile(string name, List<PrivilegeType> privilege)
-        {
             hashtable = new Dictionary<string, List<PrivilegeType>>();
             m_name = name;
-            m_privilege = privilege;
         }
-        public void addPrivileges(PrivilegeType privilege)
-        {
-           
-                m_privilege.Add(privilege);
 
-        }
-        public void deletePrivileges(PrivilegeType privilege)
+        public string AddPrivilege(PrivilegeType privilege, string table)
         {
-            m_privilege.Remove(privilege);
+            if (hashtable.ContainsKey(table))
+            {
+                if (hashtable[table].Contains(privilege))
+                {
+                    return Messages.SecurityPrivilegeAlreadyGranted;
+                }
+                else
+                {
+                    List<PrivilegeType> newList = hashtable[table];
+                    newList.Add(privilege);
+                    hashtable[table] = newList;
+                    return Messages.SecurityPrivilegeGranted;
+                }
+            }
+            else
+            {
+                List<PrivilegeType> newList = new List<PrivilegeType>();
+                newList.Add(privilege);
+                hashtable.Add(table, newList);
+                return Messages.SecurityPrivilegeGranted;
+            }
         }
-        public void addPrivilegesInTable(PrivilegeType privilege, Table table)
-        {
 
-            m_privilege.Add(privilege);
+        public string DeletePrivilege(PrivilegeType privilege, string table)
+        {
+            if (hashtable.ContainsKey(table))
+            {
+                if (hashtable[table].Contains(privilege))
+                {
+                    List<PrivilegeType> newList = hashtable[table];
+                    newList.Remove(privilege);
+                    hashtable[table] = newList;
+                    return Messages.SecurityPrivilegeRevoked;
+                }
+                else
+                {
+                    return Messages.SecurityPrivilegeDoesNotExist;
+                }
+            }
+            else
+            {
+                return Messages.SecurityPrivilegeDoesNotExist;
+            }
+        }
 
-        }
-        public void deletePrivilegesInTable(PrivilegeType privilege, Table table)
-        {
-            m_privilege.Remove(privilege);
-        }
-        public List<string> GetKeyValues()
-        {
-            return null;
-        }
         public Dictionary<string, List<PrivilegeType>> GetHashTable()
         {
-            return null;
-        }
-
-        public List<PrivilegeType> GetValues() 
-        {
-            return null;
+            return hashtable;
         }
 
         public string GetName()
@@ -61,7 +74,6 @@ namespace Buscamineros
             return m_name;
         }
 
-        public Dictionary
     }
    
 }

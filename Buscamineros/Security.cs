@@ -8,14 +8,16 @@ namespace Buscamineros
 {
     public class Security
     {
-        List<User> users;
-        List < Profile > profiles;
+        List <User> users;
+        List <Profile> profiles;
+
         public Security() 
         {
             users= new List<User>();
             profiles = new List<Profile>();
         }
-        public void createSecurityProfile(string profile)
+
+        public string CreateSecurityProfile(string profile)
         {
             Profile newProfile = new Profile(profile);
             Boolean isAlready = false;
@@ -29,13 +31,15 @@ namespace Buscamineros
             if (isAlready == false)
             {
                 profiles.Add(newProfile);
+                return Messages.SecurityProfileCreated;
             }
             else 
             {
-                //mostrar error
+                return Messages.SecurityProfileAlreadyExists;
             }
         }
-        public void dropSecurityProfile(string profile)
+
+        public string DropSecurityProfile(string profile)
         {
             int position = 0;
             foreach (Profile p in profiles)
@@ -43,66 +47,74 @@ namespace Buscamineros
                 if (p.GetName() == profile)
                 {
                     profiles.RemoveAt(position);
+                    return Messages.SecurityProfileDeleted;
                 }
                 position++;
             }
-            
-        }
-        public string Grant(PrivilegeType privilege ,Table table , Profile profile)
-        {
-            Dictionary<string, List<PrivilegeType>> hashtable= profile.GetHashTable();
-            if (hashtable.ContainsKey(table.GetName()))
-            {
-                return Messages.SecurityPrivilegeAlreadyExist;
-            }
-            else
-            {
-                profile.addPrivilegesInTable(privilege, table);
-                return Messages.SecurityPrivilegeGranted;
-            }
-        }
-        public string Revoke(PrivilegeType privilege, Table table, Profile profile)
-        {
-            profile.deletePrivilegesInTable( privilege, table);
-            return Messages.SecurityPrivilegeRevoked;
+
+            return Messages.SecurityProfileDoesNotExist;    
         }
 
-        public string AddUser(string user, System.Security.SecureString password, Profile profile)
+        public string GrantPrivilege(PrivilegeType privilege, string table, string profile)
+        {
+            return GetProfile(profile).AddPrivilege(privilege, table);
+        }
+
+        public string RevokePrivilege(PrivilegeType privilege, string table, string profile)
+        {
+            return GetProfile(profile).DeletePrivilege(privilege, table);
+        }
+
+        public string AddUser(string user, System.Security.SecureString password, string profile)
         {
             bool exists = false;
             foreach (User u in users)
             {
-
                 if (u.GetName() == user)
                 {
                     exists = true;
                 }
             }
-            if (exists == false) { 
-            users.Add(new User(user, password, profile));
+
+            if (exists == false) 
+            { 
+                users.Add(new User(user, password, GetProfile(profile)));
                 return Messages.SecurityUserCreated;
             }
+
             else
             {
                 return Messages.SecurityUserAlreadyExists;
-
             }
         }
+
         public string DeleteUser(string user)
         {
-            int index = 1;
-            string delete=Messages.SecurityUserDoesNotExist;
+            int index = 0;
             foreach (User u in users) 
             {
-                
                 if (u.GetName() == user)
                 {
                     users.RemoveAt(index);
-                    delete= Messages.SecurityUserDeleted;
+                    return Messages.SecurityUserDeleted;
                 }
                 index++;
             }
-                return delete;
+
+            return Messages.SecurityUserDoesNotExist;
+        }
+
+        public Profile GetProfile(string profile)
+        {
+            foreach(Profile p in profiles)
+            {
+                if(p.GetName() == profile)
+                {
+                    return p;
+                }
+            }
+
+            return null; 
         }
     }
     
