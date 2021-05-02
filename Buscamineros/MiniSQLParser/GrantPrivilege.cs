@@ -9,7 +9,7 @@ namespace Buscamineros.MiniSQLParser
     public class GrantPrivilege : IQuery
     {
         private string m_table;
-        private string m_privilege;
+        private PrivilegeType m_privilege;
         private string m_profile;
 
         public string Table()
@@ -17,7 +17,7 @@ namespace Buscamineros.MiniSQLParser
             return m_table;
         }
 
-        public string Privilege()
+        public PrivilegeType Privilege()
         {
             return m_privilege;
         }
@@ -27,7 +27,7 @@ namespace Buscamineros.MiniSQLParser
             return m_profile;
         }
 
-        public GrantPrivilege(string privilege, string table, string profile)
+        public GrantPrivilege(PrivilegeType privilege, string table, string profile)
         {
             m_table = table;
             m_privilege = privilege;
@@ -36,8 +36,14 @@ namespace Buscamineros.MiniSQLParser
 
         public string Run(Database database)
         {
-            //return database.GetSecurity().GrantPrivilege();
-            return null;
+            if (database.GetList().Contains(database.GetTable(m_table)))
+            {
+                return database.GetSecurity().GrantPrivilege(m_privilege,m_table,m_profile);
+            }
+            else
+            {
+                return Messages.TableDoesNotExist;
+            }
         }
     }
 }

@@ -14,15 +14,16 @@ namespace Buscamineros
 
         public User (string username, System.Security.SecureString password, Profile profile)
         {
-
             m_username = username;
             m_password = password;
             m_profile = profile;
         }
+
         public string GetName()
         {
             return m_username;
         }
+
         public Profile GetProfile()
         {
             return m_profile;

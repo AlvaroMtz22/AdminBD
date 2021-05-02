@@ -22,7 +22,7 @@ namespace Buscamineros.MiniSQLParser
 
         public string Run(Database database)
         {
-            return null;
+            return database.GetSecurity().DeleteUser(m_user);
         }
     }
 }
