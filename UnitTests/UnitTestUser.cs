@@ -11,7 +11,7 @@ namespace UnitTests
     [TestClass]
     public class UnitTestUser
     {
-        System.Security.SecureString password = new System.Security.SecureString();
+        string password = "1234";
         Profile profile = new Profile("Programmer");
 
         [TestMethod]

@@ -12,11 +12,11 @@ namespace Buscamineros
     {
         private string m_name;
         private string m_username;
-        private System.Security.SecureString m_password;
+        private string m_password;
         private List<Table> m_tables = new List<Table>();
         private Security m_security;
 
-        public Database(string name, string username, System.Security.SecureString password)
+        public Database(string name, string username, string password)
         {
             m_name = name;
             m_username = username;
@@ -326,7 +326,7 @@ namespace Buscamineros
         }
         public static Database Load(string dbName)
         {        
-            System.Security.SecureString password = new System.Security.SecureString();
+            string password = "1234";
             Database db = new Database(dbName, "RonnyAitor", password);
             Table table;
             TableColumn tableColumn;
