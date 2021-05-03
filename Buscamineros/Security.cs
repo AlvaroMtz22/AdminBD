@@ -97,9 +97,8 @@ namespace Buscamineros
             if (exists == false) 
             { 
                 users.Add(new User(user, password, GetProfile(profile)));
-                return Messages.SecurityUserCreated;
+                return Messages.SecurityUserAdded;
             }
-
             else
             {
                 return Messages.SecurityUserAlreadyExists;
@@ -160,6 +159,11 @@ namespace Buscamineros
                 }
             }
             return false;
+        }
+
+        public User GetUser(string name)
+        {
+            return null;
         }
     }
     

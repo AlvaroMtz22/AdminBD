@@ -24,7 +24,7 @@ namespace UnitTests
 
             string success = sec.CreateSecurityProfile("Employee");
             Assert.AreEqual(1, sec.GetProfiles().Count());
-            Assert.AreEqual("Employee", sec.GetProfiles().ElementAt(0));
+            Assert.AreEqual( , sec.GetProfiles().ElementAt(0));
             Assert.AreEqual(Messages.SecurityProfileCreated, success);
 
             //Trying to create an already existing profile
