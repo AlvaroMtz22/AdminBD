@@ -116,6 +116,33 @@ namespace Buscamineros
 
             return null; 
         }
+
+        public List<User> GetUsers()
+        {
+            return users;
+        }
+
+        public List<Profile> GetProfiles()
+        {
+            return profiles;
+        }
+
+        public Boolean CheckPrivilege(User user, PrivilegeType privilege, string table)
+        {
+            if (user.GetName() == "admin")
+            {
+                return true;
+            }
+            else
+            {
+                Profile pr = user.GetProfile();
+                if (pr.GetHashTable()[table].Contains(privilege))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
     
 }
