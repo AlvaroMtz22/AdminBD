@@ -52,15 +52,29 @@ namespace UnitTests
         [TestMethod]
         public void TestGrantPrivilege()
         {
-            //non existing table
-            string error1 = sec.Grant(PrivilegeType.Delete, "table", "Employee");
-            Assert.AreEqual(Messages.TableDoesNotExist, error1);
 
             //non existing profile
-            sec.Grant(PrivilegeType.Delete, "table", "Employee");
-            Assert.AreEqual(Messages.TableDoesNotExist, error1);
+            string error1 = sec.Grant(PrivilegeType.Delete, "table", "Employee");
+            Assert.AreEqual(Messages.SecurityProfileDoesNotExist, error1);
 
-            sec.GetProfile("Employee").GetHashTable().
+            Profile pr = new Profile("Employee");
+           
+            string message = sec.GrantPrivileges(PrivilegeType.Select, table.GetName(), "Employee");
+            Assert.AreEqual(PrivilegeType.Select, pr.GetHashTable()[table.GetName()].ElementAt(0));
+            sec.GrantPrivileges(PrivilegeType.Insert, table.GetName(), "Employee");
+            sec.GrantPrivileges(PrivilegeType.Update, table.GetName(), "Employee");
+            sec.GrantPrivileges(PrivilegeType.Delete, table2.GetName(), "Employee");
+            Assert.AreEqual(PrivilegeType.Delete, pr.GetHashTable()[table2.GetName()].ElementAt(0));
+            Assert.AreEqual(PrivilegeType.Select, pr.GetHashTable()[table.GetName()].ElementAt(0));
+            Assert.AreEqual(PrivilegeType.Insert, pr.GetHashTable()[table.GetName()].ElementAt(1));
+            Assert.AreEqual(PrivilegeType.Update, pr.GetHashTable()[table.GetName()].ElementAt(2));
+            Assert.AreEqual(Messages.SecurityPrivilegeGranted, message);
+
+            //Error cases
+            Assert.AreEqual(Messages.SecurityPrivilegeAlreadyGranted, sec.GrantPrivileges(PrivilegeType.Select, table.GetName(), "Employee"));
+            Assert.AreEqual(Messages.SecurityPrivilegeAlreadyGranted, sec.GrantPrivileges(PrivilegeType.Insert, table.GetName(), "Employee"));
+            Assert.AreEqual(Messages.SecurityPrivilegeAlreadyGranted, sec.GrantPrivileges(PrivilegeType.Update, table.GetName(), "Employee"));
+            Assert.AreEqual(Messages.SecurityPrivilegeAlreadyGranted, sec.GrantPrivileges(PrivilegeType.Delete, table2.GetName(), "Employee"));
 
         }
 
