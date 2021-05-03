@@ -14,13 +14,14 @@ namespace Buscamineros
         private string m_username;
         private System.Security.SecureString m_password;
         private List<Table> m_tables = new List<Table>();
+        private Security m_security;
 
-        public Database(string name, string username, System.Security.SecureString
-        password)
+        public Database(string name, string username, System.Security.SecureString password)
         {
             m_name = name;
             m_username = username;
             m_password = password;
+            m_security = new Security();
         }
 
         public void AddTable(Table table)
@@ -397,6 +398,10 @@ namespace Buscamineros
                     tc_val = "";
                 }     
             }   
+        }
+        public Security GetSecurity()
+        {
+            return m_security;
         }
     }
 }

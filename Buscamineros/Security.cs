@@ -8,20 +8,22 @@ namespace Buscamineros
 {
     public class Security
     {
-        List<User> users;
-        List < Profile > profiles;
+        List <User> users;
+        List <Profile> profiles;
+
         public Security() 
         {
             users= new List<User>();
             profiles = new List<Profile>();
         }
+
         public string CreateSecurityProfile(string profile)
         {
             Profile newProfile = new Profile(profile);
             Boolean isAlready = false;
             foreach (Profile p in profiles) 
             {
-                if (p.getName() == profile) 
+                if (p.GetName() == profile) 
                 {
                     isAlready = true;
                 }
@@ -29,90 +31,90 @@ namespace Buscamineros
             if (isAlready == false)
             {
                 profiles.Add(newProfile);
-                return null;
+                return Messages.SecurityProfileCreated;
             }
             else 
             {
                 return Messages.SecurityProfileAlreadyExists;
             }
         }
+
         public string DropSecurityProfile(string profile)
         {
             int position = 0;
             foreach (Profile p in profiles)
             {
-                if (p.getName() == profile)
+                if (p.GetName() == profile)
                 {
                     profiles.RemoveAt(position);
+                    return Messages.SecurityProfileDeleted;
                 }
                 position++;
             }
-            return null;
-            
-        }
-        public string Grant(PrivilegeType privilege ,string table , Profile profile)
-        {
-            Dictionary<string, List<PrivilegeType>> hashtable= profile.GetHashTable();
-            if (hashtable.ContainsKey(table))
-            {
-                return Messages.SecurityPrivilegeAlreadyExist;
-            }
-            else
-            {
-                profile.addPrivilegesInTable(privilege, table);
-                return Messages.SecurityPrivilegeGranted;
-            }
-        }
-        public string Revoke(PrivilegeType privilege, string table, Profile profile)
-        {
-            profile.deletePrivilegesInTable( privilege, table);
-            return Messages.SecurityPrivilegeRevoked;
+
+            return Messages.SecurityProfileDoesNotExist;    
         }
 
-        public string AddUser(string user, string password, Profile profile)
+        public string GrantPrivilege(PrivilegeType privilege, string table, string profile)
+        {
+            return GetProfile(profile).AddPrivilege(privilege, table);
+        }
+
+        public string RevokePrivilege(PrivilegeType privilege, string table, string profile)
+        {
+            return GetProfile(profile).DeletePrivilege(privilege, table);
+        }
+
+        public string AddUser(string user, System.Security.SecureString password, string profile)
         {
             bool exists = false;
             foreach (User u in users)
             {
-
-                if (u.getName().equals(user))
+                if (u.GetName() == user)
                 {
                     exists = true;
                 }
             }
-            if (exists == false) { 
-            User user = new User(user, password, profile);
-            users.Add(user);
+
+            if (exists == false) 
+            { 
+                users.Add(new User(user, password, GetProfile(profile)));
                 return Messages.SecurityUserCreated;
             }
+
             else
             {
                 return Messages.SecurityUserAlreadyExists;
-
             }
         }
+
         public string DeleteUser(string user)
         {
-            int index = 1;
+            int index = 0;
             foreach (User u in users) 
             {
-                
-                if (u.getName().equals(user))
+                if (u.GetName() == user)
                 {
                     users.RemoveAt(index);
+                    return Messages.SecurityUserDeleted;
                 }
                 index++;
             }
+
+            return Messages.SecurityUserDoesNotExist;
         }
 
-        public List<User> GetUsers()
+        public Profile GetProfile(string profile)
         {
-            return users;
-        }
+            foreach(Profile p in profiles)
+            {
+                if(p.GetName() == profile)
+                {
+                    return p;
+                }
+            }
 
-        public List<Profile> GetProfiles()
-        {
-            return profiles;
+            return null; 
         }
     }
     

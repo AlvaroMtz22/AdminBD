@@ -125,19 +125,26 @@ namespace Buscamineros.MiniSQLParser
             match = Regex.Match(miniSqlSentence, grantPrivelegePattern);
             if (match.Success)
             {
-                GrantPrivilege grantPrivilege = new GrantPrivilege(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+                GrantPrivilege grantPrivilege = new GrantPrivilege(StringToPrivilegeType(match.Groups[1].Value), match.Groups[2].Value, match.Groups[3].Value);
                 return grantPrivilege;
             }
             match = Regex.Match(miniSqlSentence, revokePrivelegePattern);
             if (match.Success)
             {
-                RevokePrivilege revokePrivilege = new RevokePrivilege(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+                RevokePrivilege revokePrivilege = new RevokePrivilege(StringToPrivilegeType(match.Groups[1].Value), match.Groups[2].Value, match.Groups[3].Value);
                 return revokePrivilege;
             }
             match = Regex.Match(miniSqlSentence, addUserPattern);
             if (match.Success)
             {
-                AddUser addUser = new AddUser(match.Groups[1].Value, match.Groups[2].Value, match.Groups[3].Value);
+                System.Security.SecureString password = new System.Security.SecureString();
+
+                foreach (char c in match.Groups[2].Value)
+                {
+                    password.AppendChar(c);
+                }
+                    
+                AddUser addUser = new AddUser(match.Groups[1].Value, password, match.Groups[3].Value);
                 return addUser;
             }
             match = Regex.Match(miniSqlSentence, createSecurityProfilePattern);
@@ -161,6 +168,22 @@ namespace Buscamineros.MiniSQLParser
 
 
             return null;
+        }
+
+        public static PrivilegeType StringToPrivilegeType(string privilege)
+        {
+            switch (privilege)
+            {
+                case "SELECT":
+                    return PrivilegeType.Select;
+                case "INSERT":
+                    return PrivilegeType.Insert;
+                case "UPDATE":
+                    return PrivilegeType.Update;
+                case "DELETE":
+                    return PrivilegeType.Delete;
+            }
+            return PrivilegeType.Delete;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Buscamineros.MiniSQLParser
     public class AddUser : IQuery
     {
         private string m_user;
-        private string m_password;
+        private System.Security.SecureString m_password;
         private string m_profile;
 
         public string User()
@@ -17,7 +17,7 @@ namespace Buscamineros.MiniSQLParser
             return m_user;
         }
 
-        public string Password()
+        public System.Security.SecureString Password()
         {
             return m_password;
         }
@@ -27,7 +27,7 @@ namespace Buscamineros.MiniSQLParser
             return m_profile;
         }
 
-        public AddUser(string user, string password, string profile)
+        public AddUser(string user, System.Security.SecureString password, string profile)
         {
             m_user = user;
             m_password = password;
@@ -36,8 +36,7 @@ namespace Buscamineros.MiniSQLParser
 
         public string Run(Database database)
         {
-            //return database.GetSecurity().AddUser();
-            return null;
+            return database.GetSecurity().AddUser(m_user, m_password, m_profile);
         }
     }
 }

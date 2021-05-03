@@ -109,7 +109,7 @@ namespace UnitTests
             IQuery query13 = Parser.Parse("GRANT INSERT ON Ta3ble1 TO Employee;");
             Assert.IsTrue(query13 is GrantPrivilege);
             Assert.AreEqual("Ta3ble1", (query13 as GrantPrivilege).Table());
-            Assert.AreEqual("INSERT", (query13 as GrantPrivilege).Privilege());
+            Assert.AreEqual(PrivilegeType.Insert, (query13 as GrantPrivilege).Privilege());
             Assert.AreEqual("Employee", (query13 as GrantPrivilege).Profile());
 
             //Test revoke privilege
@@ -117,15 +117,22 @@ namespace UnitTests
             IQuery query14 = Parser.Parse("REVOKE INSERT ON Ta3ble1 TO Employee;");
             Assert.IsTrue(query14 is RevokePrivilege);
             Assert.AreEqual("Ta3ble1", (query14 as RevokePrivilege).Table());
-            Assert.AreEqual("INSERT", (query14 as RevokePrivilege).Privilege());
+            Assert.AreEqual(PrivilegeType.Insert, (query14 as RevokePrivilege).Privilege());
             Assert.AreEqual("Employee", (query14 as RevokePrivilege).Profile());
 
             //Test add user
 
             IQuery query15 = Parser.Parse("ADD USER ('UserName','MyPassword',Employee);");
+            System.Security.SecureString password = new System.Security.SecureString();
+            string word = "MyPassword";
+            foreach (char c in word)
+            {
+                password.AppendChar(c);
+            }
+
             Assert.IsTrue(query15 is AddUser);
             Assert.AreEqual("UserName", (query15 as AddUser).User());
-            Assert.AreEqual("MyPassword", (query15 as AddUser).Password());
+            Assert.AreEqual(password, (query15 as AddUser).Password());
             Assert.AreEqual("Employee", (query15 as AddUser).Profile());
 
             //Test create security profile

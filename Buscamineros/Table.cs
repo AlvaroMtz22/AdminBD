@@ -132,17 +132,6 @@ namespace Buscamineros
                 }
             }
             return answer;
-
-
         }
-        public string GetProfileName()
-        {
-            return m_profile;
-        }
-        //public ProfileTable (string name, List<Profile> profile)
-        //{
-        //    m_name = name;
-        //    m_profile = profile;
-        //}
     }
 }
