@@ -124,7 +124,6 @@ namespace UnitTests
 
             IQuery query15 = Parser.Parse("ADD USER ('UserName','MyPassword',Employee);");
             System.Security.SecureString password = new System.Security.SecureString();
-
             string word = "MyPassword";
             foreach (char c in word)
             {
