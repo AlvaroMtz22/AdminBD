@@ -17,7 +17,7 @@ namespace UnitTests
         [TestMethod]
         public void TestDatabaseConstructor()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             Assert.AreEqual(database.GetName(), "aitor");
         }
@@ -25,7 +25,7 @@ namespace UnitTests
         [TestMethod]
         public void TestAddTable()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             Table table = new Table("Nombres", data);
             tables.Add(table);
@@ -36,7 +36,7 @@ namespace UnitTests
         [TestMethod]
         public void TestDeleteTable()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             //we add table table in order to have data to test if we are able to delete it.
             Table table = new Table("Nombres", data);
@@ -51,7 +51,7 @@ namespace UnitTests
         [TestMethod]
         public void TestGetName()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("database", "aitoru", contraseña);
             String name = "database";
             Assert.AreEqual(name, database.GetName());
@@ -60,7 +60,7 @@ namespace UnitTests
         [TestMethod]
         public void TestUpdate()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             //Parameters that will be inserted in the function
             List<string> setAttribute = new List<string>();
@@ -105,7 +105,7 @@ namespace UnitTests
         [TestMethod]
         public void TestSelect()
         {
-            System.Security.SecureString password = new System.Security.SecureString();
+            string password = "1234";
             Database database1 = new Database("aitor", "aitoru", password);
             //Creating elements for select method parameters
             List<string> selects = new List<string>();
@@ -147,7 +147,7 @@ namespace UnitTests
         [TestMethod]
         public void TestSelectAll()
         {
-            System.Security.SecureString password = new System.Security.SecureString();
+            string password = "1234";
             Database database1 = new Database("aitor", "aitoru", password);
 
             Table tab = new Table("Users", new List<TableColumn>());
@@ -184,7 +184,7 @@ namespace UnitTests
         [TestMethod]
         public void TestDelete()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             CompareWhere compared = new CompareWhere("Nombre", "Ronny", "=");
             //Creating the elements for changing with the update
@@ -218,8 +218,8 @@ namespace UnitTests
         [TestMethod]
         public void TestInsertInto()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
-            database = new Database("aitor", "aitoru", contraseña);
+            string password = "1234";
+            database = new Database("aitor", "aitoru", password);
             //Creating the elements for data in Empleado table
 
             Table tab = new Table("Empleado", new List<TableColumn>());
@@ -282,8 +282,8 @@ namespace UnitTests
         public void TestSaveAndLoad()
         {
 
-            System.Security.SecureString contraseña = new System.Security.SecureString();
-            database = new Database("UnitTestDatabase", "UN", contraseña);
+            string password = "1234";
+            database = new Database("UnitTestDatabase", "UN", password);
             Table tab = new Table("Employee", new List<TableColumn>());
             TableColumn tablecolumn1 = new TableColumn("Name", "string");
             tablecolumn1.AddValue("Alvaro");

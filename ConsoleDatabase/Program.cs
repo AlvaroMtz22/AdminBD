@@ -9,7 +9,7 @@ namespace ConsoleDatabase
 {
     class Program
     {
-        private static System.Security.SecureString password; 
+        private static string password; 
         private static Database database;
         static void Main(string[] args)
         {
@@ -43,7 +43,7 @@ namespace ConsoleDatabase
                         writer.WriteLine("# Test " + (numtest));
 
                         //for each test a different database is opened
-                        password = new System.Security.SecureString();
+                        password = "1234";
                         database = new Database("Database", "User", password);
 
                         string sentence = FileLines[i];

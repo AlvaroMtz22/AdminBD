@@ -65,7 +65,7 @@ namespace Buscamineros
             return GetProfile(profile).DeletePrivilege(privilege, table);
         }
 
-        public string AddUser(string user, System.Security.SecureString password, string profile)
+        public string AddUser(string user, string password, string profile)
         {
             bool exists = false;
             foreach (User u in users)
