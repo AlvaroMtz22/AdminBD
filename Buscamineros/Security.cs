@@ -57,12 +57,30 @@ namespace Buscamineros
 
         public string GrantPrivilege(PrivilegeType privilege, string table, string profile)
         {
-            return GetProfile(profile).AddPrivilege(privilege, table);
+            Profile profil = GetProfile(profile);
+            if (profil.Equals(null))
+            {
+                return Messages.SecurityProfileDoesNotExist;
+            }
+            else
+            {
+                return profil.AddPrivilege(privilege, table);
+            }
+
         }
 
         public string RevokePrivilege(PrivilegeType privilege, string table, string profile)
         {
-            return GetProfile(profile).DeletePrivilege(privilege, table);
+            
+            Profile profil = GetProfile(profile);
+            if (profil.Equals(null))
+            {
+                return Messages.SecurityProfileDoesNotExist;
+            }
+            else
+            {
+                return profil.DeletePrivilege(privilege, table);
+            }
         }
 
         public string AddUser(string user, string password, string profile)
