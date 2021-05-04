@@ -146,5 +146,18 @@ namespace UnitTests
             string error = sec.DeleteUser("UserName");
             Assert.AreEqual(Messages.SecurityUserDoesNotExist, error);
         }
+
+        [TestMethod]
+        public void TestCheckPassword()
+        {
+            sec.AddUser("UserName", "MyPassword", "Employee");
+            sec.AddUser("UserName2", "MyPassword2", "Employee");
+
+            Assert.AreEqual(false, sec.CheckPassword("UserName", "MyPassword123"));
+            Assert.AreEqual(true, sec.CheckPassword("UserName","MyPassword"));
+            Assert.AreEqual(false, sec.CheckPassword("UserName2", "MyPassword"));
+            Assert.AreEqual(true, sec.CheckPassword("UserName2", "MyPassword2"));
+
+        }
     }
 }
