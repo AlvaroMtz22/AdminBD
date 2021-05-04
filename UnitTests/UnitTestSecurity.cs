@@ -24,7 +24,7 @@ namespace UnitTests
 
             string success = sec.CreateSecurityProfile("Employee");
             Assert.AreEqual(1, sec.GetProfiles().Count());
-            Assert.AreEqual( , sec.GetProfiles().ElementAt(0));
+            Assert.AreEqual("Employee", sec.GetProfiles().ElementAt(0).GetName());
             Assert.AreEqual(Messages.SecurityProfileCreated, success);
 
             //Trying to create an already existing profile
@@ -57,7 +57,8 @@ namespace UnitTests
             string error1 = sec.GrantPrivilege(PrivilegeType.Delete, "table", "Employee");
             Assert.AreEqual(Messages.SecurityProfileDoesNotExist, error1);
 
-            Profile pr = new Profile("Employee");
+            sec.CreateSecurityProfile("Employee");
+            Profile pr = sec.GetProfile("Employee");
             Table table = new Table("Employees", new List<TableColumn>());
             Table table2 = new Table("Employers", new List<TableColumn>());
 
@@ -87,19 +88,20 @@ namespace UnitTests
             string error1 = sec.RevokePrivilege(PrivilegeType.Delete, "table", "Employee");
             Assert.AreEqual(Messages.SecurityProfileDoesNotExist, error1);
 
-            Profile pr = new Profile("Employee");
+            sec.CreateSecurityProfile("Employee");
+            Profile pr = sec.GetProfile("Employee");
             Table table = new Table("Employees", new List<TableColumn>());
             Table table2 = new Table("Employers", new List<TableColumn>());
             Table table3 = new Table("Others", new List<TableColumn>());
 
             sec.GrantPrivilege(PrivilegeType.Insert, table.GetName(), "Employee");
             sec.GrantPrivilege(PrivilegeType.Update, table.GetName(), "Employee");
-            sec.GrantPrivilege(PrivilegeType.Delete, table2.GetName(), "Employee");
-            Assert.AreEqual(PrivilegeType.Select, pr.GetHashTable()[table.GetName()].ElementAt(0));
+            sec.GrantPrivilege(PrivilegeType.Delete, table.GetName(), "Employee");
+            Assert.AreEqual(PrivilegeType.Insert, pr.GetHashTable()[table.GetName()].ElementAt(0));
             Assert.AreEqual(PrivilegeType.Update, pr.GetHashTable()[table.GetName()].ElementAt(1));
             Assert.AreEqual(PrivilegeType.Delete, pr.GetHashTable()[table.GetName()].ElementAt(2));
 
-            string message4 = sec.RevokePrivilege(PrivilegeType.Select, table.GetName(), "Employee");
+            string message4 = sec.RevokePrivilege(PrivilegeType.Insert, table.GetName(), "Employee");
             Assert.AreEqual(PrivilegeType.Update, pr.GetHashTable()[table.GetName()].ElementAt(0));
             Assert.AreEqual(PrivilegeType.Delete, pr.GetHashTable()[table.GetName()].ElementAt(1));
 
