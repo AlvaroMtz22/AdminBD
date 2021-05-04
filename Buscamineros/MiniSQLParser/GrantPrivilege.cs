@@ -34,11 +34,11 @@ namespace Buscamineros.MiniSQLParser
             m_profile = profile;
         }
 
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
             if (database.GetList().Contains(database.GetTable(m_table)))
             {
-                return database.GetSecurity().GrantPrivilege(m_privilege,m_table,m_profile);
+                return database.GetSecurity().GrantPrivilege(m_privilege,m_table,m_profile, user);
             }
             else
             {

@@ -14,6 +14,7 @@ namespace Buscamineros
         public Security() 
         {
             users= new List<User>();
+            users.Add(new User("admin", "admin", new Profile("admin")));
             profiles = new List<Profile>();
         }
 
@@ -145,7 +146,7 @@ namespace Buscamineros
             return profiles;
         }
 
-        public Boolean CheckPrivilege(User user, PrivilegeType privilege, string table)
+        public bool CheckPrivilege(User user, PrivilegeType privilege, string table)
         {
             if (user.GetName() == "admin")
             {
@@ -162,8 +163,26 @@ namespace Buscamineros
             return false;
         }
 
+        public bool CheckPassword(string username, string password)
+        {
+            User u = GetUser(username);
+            if(u.GetPassword() == password || (username == "admin" && password == "admin"))
+            {
+                return true;
+            }
+            return false;
+        }
+
         public User GetUser(string name)
         {
+            foreach (User u in users)
+            {
+                if (u.GetName() == name)
+                {
+                    return u;
+                }
+            }
+
             return null;
         }
     }

@@ -20,9 +20,9 @@ namespace Buscamineros.MiniSQLParser
             return m_user;
         }
 
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            return database.GetSecurity().DeleteUser(m_user);
+            return database.GetSecurity().DeleteUser(m_user, user);
         }
     }
 }

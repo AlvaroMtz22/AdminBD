@@ -20,9 +20,9 @@ namespace Buscamineros.MiniSQLParser
             return m_profile;
         }
 
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            return database.GetSecurity().DropSecurityProfile(m_profile);
+            return database.GetSecurity().DropSecurityProfile(m_profile, user);
         }
     }
 }

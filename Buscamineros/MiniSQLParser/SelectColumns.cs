@@ -29,13 +29,16 @@ namespace Buscamineros.MiniSQLParser
             }
         }
 
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            if(!database.GetList().Contains(database.GetTable(m_table)))
+            if(!database.GetSecurity().CheckPrivilege(user, PrivilegeType.Select, m_table))
+            {
+                return Messages.SecurityNotSufficientPrivileges;
+            }
+            else if (!database.GetList().Contains(database.GetTable(m_table)))
             {
                 return Messages.TableDoesNotExist;
             }
-
             else 
             {
                 foreach(string tc in m_columnNames)
@@ -46,7 +49,7 @@ namespace Buscamineros.MiniSQLParser
                     }
                 }
             }
-            return database.select(m_table,m_columnNames,null).ToString();
+            return database.Select(m_table,m_columnNames,null, user).ToString();
         }
     }
 }

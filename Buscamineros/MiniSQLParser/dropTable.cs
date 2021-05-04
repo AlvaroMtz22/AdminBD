@@ -19,9 +19,9 @@ namespace Buscamineros.MiniSQLParser
         {
             m_table = table;
         }
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            return database.DeleteTable(m_table);
+            return database.DeleteTable(m_table, user);
         }
     }
 }
