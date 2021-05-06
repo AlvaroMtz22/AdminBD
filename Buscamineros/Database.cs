@@ -12,11 +12,11 @@ namespace Buscamineros
     {
         private string m_name;
         private string m_username;
-        private System.Security.SecureString m_password;
+        private string m_password;
         private List<Table> m_tables = new List<Table>();
         private Security m_security;
 
-        public Database(string name, string username, System.Security.SecureString password)
+        public Database(string name, string username, string password)
         {
             m_name = name;
             m_username = username;
@@ -29,25 +29,39 @@ namespace Buscamineros
             m_tables.Add(table);
         }
 
-        public string CreateTable(string tableName, List<TableColumn> columns)
-        { 
-            Table table = new Table(tableName, columns);
-            AddTable(table);
-            return Messages.CreateTableSuccess;
-        }
-
-        public string DeleteTable(string table)
+        public string CreateTable(string tableName, List<TableColumn> columns, User user)
         {
-            if (m_tables.Contains(GetTable(table)))
+            if (!(user.GetName() == "admin"))
             {
-                m_tables.Remove(GetTable(table));
-                return Messages.DeleteTableSuccess;
+                return Messages.SecurityNotSufficientPrivileges;
             }
             else
             {
-                return Messages.TableDoesNotExist;
+                Table table = new Table(tableName, columns);
+                AddTable(table);
+                return Messages.CreateTableSuccess;
             }
             
+        }
+
+        public string DeleteTable(string table, User user)
+        {
+            if (!(user.GetName() == "admin"))
+            {
+                return Messages.SecurityNotSufficientPrivileges;
+            }
+            else
+            {
+                if (m_tables.Contains(GetTable(table)))
+                {
+                    m_tables.Remove(GetTable(table));
+                    return Messages.DeleteTableSuccess;
+                }
+                else
+                {
+                    return Messages.TableDoesNotExist;
+                }
+            }
         }
         public Table GetTable(string table)
         {
@@ -71,8 +85,9 @@ namespace Buscamineros
             return m_tables;
         }
 
-        public Table select(string table, List<string> selects, CompareWhere compared)
+        public Table Select(string table, List<string> selects, CompareWhere compared, User user)
         {
+            
             Table values = null;
             List<TableColumn> select = new List<TableColumn>();
             Table t = GetTable(table);
@@ -129,7 +144,7 @@ namespace Buscamineros
 
         }
 
-        public Table SelectAll(string table, CompareWhere compared)
+        public Table SelectAll(string table, CompareWhere compared, User user)
         {
             Table values = null;
             List<TableColumn> select = new List<TableColumn>();
@@ -172,116 +187,41 @@ namespace Buscamineros
         }
     
 
-        public string InsertInto(string table, List<string> columns, List<string> values)
+        public string InsertInto(string table, List<string> columns, List<string> values, User user)
         {
-            Table t = GetTable(table);
-            if (m_tables.Contains(t))
+            if (!(user.GetName() == "admin") || !m_security.CheckPrivilege(user, PrivilegeType.Insert, table))
             {
-                if (columns != null)
-                {
-                    int count = 0;
-
-                    foreach (string cl in columns)
-                    {
-                        if (t.GetList().Contains(t.GetColumn(cl)))
-                        {
-
-                            foreach (TableColumn tc in t.GetList())
-                            {
-                                if (tc.GetName() == cl)
-                                {
-                                    foreach (string n in values)
-                                    {
-                                        tc.AddValue(n);
-                                    }
-                                    count++;
-                                }
-                                else
-                                {
-                                    tc.AddValue("null");
-                                }
-                            }
-                        }
-                        else
-                        {
-                            return Messages.ColumnDoesNotExist;
-                        }
-                    }
-                }
-                else
-                {
-                    t.AddRow(values);
-                }
+                return Messages.SecurityNotSufficientPrivileges;
             }
             else
             {
-                return Messages.TableDoesNotExist;
-            }
-            return Messages.InsertSuccess;
-        }
-
-        public string Delete(string table, CompareWhere compared)
-        {
-            Table t = GetTable(table);
-            if (m_tables.Contains(t))
-            {
-                if (t.GetList().Contains(t.GetColumn(compared.GetColumn())))
+                Table t = GetTable(table);
+                if (m_tables.Contains(t))
                 {
-                    List<int> positions = t.CompareValues(compared);
-                    foreach (TableColumn tc in t.GetList())
+                    if (columns != null)
                     {
-                        List<string> newList = new List<string>();
-                        for (int i = 0; i < tc.GetList().Count; i++)
-                        {
-                            if (!positions.Contains(i))
-                            {
-                                newList.Add(tc.GetList().ElementAt(i));
-                            }
-                        }
-                        tc.SetList(newList);
-                    }
-                }
-                else
-                {
-                    return Messages.ColumnDoesNotExist;
-                }
-            }
-            else
-            {
-                return Messages.TableDoesNotExist;
-            }
-            return Messages.TupleDeleteSuccess;
-        }
+                        int count = 0;
 
-        public string Update(List<string> setAttribute, List<string> value, string table, CompareWhere compared)
-        {
-            Table t = GetTable(table);
-            if (m_tables.Contains(t))
-            {
-                if (t.GetList().Contains(t.GetColumn(compared.GetColumn())))
-                {
-                    //we have the values where condition is true
-                    List<int> valuesCompared = t.CompareValues(compared);
-                    //we make an iteration for the columns to search those we want
-                    int count = 0;
-                    foreach (TableColumn s in t.GetList())
-                    {
-                        foreach (string cl in setAttribute)
+                        foreach (string cl in columns)
                         {
                             if (t.GetList().Contains(t.GetColumn(cl)))
                             {
-                                //attribute we have to change
-                                if (s.GetName().CompareTo(cl) == 0)
-                                {
-                                    //loop each position we gonna change
-                                    foreach (int str in (valuesCompared))
-                                    {
-                                        //change value in the position we are
-                                        s.GetList()[str] = value[count];
-                                    }
-                                    count++;
-                                }
 
+                                foreach (TableColumn tc in t.GetList())
+                                {
+                                    if (tc.GetName() == cl)
+                                    {
+                                        foreach (string n in values)
+                                        {
+                                            tc.AddValue(n);
+                                        }
+                                        count++;
+                                    }
+                                    else
+                                    {
+                                        tc.AddValue("null");
+                                    }
+                                }
                             }
                             else
                             {
@@ -289,17 +229,113 @@ namespace Buscamineros
                             }
                         }
                     }
+                    else
+                    {
+                        t.AddRow(values);
+                    }
                 }
                 else
                 {
-                    return Messages.ColumnDoesNotExist;
+                    return Messages.TableDoesNotExist;
                 }
+                return Messages.InsertSuccess;
+            }
+        }
+
+        public string Delete(string table, CompareWhere compared, User user)
+        {
+            if (!(user.GetName() == "admin") || !m_security.CheckPrivilege(user, PrivilegeType.Delete, table))
+            {
+                return Messages.SecurityNotSufficientPrivileges;
             }
             else
             {
-                return Messages.TableDoesNotExist;
+                Table t = GetTable(table);
+                if (m_tables.Contains(t))
+                {
+                    if (t.GetList().Contains(t.GetColumn(compared.GetColumn())))
+                    {
+                        List<int> positions = t.CompareValues(compared);
+                        foreach (TableColumn tc in t.GetList())
+                        {
+                            List<string> newList = new List<string>();
+                            for (int i = 0; i < tc.GetList().Count; i++)
+                            {
+                                if (!positions.Contains(i))
+                                {
+                                    newList.Add(tc.GetList().ElementAt(i));
+                                }
+                            }
+                            tc.SetList(newList);
+                        }
+                    }
+                    else
+                    {
+                        return Messages.ColumnDoesNotExist;
+                    }
+                }
+                else
+                {
+                    return Messages.TableDoesNotExist;
+                }
+                return Messages.TupleDeleteSuccess;
             }
-            return Messages.TupleUpdateSuccess;
+        }
+
+        public string Update(List<string> setAttribute, List<string> value, string table, CompareWhere compared, User user)
+        {
+            if (!(user.GetName() == "admin") || !m_security.CheckPrivilege(user, PrivilegeType.Update, table))
+            {
+                return Messages.SecurityNotSufficientPrivileges;
+            }
+            else
+            {
+                Table t = GetTable(table);
+                if (m_tables.Contains(t))
+                {
+                    if (t.GetList().Contains(t.GetColumn(compared.GetColumn())))
+                    {
+                        //we have the values where condition is true
+                        List<int> valuesCompared = t.CompareValues(compared);
+                        //we make an iteration for the columns to search those we want
+                        int count = 0;
+                        foreach (TableColumn s in t.GetList())
+                        {
+                            foreach (string cl in setAttribute)
+                            {
+                                if (t.GetList().Contains(t.GetColumn(cl)))
+                                {
+                                    //attribute we have to change
+                                    if (s.GetName().CompareTo(cl) == 0)
+                                    {
+                                        //loop each position we gonna change
+                                        foreach (int str in (valuesCompared))
+                                        {
+                                            //change value in the position we are
+                                            s.GetList()[str] = value[count];
+                                        }
+                                        count++;
+                                    }
+
+                                }
+                                else
+                                {
+                                    return Messages.ColumnDoesNotExist;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        return Messages.ColumnDoesNotExist;
+                    }
+                }
+                else
+                {
+                    return Messages.TableDoesNotExist;
+                }
+                return Messages.TupleUpdateSuccess;
+            }
         }
         public override string ToString() 
         {
@@ -311,12 +347,12 @@ namespace Buscamineros
             return result;
         } 
 
-        public string RunMiniSqlQuery(string query)
+        public string RunMiniSqlQuery(string query, User user)
         {
             IQuery queryObject = MiniSQLParser.Parser.Parse(query);
             if(queryObject != null)
             {
-                return queryObject.Run(this);
+                return queryObject.Run(this, user);
             }
             else
             {
@@ -326,7 +362,7 @@ namespace Buscamineros
         }
         public static Database Load(string dbName)
         {        
-            System.Security.SecureString password = new System.Security.SecureString();
+            string password = "1234";
             Database db = new Database(dbName, "RonnyAitor", password);
             Table table;
             TableColumn tableColumn;

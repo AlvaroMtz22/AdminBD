@@ -26,13 +26,17 @@ namespace Buscamineros.MiniSQLParser
             m_table = table;
             m_compare = c;
         }
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
             if (!database.GetList().Contains(database.GetTable(m_table)))
             {
                 return Messages.TableDoesNotExist;
             }
-            return database.SelectAll(m_table,m_compare).ToString();
+            else if (!database.GetSecurity().CheckPrivilege(user, PrivilegeType.Select, m_table))
+            {
+                return Messages.SecurityNotSufficientPrivileges;
+            }
+            return database.SelectAll(m_table,m_compare, user).ToString();
         }
     }
     

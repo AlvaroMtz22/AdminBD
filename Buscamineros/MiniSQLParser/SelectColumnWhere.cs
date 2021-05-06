@@ -38,9 +38,13 @@ namespace Buscamineros
             }
 
         }
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            if (!database.GetList().Contains(database.GetTable(m_table)))
+            if (!database.GetSecurity().CheckPrivilege(user, PrivilegeType.Select, m_table))
+            {
+                return Messages.SecurityNotSufficientPrivileges;
+            }
+            else if (!database.GetList().Contains(database.GetTable(m_table)))
             {
                 return Messages.TableDoesNotExist;
             }
@@ -55,7 +59,7 @@ namespace Buscamineros
                     }
                 }
             }
-            return database.select(m_table,m_columnNames,m_compare).ToString();
+            return database.Select(m_table,m_columnNames,m_compare, user).ToString();
         }
     }
 }

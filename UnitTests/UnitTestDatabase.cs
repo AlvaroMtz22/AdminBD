@@ -14,10 +14,18 @@ namespace UnitTests
         List<TableColumn> data = new List<TableColumn>();
         Database database;
 
+        static string password = "admin";
+        static Profile profile = new Profile("admin");
+        User user = new User("admin", password, profile);
+
+        static string password2 = "notAdmin";
+        static Profile profile2 = new Profile("notAdmin");
+        User user2 = new User("notAdmin", password2, profile2);
+
         [TestMethod]
         public void TestDatabaseConstructor()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             Assert.AreEqual(database.GetName(), "aitor");
         }
@@ -25,7 +33,7 @@ namespace UnitTests
         [TestMethod]
         public void TestAddTable()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             Table table = new Table("Nombres", data);
             tables.Add(table);
@@ -36,22 +44,27 @@ namespace UnitTests
         [TestMethod]
         public void TestDeleteTable()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
-            database = new Database("aitor", "aitoru", contraseña);
+            database = new Database("aitor", "aitoru", password);
             //we add table table in order to have data to test if we are able to delete it.
             Table table = new Table("Nombres", data);
             database.AddTable(table);
 
+            //user == admin
             Assert.AreEqual(database.GetList().Count, 1);
-            database.DeleteTable("Nombres");
-
+            database.DeleteTable("Nombres", user);
             Assert.AreEqual(database.GetList().Count, 0);
+
+            //user != admin
+            Table table2 = new Table("Students", data);
+            database.AddTable(table2);
+            Assert.AreEqual(Messages.SecurityNotSufficientPrivileges, database.DeleteTable("Students", user2));
+
         }
 
         [TestMethod]
         public void TestGetName()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("database", "aitoru", contraseña);
             String name = "database";
             Assert.AreEqual(name, database.GetName());
@@ -60,7 +73,7 @@ namespace UnitTests
         [TestMethod]
         public void TestUpdate()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             //Parameters that will be inserted in the function
             List<string> setAttribute = new List<string>();
@@ -83,7 +96,11 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn2);
             database.AddTable(tab);
             // executing the update method
-            database.Update(setAttribute, value, table, compared);
+            //user != admin
+            Assert.AreEqual(Messages.SecurityNotSufficientPrivileges, database.Update(setAttribute, value, table, compared, user2));
+
+            //user == admin
+            database.Update(setAttribute, value, table, compared, user);
             // looking if it has changed
             Boolean welldone = false;
             foreach (TableColumn tc in tab.GetList()) 
@@ -100,12 +117,12 @@ namespace UnitTests
                 }
             }
             Assert.AreEqual(true, welldone);
-        }
+            }
 
         [TestMethod]
         public void TestSelect()
         {
-            System.Security.SecureString password = new System.Security.SecureString();
+            string password = "1234";
             Database database1 = new Database("aitor", "aitoru", password);
             //Creating elements for select method parameters
             List<string> selects = new List<string>();
@@ -134,11 +151,11 @@ namespace UnitTests
             nullTable.AddTableColumn(tcResult);
             // executing the select method
 
-            Table result = database1.select(tab.GetName(), selects, compared);
+            Table result = database1.Select(tab.GetName(), selects, compared, user);
             Assert.AreEqual("Ronny", result.GetList().ElementAt(0).GetList().ElementAt(0));
             selects.Add("Surname");
             CompareWhere compared2 = new CompareWhere("Name", "Alvaro", "=");
-            Table result2 = database1.select(tab.GetName(), selects, compared2);
+            Table result2 = database1.Select(tab.GetName(), selects, compared2, user);
             Assert.AreEqual("Alvaro", result2.GetList().ElementAt(0).GetList().ElementAt(0));
             Assert.AreEqual("Margo", result2.GetList().ElementAt(1).GetList().ElementAt(0));
             Assert.AreEqual("Ronny", nullTable.GetList().ElementAt(0).GetList().ElementAt(0));
@@ -147,7 +164,7 @@ namespace UnitTests
         [TestMethod]
         public void TestSelectAll()
         {
-            System.Security.SecureString password = new System.Security.SecureString();
+            string password = "1234";
             Database database1 = new Database("aitor", "aitoru", password);
 
             Table tab = new Table("Users", new List<TableColumn>());
@@ -163,8 +180,8 @@ namespace UnitTests
             database1.AddTable(tab);
             
             CompareWhere compared2 = new CompareWhere("Name", "Alvaro", "=");
-            Table newTab = database1.SelectAll(tab.GetName(),compared2);
-            Table tab1 = database1.SelectAll(tab.GetName(), null);
+            Table newTab = database1.SelectAll(tab.GetName(),compared2, user);
+            Table tab1 = database1.SelectAll(tab.GetName(), null, user);
 
 
             Assert.AreEqual("Users", tab1.GetName());
@@ -184,7 +201,7 @@ namespace UnitTests
         [TestMethod]
         public void TestDelete()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
+            string contraseña = "1234";
             database = new Database("aitor", "aitoru", contraseña);
             CompareWhere compared = new CompareWhere("Nombre", "Ronny", "=");
             //Creating the elements for changing with the update
@@ -199,7 +216,11 @@ namespace UnitTests
             tab.AddTableColumn(tablecolumn2);
             database.AddTable(tab);
             // executing the update method
-            database.Delete(tab.GetName(),compared);
+            //user != admin
+            Assert.AreEqual(Messages.SecurityNotSufficientPrivileges, database.Delete(tab.GetName(), compared, user2));
+
+            //user == admin
+            database.Delete(tab.GetName(),compared, user);
             // looking if it has changed
             Boolean welldone = false;
             foreach (TableColumn tc in tab.GetList())
@@ -218,8 +239,8 @@ namespace UnitTests
         [TestMethod]
         public void TestInsertInto()
         {
-            System.Security.SecureString contraseña = new System.Security.SecureString();
-            database = new Database("aitor", "aitoru", contraseña);
+            string password = "1234";
+            database = new Database("aitor", "aitoru", password);
             //Creating the elements for data in Empleado table
 
             Table tab = new Table("Empleado", new List<TableColumn>());
@@ -243,8 +264,12 @@ namespace UnitTests
             value2.Add("Aitor");
             // executing the insert method
 
-            database.InsertInto(table,null,values);
-            database.InsertInto(table, columns, value2);
+            //user != admin
+            Assert.AreEqual(Messages.SecurityNotSufficientPrivileges, database.InsertInto(table, null, values, user2));
+
+            //user == admin
+            database.InsertInto(table,null,values, user);
+            database.InsertInto(table, columns, value2, user);
             // looking if it has changed
             Boolean welldone = false;
             Boolean welldone2 = false;
@@ -282,8 +307,8 @@ namespace UnitTests
         public void TestSaveAndLoad()
         {
 
-            System.Security.SecureString contraseña = new System.Security.SecureString();
-            database = new Database("UnitTestDatabase", "UN", contraseña);
+            string password = "1234";
+            database = new Database("UnitTestDatabase", "UN", password);
             Table tab = new Table("Employee", new List<TableColumn>());
             TableColumn tablecolumn1 = new TableColumn("Name", "string");
             tablecolumn1.AddValue("Alvaro");

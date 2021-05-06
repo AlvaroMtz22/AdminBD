@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security;
 
 namespace UnitTests
 {
@@ -123,16 +124,11 @@ namespace UnitTests
             //Test add user
 
             IQuery query15 = Parser.Parse("ADD USER ('UserName','MyPassword',Employee);");
-            System.Security.SecureString password = new System.Security.SecureString();
-            string word = "MyPassword";
-            foreach (char c in word)
-            {
-                password.AppendChar(c);
-            }
+        
 
             Assert.IsTrue(query15 is AddUser);
             Assert.AreEqual("UserName", (query15 as AddUser).User());
-            Assert.AreEqual(password, (query15 as AddUser).Password());
+            Assert.AreEqual("MyPassword", (query15 as AddUser).Password());
             Assert.AreEqual("Employee", (query15 as AddUser).Profile());
 
             //Test create security profile

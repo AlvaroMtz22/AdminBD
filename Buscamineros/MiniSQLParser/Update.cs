@@ -41,9 +41,9 @@ namespace Buscamineros.MiniSQLParser
             m_setValues = setValues;
         }
 
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            return database.Update(m_setColumns, m_setValues, m_table, m_condition);
+            return database.Update(m_setColumns, m_setValues, m_table, m_condition, user);
         }
     }
 }

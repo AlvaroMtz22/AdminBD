@@ -4,18 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Buscamineros
 {
    public class User 
     {
         private string m_username;
-        private System.Security.SecureString m_password;
+        private string m_password;
         Profile m_profile;
 
-        public User (string username, System.Security.SecureString password, Profile profile)
+        public User (string username, string password, Profile profile)
         {
             m_username = username;
-            m_password = password;
+            m_password = password; 
             m_profile = profile;
         }
 
@@ -27,6 +28,11 @@ namespace Buscamineros
         public Profile GetProfile()
         {
             return m_profile;
+        }
+
+        public string GetPassword()
+        {
+            return m_password;
         }
 
         public void SetProfile(Profile profile)

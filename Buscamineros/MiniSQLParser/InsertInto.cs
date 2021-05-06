@@ -32,9 +32,9 @@ namespace Buscamineros
             }
 
         }
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            return database.InsertInto(m_table, null, m_values);
+            return database.InsertInto(m_table, null, m_values, user);
         }
     }
 }

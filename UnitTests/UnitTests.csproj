@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="UnitTestParser.cs" />
     <Compile Include="UnitTestProfile.cs" />
+    <Compile Include="UnitTestSecurity.cs" />
     <Compile Include="UnitTestTableColumn.cs" />
     <Compile Include="UnitTestDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
