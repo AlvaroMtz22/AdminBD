@@ -1,0 +1,38 @@
+# Test 1
+Database created (0,1083166s)
+Table created (0,0551791s)
+Tuple added (0,0460907s)
+Tuple added (0s)
+Tuple added (0s)
+Tuple(s) deleted (0,0020044s)
+['Name','Age']{'Ramon','26'}{'Miren','22'} (0,0020054s)
+TOTAL TIME: 0,1052796s
+
+# Test 2
+Database opened (0s)
+['Name','Age']{'Ramon','26'}{'Miren','22'} (0s)
+['Name','Age']{'Miren','22'} (0s)
+ERROR: Table does not exist (0s)
+Table created (0s)
+Tuple added (0s)
+Tuple added (0s)
+Tuple added (0s)
+Security profile created (0s)
+Security privilege granted (0,0020057s)
+User added to security profile (0s)
+User added to security profile (0s)
+TOTAL TIME: 0,0020057s
+
+# Test 3
+ERROR: Incorrect login (0s)
+TOTAL TIME: 0s
+
+# Test 4
+ERROR: Incorrect login (0s)
+TOTAL TIME: 0s
+
+# Test 5
+Database opened (0s)
+ERROR: Not sufficient privileges (0s)
+['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0,0010015s)
+TOTAL TIME: 0,0010015s

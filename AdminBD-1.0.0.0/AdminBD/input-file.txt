@@ -1,0 +1,28 @@
+Database1,admin,admin
+CREATE TABLE EmployeesPersonal (Name TEXT,Age INT,Address TEXT);
+INSERT INTO EmployeesPersonal VALUES ('Eva',18,'Calle Los Herran 16 2 Derecha. 01005 Vitoria-Gasteiz');
+INSERT INTO EmployeesPersonal VALUES ('Ramon',26,'Larratxo kalea 23 2. Ezk. 20012 Donostia');
+INSERT INTO EmployeesPersonal VALUES ('Miren',22,'Larratxo kalea 23 2. Ezk. 20012 Donostia');
+DELETE FROM EmployeesPersonal WHERE Age=18;
+SELECT Name,Age FROM EmployeesPersonal;
+
+Database1,admin,admin
+SELECT Name,Age FROM EmployeesPersonal WHERE Age>17;
+SELECT Name,Age FROM EmployeesPersonal WHERE Age<23;
+SELECT Name,Role FROM EmployeesPublic;
+CREATE TABLE EmployeesPublic (Name TEXT,Role TEXT);
+INSERT INTO EmployeesPublic VALUES ('Eva','Programming manager');
+INSERT INTO EmployeesPublic VALUES ('Ramon','Programmer');
+INSERT INTO EmployeesPublic VALUES ('Miren','Sales');
+CREATE SECURITY PROFILE Employee;
+GRANT SELECT ON EmployeesPublic TO Employee;
+ADD USER ('Eva','1234',Employee);
+ADD USER ('Ramon','abcd',Employee);
+
+Database1,Adolfo,1234
+
+Database1,Eva,123
+
+Database1,Eva,1234
+SELECT Name,Age FROM EmployeesPersonal WHERE Age>17;
+SELECT Name,Role FROM EmployeesPublic;

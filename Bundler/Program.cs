@@ -19,9 +19,9 @@ namespace Bundler
             string version;
 
             string relPathToSolutionRootFolder = "../../../../"; //relative path from Bundler.exe to the solution root folder 
-            string mainExe = relPathToSolutionRootFolder + "ConsoleDatabase/bin/Release/net5.0/ConsoleDatabase.exe";
+            string mainExe = relPathToSolutionRootFolder + "Console/bin/Debug/Console.exe";
        // C: \Users\docencia\source\repos\AdminBD\ConsoleDatabase\bin\Release\net5.0
-            string dbManagerDll = relPathToSolutionRootFolder + "ConsoleDatabase/bin/Release/net5.0/Buscamineros.dll";
+            string dbManagerDll = relPathToSolutionRootFolder + "Console/bin/Debug/Buscamineros.dll";
 
             version = GetVersion(mainExe);
             if (version == null)
