@@ -12,8 +12,16 @@ namespace UnitTests
     public class UnitTestSecurity
     {
         Security sec = new Security();
-        User admin = new User("admin", "admin", new Profile("admin"));
-        User notAdmin = new User("notAdmin", "notAdmin", new Profile("notAdmin"));
+        User admin;
+        User notAdmin;
+        
+        public UnitTestSecurity()
+        {
+            sec.AddUser("notAdmin", "notAdmin", "notAdmin", sec.GetUser("admin"));
+            admin = sec.GetUser("admin");
+            notAdmin = new User("notAdmin", "notAdmin", new Profile("notAdmin"));
+        }
+        
         [TestMethod]
         public void TestSecurityConstructor()
         {
@@ -136,12 +144,12 @@ namespace UnitTests
         [TestMethod]
         public void TestAddUser()
         {
-            Assert.AreEqual(0, sec.GetUsers().Count());
+            Assert.AreEqual(2, sec.GetUsers().Count());
 
             Profile pr = new Profile("Employee");
             string success = sec.AddUser("UserName", "MyPassword", pr.GetName(), admin);
 
-            Assert.AreEqual(1, sec.GetUsers().Count());
+            Assert.AreEqual(3, sec.GetUsers().Count());
             Assert.AreEqual(Messages.SecurityUserAdded, success);
 
             //Trying to add an already existing user
@@ -159,7 +167,7 @@ namespace UnitTests
             Profile pr = new Profile("Employee");
             sec.AddUser("UserName", "MyPassword", pr.GetName(), admin);
 
-            Assert.AreEqual(1, sec.GetUsers().Count());
+            Assert.AreEqual(3, sec.GetUsers().Count());
 
             string success = sec.DeleteUser("UserName", admin);
             Assert.AreEqual(Messages.SecurityUserDeleted, success);

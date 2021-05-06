@@ -265,11 +265,11 @@ namespace UnitTests
             // executing the insert method
 
             //user != admin
-            Assert.AreEqual(Messages.SecurityNotSufficientPrivileges, database.InsertInto(table, null, values, user));
+            Assert.AreEqual(Messages.SecurityNotSufficientPrivileges, database.InsertInto(table, null, values, user2));
 
             //user == admin
-            database.InsertInto(table,null,values, user2);
-            database.InsertInto(table, columns, value2, user2);
+            database.InsertInto(table,null,values, user);
+            database.InsertInto(table, columns, value2, user);
             // looking if it has changed
             Boolean welldone = false;
             Boolean welldone2 = false;

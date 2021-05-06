@@ -195,10 +195,14 @@ namespace Buscamineros
             else
             {
                 Profile pr = user.GetProfile();
-                if (pr.GetHashTable()[table].Contains(privilege))
+                if (pr.GetHashTable().ContainsKey(table))
                 {
-                    return true;
+                    if (pr.GetHashTable()[table].Contains(privilege))
+                    {
+                        return true;
+                    }
                 }
+                
             }
             return false;
         }
@@ -206,10 +210,14 @@ namespace Buscamineros
         public bool CheckPassword(string username, string password)
         {
             User u = GetUser(username);
-            if(u.GetPassword() == password || (username == "admin" && password == "admin"))
+            if(u != null)
             {
-                return true;
+                if(u.GetPassword() == password || (username == "admin" && password == "admin"))
+                {
+                    return true;
+                }
             }
+            
             return false;
         }
 
