@@ -28,8 +28,6 @@ namespace Buscamineros.MiniSQLParser
             const string deleteSecurityProfilePattern = @"DROP SECURITY PROFILE ([a-zA-Z0-9-_\.\s]+);";
             const string deleteUserPattern = @"DELETE USER ([a-zA-Z0-9-_\.\s]+);";
 
-
-
             Match match = Regex.Match(miniSqlSentence, selectAllWherePattern);
             if (match.Success)
             {

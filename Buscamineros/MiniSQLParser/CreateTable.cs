@@ -26,9 +26,9 @@ namespace Buscamineros.MiniSQLParser
             m_tableName = table;
             m_columns = columns;
         }
-        public string Run(Database database)
+        public string Run(Database database, User user)
         {
-            return database.CreateTable(m_tableName, m_columns);
+            return database.CreateTable(m_tableName, m_columns, user);
         }
     }
 }

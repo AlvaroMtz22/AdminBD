@@ -30,6 +30,11 @@ namespace Buscamineros
             return m_profile;
         }
 
+        public string GetPassword()
+        {
+            return m_password;
+        }
+
         public void SetProfile(Profile profile)
         {
             m_profile = profile;
