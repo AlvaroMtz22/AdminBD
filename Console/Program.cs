@@ -1,16 +1,13 @@
 ﻿using Buscamineros;
 using System;
-using System.IO;
-using Buscamineros.MiniSQLParser;
-using System.Diagnostics;
-using System.Threading;
 using System.Collections.Generic;
+using System.IO;
 
-namespace ConsoleDatabase
+namespace AdminBDConsole
 {
     class Program
     {
-        private static string password; 
+        private static string password;
         private static Database database;
         static void Main(string[] args)
         {
@@ -18,7 +15,7 @@ namespace ConsoleDatabase
             {
                 string[] FileLines = File.ReadAllLines("input-file.txt");
                 int numtest = 0;
-                TimeSpan totalTime = new(0);
+                TimeSpan totalTime = TimeSpan.FromSeconds(0);
                 List<Database> databaseList = new List<Database>();
                 string username = null;
                 for (int i = 0; i < FileLines.Length; i++)
@@ -29,9 +26,9 @@ namespace ConsoleDatabase
                         if (i != 0)
                         {
                             //writes at the output file the total time of each test
-                            Console.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds + "s");
-                            writer.WriteLine("TOTAL TIME: "+totalTime.TotalSeconds + "s");
-                            totalTime = new(0);
+                            Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
+                            writer.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
+                            totalTime = TimeSpan.FromSeconds(0);
                             //writes a empty line after the total time 
                             Console.WriteLine("");
                             writer.WriteLine("");
@@ -57,7 +54,7 @@ namespace ConsoleDatabase
                         bool exists = false;
                         foreach (Database db in databaseList)
                         {
-                            if(db.GetName() == databaseName)
+                            if (db.GetName() == databaseName)
                             {
                                 exists = true;
                             }
@@ -66,7 +63,7 @@ namespace ConsoleDatabase
                         {
                             database = new Database(databaseName, username, password);
                             databaseList.Add(database);
-                            
+
                             if (!database.GetSecurity().CheckPassword(username, password))
                             {
                                 DateTime end = DateTime.Now;
@@ -80,7 +77,7 @@ namespace ConsoleDatabase
                                 TimeSpan ts = (end - start);
                                 Console.WriteLine(Messages.CreateDatabaseSuccess + " (" + ts.TotalSeconds + "s)");
                                 writer.WriteLine(Messages.CreateDatabaseSuccess + " (" + ts.TotalSeconds + "s)");
-                            } 
+                            }
                         }
                         else
                         {
@@ -104,7 +101,7 @@ namespace ConsoleDatabase
                                 TimeSpan ts = (end - start);
                                 Console.WriteLine(Messages.OpenDatabaseSuccess + " (" + ts.TotalSeconds + "s)");
                                 writer.WriteLine(Messages.OpenDatabaseSuccess + " (" + ts.TotalSeconds + "s)");
-                            }  
+                            }
                         }
 
                     }
@@ -130,7 +127,7 @@ namespace ConsoleDatabase
                 Console.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
                 writer.WriteLine("TOTAL TIME: " + totalTime.TotalSeconds + "s");
             }
-        } 
+        }
     }
 
 }

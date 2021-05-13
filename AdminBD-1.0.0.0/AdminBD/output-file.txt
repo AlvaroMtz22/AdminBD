@@ -1,27 +1,27 @@
 # Test 1
-Database created (0,1468566s)
-Table created (0,0551483s)
-Tuple added (0,0449077s)
+Database created (0,1083166s)
+Table created (0,0551791s)
+Tuple added (0,0460907s)
 Tuple added (0s)
 Tuple added (0s)
-Tuple(s) deleted (0,0020047s)
-['Name','Age']{'Ramon','26'}{'Miren','22'} (0,0020369s)
-TOTAL TIME: 0,1040976s
+Tuple(s) deleted (0,0020044s)
+['Name','Age']{'Ramon','26'}{'Miren','22'} (0,0020054s)
+TOTAL TIME: 0,1052796s
 
 # Test 2
 Database opened (0s)
-['Name','Age']{'Ramon','26'}{'Miren','22'} (0,0009717s)
+['Name','Age']{'Ramon','26'}{'Miren','22'} (0s)
 ['Name','Age']{'Miren','22'} (0s)
 ERROR: Table does not exist (0s)
 Table created (0s)
 Tuple added (0s)
 Tuple added (0s)
 Tuple added (0s)
-Security profile created (0,0010024s)
-Security privilege granted (0,0010026s)
+Security profile created (0s)
+Security privilege granted (0,0020057s)
 User added to security profile (0s)
 User added to security profile (0s)
-TOTAL TIME: 0,0029767s
+TOTAL TIME: 0,0020057s
 
 # Test 3
 ERROR: Incorrect login (0s)
@@ -34,90 +34,5 @@ TOTAL TIME: 0s
 # Test 5
 Database opened (0s)
 ERROR: Not sufficient privileges (0s)
-['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0,0020331s)
-['Role']{'Programming manager'} (0s)
-ERROR: Not sufficient privileges (0s)
-['Role']{'Programming manager'} (0s)
-TOTAL TIME: 0,0020331s
-
-# Test 6
-Database opened (0s)
-Security privilege granted (0s)
-TOTAL TIME: 0s
-
-# Test 7
-Database opened (0s)
-ERROR: Not sufficient privileges (0s)
-['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0s)
-['Role']{'Programming manager'} (0s)
-ERROR: Not sufficient privileges (0s)
-['Role']{'Programming manager'} (0s)
-ERROR: Not sufficient privileges (0s)
-TOTAL TIME: 0s
-
-# Test 8
-Database opened (0s)
-Security privilege granted (0s)
-TOTAL TIME: 0s
-
-# Test 9
-Database opened (0s)
-ERROR: Not sufficient privileges (0s)
-['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0s)
-['Role']{'Programming manager'} (0s)
-ERROR: Not sufficient privileges (0s)
-['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0s)
-ERROR: Not sufficient privileges (0,0010036s)
-TOTAL TIME: 0,0010036s
-
-# Test 10
-Database opened (0s)
-Security privilege granted (0s)
-TOTAL TIME: 0s
-
-# Test 11
-Database opened (0s)
-['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0s)
-ERROR: Not sufficient privileges (0s)
-['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0s)
-TOTAL TIME: 0s
-
-# Test 12
-Database opened (0s)
-Security privilege revoked (0,0010327s)
-Security privilege revoked (0s)
-TOTAL TIME: 0,0010327s
-
-# Test 13
-Database opened (0s)
-ERROR: Not sufficient privileges (0s)
-ERROR: Not sufficient privileges (0,0010166s)
-TOTAL TIME: 0,0010166s
-
-# Test 14
-Database opened (0s)
-Security user deleted (0s)
-TOTAL TIME: 0s
-
-# Test 15
-ERROR: Incorrect login (0s)
-TOTAL TIME: 0s
-
-# Test 16
-Database opened (0s)
-ERROR: Syntactical error (0s)
-ERROR: Not sufficient privileges (0s)
-ERROR: Not sufficient privileges (0s)
-TOTAL TIME: 0s
-
-# Test 17
-Database opened (0s)
-ERROR: Security profile does not exist (0s)
-TOTAL TIME: 0s
-
-# Test 18
-Database opened (0s)
-ERROR: Syntactical error (0s)
-ERROR: Not sufficient privileges (0s)
-ERROR: Not sufficient privileges (0s)
-TOTAL TIME: 0s
+['Name','Role']{'Eva','Programming manager'}{'Ramon','Programmer'}{'Miren','Sales'} (0,0010015s)
+TOTAL TIME: 0,0010015s
