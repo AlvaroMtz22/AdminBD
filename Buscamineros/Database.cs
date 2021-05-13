@@ -1,10 +1,7 @@
 ﻿using Buscamineros.MiniSQLParser;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
 
 namespace Buscamineros
 {
@@ -410,6 +407,9 @@ namespace Buscamineros
             if (!Directory.Exists(GetName()))
                 Directory.CreateDirectory(GetName());
             string directory = this.GetName();       //Obtain the name of the Database
+
+            //Hace save del security
+            m_security.SaveSecurity(directory);
 
             foreach (Table m in m_tables) 
             {

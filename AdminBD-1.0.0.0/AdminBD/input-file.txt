@@ -26,3 +26,62 @@ Database1,Eva,123
 Database1,Eva,1234
 SELECT Name,Age FROM EmployeesPersonal WHERE Age>17;
 SELECT Name,Role FROM EmployeesPublic;
+SELECT Role FROM EmployeesPublic WHERE Name='Eva';
+DELETE FROM EmployeesPublic WHERE Name='Eva';
+SELECT Role FROM EmployeesPublic WHERE Name='Eva';
+
+Database1,admin,admin
+GRANT DELETE ON EmployeesPublic TO Employee;
+
+Database1,Eva,1234
+SELECT Name,Age FROM EmployeesPersonal WHERE Age>17;
+SELECT Name,Role FROM EmployeesPublic;
+SELECT Role FROM EmployeesPublic WHERE Name='Eva';
+DELETE FROM EmployeesPublic WHERE Name='Eva';
+SELECT Role FROM EmployeesPublic WHERE Name='Eva';
+INSERT INTO EmployeesPublic VALUES ('Maite','Human Resources');
+
+Database1,admin,admin
+GRANT INSERT ON EmployeesPublic TO Employee;
+
+Database1,Eva,1234
+SELECT Name,Age FROM EmployeesPersonal WHERE Age>17;
+SELECT Name,Role FROM EmployeesPublic;
+SELECT Role FROM EmployeesPublic WHERE Name='Eva';
+INSERT INTO EmployeesPublic VALUES ('Maite','Human Resources');
+SELECT Name,Role FROM EmployeesPublic;
+UPDATE EmployeesPublic SET Role='Human Resources' WHERE Name='Ramon';
+
+Database1,admin,admin
+GRANT UPDATE ON EmployeesPublic TO Employee;
+
+Database1,Eva,1234
+SELECT Name,Role FROM EmployeesPublic;
+UPDATE EmployeesPublic SET Role='Human Resources' WHERE Name='Ramon';
+SELECT Name,Role FROM EmployeesPublic;
+
+Database1,admin,admin
+REVOKE UPDATE ON EmployeesPublic TO Employee;
+REVOKE INSERT ON EmployeesPublic TO Employee;
+
+Database1,Eva,1234
+INSERT INTO EmployeesPublic VALUES ('Patxi','Programmer');
+UPDATE EmployeesPublic SET Role='Programmer' WHERE Name='Ramon';
+
+Database1,admin,admin
+DELETE USER Eva;
+
+Database1,Eva,1234
+
+Database1,Ramon,abcd
+SELECT * FROM EmployeesPublic
+INSERT INTO EmployeesPublic VALUES ('Patxi','Programmer');
+UPDATE EmployeesPublic SET Role='Programmer' WHERE Name='Ramon';
+
+Database1,admin,admin
+DELETE DROP SECURITY PROFILE Employer;
+
+Database1,Ramon,abcd
+SELECT * FROM EmployeesPublic
+INSERT INTO EmployeesPublic VALUES ('Patxi','Programmer');
+UPDATE EmployeesPublic SET Role='Programmer' WHERE Name='Ramon';

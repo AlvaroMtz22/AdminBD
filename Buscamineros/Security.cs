@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Buscamineros.MiniSQLParser;
+using System.IO;
 
 namespace Buscamineros
 {
@@ -223,16 +225,42 @@ namespace Buscamineros
 
         public User GetUser(string name)
         {
+            User us=null;
             foreach (User u in users)
             {
                 if (u.GetName() == name)
                 {
-                    return u;
+                    us=u;
                 }
             }
 
-            return null;
+            return us;
+        }
+        public void SaveSecurity(string Directory)
+        {
+            string SecurityDirectoryUsers = Directory + "\\" + "User";
+            string[] values=null;
+            int i = 1;
+            foreach (User u in users)
+            {
+                values[i] = ""+u.GetName() + "[[delimiter]]" + u.GetPassword() + "[[delimiter]]" + u.GetProfile();
+                
+            }
+            File.WriteAllLines(SecurityDirectoryUsers, values);
+
+            string[] valuesProfile = null;
+            string SecurityDirectoryProfiles = Directory + "\\" + "Profile";
+            foreach (Profile p in profiles)
+            {
+                foreach (p.GetHashTable())
+                {
+                    valuesProfile[p] = "" + p.GetName + "";
+                }
+            }
+            File.WriteAllLines(SecurityDirectoryProfiles, valuesProfile);
+            
         }
     }
+    
     
 }
